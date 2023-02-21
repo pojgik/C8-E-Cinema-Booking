@@ -1,0 +1,19 @@
+.reg {
+    height: 100%;
+}
+.reg .add-window {
+    padding: 0;
+}
+.reg p {
+    background-color: #aecbeb;
+    color: #f8f9fb;
+}
+
+.reg .add {
+    padding-bottom: 20rem;
+}
+
+.reg input {
+    height: 3rem;
+    padding: 1rem;
+}

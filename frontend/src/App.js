@@ -1,0 +1,94 @@
+
+import './App.css';
+import NavBar from './Components/NavBar';
+import { Router } from 'react-router-dom';
+import CardPane from './Components/CardPane';
+import { useState } from 'react';
+import ManageMovies from './Components/ManageMvoies';
+import AddMovie from './Components/Forms/AddMovie'
+import UpdateMovie from './Components/Forms/UpdateMovie';
+import AddPromotion from './Components/Forms/AddPromotion';
+import Registration from './Components/Forms/Registration';
+import AddPayment from './Components/Forms/AddPayment'
+import AddAdress from './Components/Forms/AddAdress';
+import RegConf from './Components/Forms/RegConf';
+import Login from './Components/Forms/Login';
+import EditProfile from './Components/Forms/EditProfile';
+import Checkout from './Components/Forms/Checkout';
+
+
+function App() {
+  const [WickCards] = useState([
+    {
+        title: "movie-1",
+        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+    },
+    {
+        title: "movie-2",
+        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+    },
+    {
+        title: "movie-3",
+        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+    },
+    {
+        title: "movie-4",
+        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+    },
+    {
+        title: "movie-5",
+        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+    },
+    {
+        title: "movie-6",
+        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+    },
+  ])
+  const [AntCards] = useState([
+    {
+        title: "movie-7",
+        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+    },
+    {
+        title: "movie-8",
+        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+    },
+    {
+        title: "movie-9",
+        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+    },
+    {
+        title: "movie-10",
+        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+    },
+    {
+        title: "movie-11",
+        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+    },
+    {
+        title: "movie-12",
+        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+    },
+  ])
+  return (
+    
+    <div className="App"> 
+     <NavBar/>
+     <CardPane type = {"New Movies"} movies = {WickCards}/>
+     <CardPane type = {"Coming Soon"} movies = {AntCards}/> 
+     <ManageMovies/>
+     <AddMovie/>
+     <UpdateMovie/>
+     <AddPromotion/>
+     <Registration/>
+     <AddPayment/>
+     <AddAdress/>
+     <RegConf/>
+     <Login/>
+     <EditProfile/>
+     <Checkout/>
+    </div>
+  );
+}
+
+export default App;
