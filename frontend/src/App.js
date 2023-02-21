@@ -15,6 +15,9 @@ import RegConf from './Components/Forms/RegConf';
 import Login from './Components/Forms/Login';
 import EditProfile from './Components/Forms/EditProfile';
 import Checkout from './Components/Forms/Checkout';
+import BuyTicket from './Components/Forms/BuyTicket';
+import OrderSummary from './Components/Forms/OrderSummary';
+import OrderConfirmation from './Components/Forms/OrderConfirmation';
 
 
 function App() {
@@ -87,6 +90,9 @@ function App() {
      <Login/>
      <EditProfile/>
      <Checkout/>
+     <BuyTicket/>
+     <OrderSummary/>
+     <OrderConfirmation/>
     </div>
   );
 }
