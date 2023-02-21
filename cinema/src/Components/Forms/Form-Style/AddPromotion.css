@@ -1,0 +1,23 @@
+*{
+    margin:0;
+    border: 0;
+    box-sizing: border-box;
+}
+.promo-window {
+    height: 100vh;
+    background-color: #aecbeb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.promo-window label {
+    margin-right: 5rem;
+}
+ul {
+    display: flex;
+    justify-content: space-between;
+}
+.end-date {
+    padding: .25rem;
+    width: 10rem;
+}
