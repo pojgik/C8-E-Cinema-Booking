@@ -88,11 +88,11 @@ function App() {
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
 
         </Routes>
+        <ManageMovies/>
         <Footer/>
         </div>
         </Router>
         
-            // <ManageMovies/>
             // <UpdateMovie/>
             // <AddPromotion/>
             // <Registration/>
