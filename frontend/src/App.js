@@ -81,11 +81,13 @@ function App() {
         <div className="App"> 
         <NavBar/> 
         <Routes>
-            <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
+        <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
             <Route path = '/login' element = {<Login/>}></Route>
             <Route path = '/search' element = {<Search/>}></Route>
             <Route path = '/login/register' element = {<Registration/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
+            <Route path = "/add-movies" element = {<AddMovie/>}></Route>
+            <Route path = "/update-movies" element = {<UpdateMovie/>}></Route>
 
         </Routes>
         <Footer/>
