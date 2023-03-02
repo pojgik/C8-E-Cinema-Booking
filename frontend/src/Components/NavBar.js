@@ -11,6 +11,7 @@ const NavBar = () => {
                 <Link to = '/login'><li> <a href = "#">Login</a></li></Link>
                 <Link to = '/manage-movies'><li> <a href = "#">Manage Movies</a></li></Link>
                 <Link to = 'manage-promos'><li> <a href = "#">Manage Promotions</a></li></Link>
+                <Link to = '/update-movies'><li> <a href= '#'>Update Movies</a></li></Link>
             </ul>
         </nav>
     )
