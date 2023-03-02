@@ -26,4 +26,8 @@
 
 .reg-links:hover {
     background-color: #71a5de;
+    height: 3rem;
+    align-items: center;
+    display: flex;
+    padding: 1rem;
 }

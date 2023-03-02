@@ -4,7 +4,7 @@ import NavBar from './Components/NavBar';
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import CardPane from './Components/CardPane';
 import { useState } from 'react';
-import ManageMovies from './Components/ManageMvoies';
+import ManageMovies from './Components/ManageMovies';
 import AddMovie from './Components/Forms/AddMovie'
 import UpdateMovie from './Components/Forms/UpdateMovie';
 import AddPromotion from './Components/Forms/AddPromotion';
@@ -85,7 +85,7 @@ function App() {
             <Route path = '/login' element = {<Login/>}></Route>
             <Route path = '/search' element = {<Search/>}></Route>
             <Route path = '/login/register' element = {<Registration/>}></Route>
-            <Route path = "/manage-movies" element = {<AddMovie/>}></Route>
+            <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
 
         </Routes>
         <Footer/>
