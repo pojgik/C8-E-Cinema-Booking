@@ -1,7 +1,7 @@
 
 import './App.css';
 import NavBar from './Components/NavBar';
-import { Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import CardPane from './Components/CardPane';
 import { useState } from 'react';
 import ManageMovies from './Components/ManageMvoies';
@@ -18,6 +18,8 @@ import Checkout from './Components/Forms/Checkout';
 import BuyTicket from './Components/Forms/BuyTicket';
 import OrderSummary from './Components/Forms/OrderSummary';
 import OrderConfirmation from './Components/Forms/OrderConfirmation';
+import Footer from './Components/Footer';
+import Search from './Components/Forms/Search';
 
 
 function App() {
@@ -74,26 +76,35 @@ function App() {
     },
   ])
   return (
-    
-    <div className="App"> 
-     <NavBar/>
-     <CardPane type = {"New Movies"} movies = {WickCards}/>
-     <CardPane type = {"Coming Soon"} movies = {AntCards}/> 
-     <ManageMovies/>
-     <AddMovie/>
-     <UpdateMovie/>
-     <AddPromotion/>
-     <Registration/>
-     <AddPayment/>
-     <AddAdress/>
-     <RegConf/>
-     <Login/>
-     <EditProfile/>
-     <Checkout/>
-     <BuyTicket/>
-     <OrderSummary/>
-     <OrderConfirmation/>
-    </div>
+   
+        <Router>
+        <div className="App"> 
+        <NavBar/> 
+        <Routes>
+            <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
+            <Route path = '/login' element = {<Login/>}></Route>
+            <Route path = '/search' element = {<Search/>}></Route>
+            <Route path = '/login/register' element = {<Registration/>}></Route>
+            <Route path = "/manage-movies" element = {<AddMovie/>}></Route>
+
+        </Routes>
+        <Footer/>
+        </div>
+        </Router>
+        
+            // <ManageMovies/>
+            // <UpdateMovie/>
+            // <AddPromotion/>
+            // <Registration/>
+            // <AddPayment/>
+            // <AddAdress/>
+            // <RegConf/>
+            // <EditProfile/>
+            // <Checkout/>
+            // <BuyTicket/>
+            // <OrderSummary/>
+            // <OrderConfirmation/> 
+     
   );
 }
 

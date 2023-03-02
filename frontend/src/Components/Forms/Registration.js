@@ -1,36 +1,33 @@
+import { Link } from 'react-router-dom';
 import './Form-Style/Registration.css'
 
 const Registration = () => {
     return (
-        <div className='create'>
+        <div className='reg'>
         <h1 className='form-heading'>Register an Account</h1>
-        <div className="add-window">
-            
+        <div className="add-window">    
             <form className="add">
                 <ul>
-                <label>Name:</label>
-                <input type="text" id = 'name' name = 'name' required/>
+                <input placeholder = "Name"type="text" name = 'name' required/>
+                </ul>
+                <ul>    
+                <input placeholder = "Phone Number" type="telephone" name = 'phone' pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
                 </ul>
                 <ul>
-                <label>Phone Number:</label>
-                <input type="telephone" name = 'phone' pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
+                <input placeholder = "Email Adress" type="email" name = 'email'/>
                 </ul>
                 <ul>
-                <label>Email Adress:</label>
-                <input type="email" name = 'email'/>
+                <input placeholder='Password' type="password" name = 'pass'/>
                 </ul>
                 <ul>
-                <label>Password:</label>
-                <input type="password" name = 'pass'/>
+                <input placeholder = "Confirm Password" type="password" name = 'pass-conf'/>
                 </ul>
-                <ul>
-                <label>Confirm Password:</label>
-                <input type="password" name = 'pass-conf'/>
-                </ul>
-                <ul>
+                <ul className='create-btn'>
                 <button className = 'submit' type="subimt">Create</button>
-                <a href='#'>Add payment method</a>
-                <a href='#'>Add address</a>
+                </ul>
+                <ul className="reg-links">
+                <Link>Add payment method</Link>
+                <Link>Add address</Link>
                 </ul>
             </form>
         </div>

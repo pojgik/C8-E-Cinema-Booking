@@ -5,7 +5,7 @@ const ManageMovies = ({placeholder,data}) => {
     return (
         <div className="window">
             <h1 className="header">Manage Movies <div className="add-movie"><a className='add-movie-btn' href='#'> Add a movie </a></div></h1>
-            <div className="search-box">
+            {/* <div className="search-box">
                 <h2> Search by name</h2>
                 <div className="title-search">
                 <input type="search" className="search" placeholder='Movie Title...' />
@@ -33,7 +33,7 @@ const ManageMovies = ({placeholder,data}) => {
                 </select>
                 <h2> Search by date</h2>
                 <input type="date" name="show-date" id="show-date" className='search'/>
-            </div>
+            </div> */}
                 
         </div>
     )

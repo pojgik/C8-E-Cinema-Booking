@@ -11,3 +11,19 @@
 .create {
     height: 100%;
 }
+.create-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reg-links {
+    width: 336px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.reg-links:hover {
+    background-color: #71a5de;
+}

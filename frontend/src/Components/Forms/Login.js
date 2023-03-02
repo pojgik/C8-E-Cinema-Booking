@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Form-Style/Login.css'
 
 const Login = () => {
@@ -12,9 +13,12 @@ const Login = () => {
                 <ul>
                 <input required type="password" placeholder='password'/>
                 </ul>
-                <ul>
+                <ul className='form-btn'>
                 <button className = "submit" type='submit'> Login</button>
-                <a href='#'> Forgot Password?</a>
+                </ul>
+                <ul className='frgt-pwrd'>
+                    <Link to = "/login/register">Create Account</Link>
+                    <Link to = "/login/reset">Forgot Password</Link>
                 </ul>
             </form>
         </div>
