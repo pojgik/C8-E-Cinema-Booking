@@ -4,7 +4,7 @@ import NavBar from './Components/NavBar';
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import CardPane from './Components/CardPane';
 import { useState } from 'react';
-import ManageMovies from './Components/ManageMovies';
+import ManageMovies from './Components/ManageMvoies';
 import AddMovie from './Components/Forms/AddMovie'
 import UpdateMovie from './Components/Forms/UpdateMovie';
 import AddPromotion from './Components/Forms/AddPromotion';
@@ -86,25 +86,20 @@ function App() {
             <Route path = '/search' element = {<Search/>}></Route>
             <Route path = '/login/register' element = {<Registration/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
-
+            <Route path = "/update-movie" element = {<UpdateMovie/>}></Route>
+            <Route path = "/add-payment" element = {<AddPayment/>}></Route>
         </Routes>
-        <ManageMovies/>
         <Footer/>
         </div>
         </Router>
-        
-            // <UpdateMovie/>
             // <AddPromotion/>
-            // <Registration/>
-            // <AddPayment/>
             // <AddAdress/>
             // <RegConf/>
             // <EditProfile/>
             // <Checkout/>
             // <BuyTicket/>
             // <OrderSummary/>
-            // <OrderConfirmation/> 
-     
+            // <OrderConfirmation/>  
   );
 }
 

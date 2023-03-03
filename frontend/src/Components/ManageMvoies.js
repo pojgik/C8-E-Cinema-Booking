@@ -10,7 +10,6 @@ const ManageMovies = ({placeholder,data}) => {
             <div className="add-movie"><a className='add-movie-btn' href='#'> Add a movie </a></div>
             </ul>
             <Search></Search>
-                
         </div>
     )
 
