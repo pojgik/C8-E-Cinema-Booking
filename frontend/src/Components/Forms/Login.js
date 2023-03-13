@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import './Form-Style/Login.css'
 
+
+
 const Login = () => {
     return (
         <div className='reg'>
@@ -8,13 +10,13 @@ const Login = () => {
             <div className="add-window">
             <form className="add">
                 <ul>
-                <input required type="email" placeholder='Email' />
+                <input name = "email" required type="email" placeholder='Email' />
                 </ul>
                 <ul>
-                <input required type="password" placeholder='password'/>
+                <input name = "pass" required type="password" placeholder='password'/>
                 </ul>
                 <ul className='form-btn'>
-                <button className = "submit" type='submit'> Login</button>
+                <button  className = "submit" type='submit'> Login</button>
                 </ul>
                 <ul className='frgt-pwrd'>
                     <Link to = "/login/register">Create Account</Link>

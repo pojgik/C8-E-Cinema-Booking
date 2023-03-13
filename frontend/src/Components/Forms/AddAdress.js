@@ -1,25 +1,18 @@
 import './Form-Style/AddAdress.css'
 const AddAdress = () =>  {
     return (
-        <div className='adress'>
+        <div className='reg'>
             <h1 className='form-heading'>Add a shipping adress</h1>
             <div className="add-window">
-            
-        <form className="add">
+            <form className="add">
             <ul>
-                <label className='shipping'>Shipping Adress:</label>
+            <input type="text" placeholder = "Street" name = 'street'required/>
             </ul>
             <ul>
-            <label>Street:</label>
-            <input type="text" name = 'street'required/>
+            <input type="text" placeholder='City' name = 'city'required/>
             </ul>
             <ul>
-            <label>City:</label>
-            <input type="text" name = 'city'required/>
-            </ul>
-            <ul>
-            <label>State:</label>
-            <select className = 'card-selector' required>
+            <select className = 'search' required>
                 <option selected disabled value = ''>State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -75,8 +68,7 @@ const AddAdress = () =>  {
             </select>
             </ul>
             <ul>
-            <label>Zip Code:</label>
-            <input type="text" name = 'zip'required/>
+            <input type="text" placeholder = "Zip Code" name = 'zip'required/>
             </ul>
             <button className = 'submit' type="subimt">Add</button>
         </form>

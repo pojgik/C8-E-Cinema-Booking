@@ -4,7 +4,8 @@ import NavBar from './Components/NavBar';
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import CardPane from './Components/CardPane';
 import { useState } from 'react';
-import ManageMovies from './Components/ManageMvoies';
+import ManageMovies from './Components/ManageMovies';
+import ManagePromotions from './Components/ManagePromotions';
 import AddMovie from './Components/Forms/AddMovie'
 import UpdateMovie from './Components/Forms/UpdateMovie';
 import AddPromotion from './Components/Forms/AddPromotion';
@@ -88,13 +89,16 @@ function App() {
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
             <Route path = "/update-movie" element = {<UpdateMovie/>}></Route>
             <Route path = "/add-payment" element = {<AddPayment/>}></Route>
+            <Route path = "/add-address" element = {<AddAdress/>}></Route>
+            <Route path = "/add-movie" element = {<AddMovie/>}></Route>
+            <Route path='/reg-conf' element = {<RegConf/>}></Route>
+            <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
+            <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
         </Routes>
         <Footer/>
         </div>
         </Router>
             // <AddPromotion/>
-            // <AddAdress/>
-            // <RegConf/>
             // <EditProfile/>
             // <Checkout/>
             // <BuyTicket/>

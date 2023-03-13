@@ -3,11 +3,11 @@
     justify-content: center;
     margin: auto auto;
 }
-.add a:hover {
+/* .add .support:hover {
     background-color: #f8f9fb;
     color: #aecbeb;
     height: 3rem;
-}
+} */
 .create {
     height: 100%;
 }

@@ -4,7 +4,6 @@ const Footer = () => {
     return (
         <div className="footer">
             <ul>
-
             <li><Link to = "/contact-us"><a href="#">Contact Us</a></Link></li>
             </ul>
         </div>

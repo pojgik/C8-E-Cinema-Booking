@@ -23,11 +23,11 @@ const Registration = () => {
                     <input className = "reg-field"  placeholder = "Confirm Password" type="password" name = 'pass-conf'/>
                     </ul>
                     <ul className='create-btn'>
-                    <button className = 'submit' type="subimt">Create</button>
+                    <button className = 'submit' type="subimt"><Link to = "/reg-conf">Create</Link></button>
                     </ul>
                     <ul className="frgt-pwrd reg-btn">
-                    <Link to = "/add-payment">Add payment method</Link>
-                    <Link>Add address</Link>
+                    <Link to = "/add-payment" className='support'>Add payment method</Link>
+                    <Link to = "/add-address"className='support'>Add address</Link>
                     </ul>
                 </form>
             </div>
