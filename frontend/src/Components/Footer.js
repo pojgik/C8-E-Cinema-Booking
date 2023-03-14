@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <div className="footer">
             <ul>
-            <li><Link to = "/contact-us"><a href="#">Contact Us</a></Link></li>
+            <li><Link to = "/contact-us">Contact Us</Link></li>
             </ul>
         </div>
     )
