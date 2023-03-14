@@ -76,8 +76,9 @@ function App() {
         link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
   ])
-  const [users,setUsers] = useState([])
-  
+  const [users,setUsers] = useState([]);
+  const [address,setAddress] = useState([]);
+
   return (
    
         <Router>
@@ -87,11 +88,11 @@ function App() {
             <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
             <Route path = '/login' element = {<Login/>}></Route>
             <Route path = '/search' element = {<Search/>}></Route>
-            <Route path = '/login/register' element = {<Registration/>}></Route>
+            <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} addresses = {address} users = {users}/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
             <Route path = "/update-movie" element = {<UpdateMovie/>}></Route>
             <Route path = "/add-payment" element = {<AddPayment/>}></Route>
-            <Route path = "/add-address" element = {<AddAdress/>}></Route>
+            <Route path = "/add-address" element = {<AddAdress setter = {setAddress}/>}></Route>
             <Route path = "/add-movie" element = {<AddMovie/>}></Route>
             <Route path='/reg-conf' element = {<RegConf/>}></Route>
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
