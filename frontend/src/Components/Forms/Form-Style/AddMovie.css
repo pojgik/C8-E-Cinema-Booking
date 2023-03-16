@@ -53,3 +53,17 @@ h1.form-heading {
     height: normal;
     padding: .25rem;
 }
+
+.left {
+    float: left;
+    width: 50%;
+    align-items: center;
+    /* justify-content: center; */
+}
+.right {
+    float: right;
+    width: 50%;
+    
+    align-items: center;
+    /* justify-content: center; */
+}

@@ -16,7 +16,7 @@
     display: flex;
     list-style: none;
 }
-.nav-list a {
+.nav-list li {
     text-decoration: none;
     color: #f8f9fb;
     padding: 1rem;

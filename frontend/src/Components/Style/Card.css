@@ -14,6 +14,7 @@ iframe {
     margin: 1rem;
 }
 .card-btn {
+    width: auto;
     margin-bottom: 2rem;
     background-color: #71a5de;
     border: none;

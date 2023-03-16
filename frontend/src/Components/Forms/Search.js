@@ -32,6 +32,9 @@ const Search = () => {
                 </select>
             </ul>
             <ul>
+                <label> Show Date </label>
+            </ul>
+            <ul>
                 <input className = "search" type= 'date'/>
             </ul>
             <ul className="form-btn">
