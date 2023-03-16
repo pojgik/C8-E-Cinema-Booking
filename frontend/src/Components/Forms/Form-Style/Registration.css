@@ -3,11 +3,37 @@
     justify-content: center;
     margin: auto auto;
 }
-.add a:hover {
+/* .add .support:hover {
     background-color: #f8f9fb;
     color: #aecbeb;
     height: 3rem;
-}
+} */
 .create {
     height: 100%;
+}
+.create-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reg-links {
+    width: 336px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.reg-links:hover {
+    background-color: #71a5de;
+    height: 3rem;
+    align-items: center;
+    display: flex;
+    padding: 1rem;
+}
+.reg-field {
+    margin: auto;
+}
+.reg-btn {
+    padding-bottom: 1rem;
 }

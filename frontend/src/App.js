@@ -1,10 +1,11 @@
 
 import './App.css';
 import NavBar from './Components/NavBar';
-import { Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import CardPane from './Components/CardPane';
 import { useState } from 'react';
-import ManageMovies from './Components/ManageMvoies';
+import ManageMovies from './Components/ManageMovies';
+import ManagePromotions from './Components/ManagePromotions';
 import AddMovie from './Components/Forms/AddMovie'
 import UpdateMovie from './Components/Forms/UpdateMovie';
 import AddPromotion from './Components/Forms/AddPromotion';
@@ -15,6 +16,11 @@ import RegConf from './Components/Forms/RegConf';
 import Login from './Components/Forms/Login';
 import EditProfile from './Components/Forms/EditProfile';
 import Checkout from './Components/Forms/Checkout';
+import BuyTicket from './Components/Forms/BuyTicket';
+import OrderSummary from './Components/Forms/OrderSummary';
+import OrderConfirmation from './Components/Forms/OrderConfirmation';
+import Footer from './Components/Footer';
+import Search from './Components/Forms/Search';
 
 
 function App() {
@@ -70,24 +76,37 @@ function App() {
         link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
   ])
+  const [users,setUsers] = useState([]);
+  const [address,setAddress] = useState([]);
+
   return (
-    
-    <div className="App"> 
-     <NavBar/>
-     <CardPane type = {"New Movies"} movies = {WickCards}/>
-     <CardPane type = {"Coming Soon"} movies = {AntCards}/> 
-     <ManageMovies/>
-     <AddMovie/>
-     <UpdateMovie/>
-     <AddPromotion/>
-     <Registration/>
-     <AddPayment/>
-     <AddAdress/>
-     <RegConf/>
-     <Login/>
-     <EditProfile/>
-     <Checkout/>
-    </div>
+   
+        <Router>
+        <div className="App"> 
+        <NavBar/> 
+        <Routes>
+            <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
+            <Route path = '/login' element = {<Login/>}></Route>
+            <Route path = '/search' element = {<Search/>}></Route>
+            <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} addresses = {address} users = {users}/>}></Route>
+            <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
+            <Route path = "/update-movie" element = {<UpdateMovie/>}></Route>
+            <Route path = "/add-payment" element = {<AddPayment/>}></Route>
+            <Route path = "/add-address" element = {<AddAdress setter = {setAddress}/>}></Route>
+            <Route path = "/add-movie" element = {<AddMovie/>}></Route>
+            <Route path='/reg-conf' element = {<RegConf/>}></Route>
+            <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
+            <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
+        </Routes>
+        <Footer/>
+        </div>
+        </Router>
+            // <AddPromotion/>
+            // <EditProfile/>
+            // <Checkout/>
+            // <BuyTicket/>
+            // <OrderSummary/>
+            // <OrderConfirmation/>  
   );
 }
 

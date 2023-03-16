@@ -1,13 +1,13 @@
 import './Form-Style/AddPayment.css'
 const AddPayment = () => {
-   return ( <div className='payment '>
-    <h1 className='form-heading'>Add a new payment method</h1>
-    <div className="add-window">
-        
-        <form className="add">
+   return ( 
+        <div className='reg '>
+            <h1 className='form-heading'>Add a new payment method</h1>
+            <div id = "payment" className="add-window">
+            <form id = "payment-form"className="add">
+            <div className='card-info'>
             <ul>
-            <label>Card Type:</label>
-            <select required className="card-selector">
+            <select className="search" type = "select" required >
                 <option selected disabled value = "" > Card Type</option> 
                 <option value = "visa" >Visa</option>   
                 <option value = "amex" >American Express</option>   
@@ -16,12 +16,10 @@ const AddPayment = () => {
             </select>
             </ul>
             <ul>
-            <label>Card Number:</label>
-            <input type="text" name = "number"/>
+            <input placeholder='Card Number' type="text" name = "number"/>
             </ul>
             <ul>
-            <label>Expiration Date:</label>
-            <select className='expir-selector' name='expireMM' id='expireMM'>
+            <select className='search' name='expireMM' id='expireMM'>
                 <option value='' selected disabled>Month</option>
                 <option value='01'>January</option>
                 <option value='02'>February</option>
@@ -36,7 +34,9 @@ const AddPayment = () => {
                 <option value='11'>November</option>
                 <option value='12'>December</option>
             </select> 
-            <select className='expir-selector' name='expireYY' id='expireYY'>
+            </ul>
+            <ul>
+            <select className='search' name='expireYY' id='expireYY'>
                 <option value='' selected disabled>Year</option>
                 <option value='23'>2023</option>
                 <option value='24'>2024</option>
@@ -46,22 +46,17 @@ const AddPayment = () => {
                 <option value='28'>2028</option>
                 <option value='29'>2029</option>
             </select>
-            <input class="inputCard" type="hidden" name="expiry" id="expiry" maxlength="4"/>
+            </ul>
+            </div>
+            <div className="billing-info">
+            <ul>
+            <input required placeholder='Street' type="text" name = 'street'/>
             </ul>
             <ul>
-            <label className='shipping'>Shipping Adress:</label>
+            <input required placeholder = "City" type="text" name = 'city'/>
             </ul>
             <ul>
-            <label>Street:</label>
-            <input type="text" name = 'street'required/>
-            </ul>
-            <ul>
-            <label>City:</label>
-            <input type="text" name = 'city'required/>
-            </ul>
-            <ul>
-            <label>State:</label>
-            <select className = 'card-selector' required>
+            <select className = 'search' required>
                 <option selected disabled value = ''>State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -117,11 +112,15 @@ const AddPayment = () => {
             </select>
             </ul>
             <ul>
-            <label>Zip Code:</label>
-            <input type="text" name = 'zip'required/>
+            <input placeholder = "Zip Code"type="text" name = 'zip'required/>
             </ul>
-            <button className = 'submit' type="subimt">Add</button>
+            </div>
         </form>
+        <div className='payment-btn'>
+            <ul >
+            <button form = "payment-form" className = 'submit' type="subimt">Add</button>
+            </ul>
+        </div>
     </div>
     </div>
    )

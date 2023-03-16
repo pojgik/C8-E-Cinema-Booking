@@ -1,5 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .reg {
-    height: 100%;
+    height: 80vh;
 }
 .reg .add-window {
     padding: 0;
@@ -7,10 +12,6 @@
 .reg p {
     background-color: #aecbeb;
     color: #f8f9fb;
-}
-
-.reg .add {
-    padding-bottom: 20rem;
 }
 
 .reg input {

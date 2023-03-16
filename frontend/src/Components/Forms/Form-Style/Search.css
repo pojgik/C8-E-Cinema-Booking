@@ -1,0 +1,12 @@
+.search {
+    height: 3rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 194px;
+}
+button {
+width: 194px;
+}
+input:focus {
+    outline: none;
+}
