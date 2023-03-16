@@ -1,25 +1,24 @@
 import './Form-Style/AddPromotion.css'
 const AddPromotion = () => {
     return (
-        <div>
+        <div className='reg'>
             <h1 className="form-heading">Add a promotion</h1>
-            <div className="promo-window">
+            <div className="add-window">
                 <form>
                     <ul>
-                        <label>Movie Title: </label>
-                        <input type="text" name = 'title' required/>
+                        <input placeholder = "Movie Title" type="text" name = 'title' required/>
                     </ul>
                     <ul>
-                        <label>Discount Rate:</label>
-                        <input type="number" name = 'rate' required/>
+                        <input placeholder = "Discount Rate" type="number" name = 'rate' required/>
                     </ul>
                     <ul>
-                        <label>End Date:</label>
-                        <input className='end-date' type="date" name = 'end' required/>
+                        <label> End Date </label>
                     </ul>
                     <ul>
-                        <label>Promotion Description:</label>
-                        <input type="text" name = 'desc'required/>
+                        <input placeholder = "End Date" className='search' type="date" name = 'end' required/>
+                    </ul>
+                    <ul>
+                        <input placeholder = "Promotion Description" type="text" name = 'desc'required/>
                     </ul>
                     <button className = 'submit' type="subimt">Add</button>
 

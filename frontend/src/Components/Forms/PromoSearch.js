@@ -1,9 +1,9 @@
 import {FaSearch} from "react-icons/fa";
 import "./Form-Style/Search.css"
-const Search = () => {
+const PromoSearch = () => {
     return (
         <div className='reg'>
-        <h1 className='form-heading'>Search For Moives</h1>
+        <h1 className='form-heading'>Search For Promotions</h1>
         <div className="add-window">
         <form className="add">
             <ul>
@@ -32,7 +32,7 @@ const Search = () => {
                 </select>
             </ul>
             <ul>
-                <label> Show Date </label>
+                <label> End Date </label>
             </ul>
             <ul>
                 <input className = "search" type= 'date'/>
@@ -47,4 +47,4 @@ const Search = () => {
     )
 }
 
-export default Search;
+export default PromoSearch;

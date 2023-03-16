@@ -3,11 +3,11 @@
     justify-content: center;
     margin: auto auto;
 }
-.add a:hover {
+/* .add .support:hover {
     background-color: #f8f9fb;
     color: #aecbeb;
     height: 3rem;
-}
+} */
 .create {
     height: 100%;
 }
@@ -30,4 +30,10 @@
     align-items: center;
     display: flex;
     padding: 1rem;
+}
+.reg-field {
+    margin: auto;
+}
+.reg-btn {
+    padding-bottom: 1rem;
 }

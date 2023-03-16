@@ -6,11 +6,12 @@ const NavBar = () => {
             {/* <img className = "icon" src = '\images\icon-removebg-preview.png' ></img> */}
             <h1 className = "title">Cinema E-booking System</h1>
             <ul className='nav-list'>
-                <Link to = '/'><li> <a href = "#">Home</a></li></Link>
-                <Link to = '/search'><li> <a href = "#">Search</a></li></Link>
-                <Link to = '/login'><li> <a href = "#">Login</a></li></Link>
-                <Link to = '/manage-movies'><li> <a href = "#">Manage Movies</a></li></Link>
-                <Link to = 'manage-promos'><li> <a href = "#">Manage Promotions</a></li></Link>
+                <li><Link to = '/'> Home</Link></li>
+                <li><Link to = '/search'>Search</Link></li>
+                <li><Link to = '/login'> Login</Link></li>
+                <li><Link to = '/manage-movies'> Manage Movies</Link></li>
+                <li><Link to = '/manage-promos'>Manage Promotions</Link></li>
+                <li><Link to = '/manage-users'>Manage Users</Link></li>
             </ul>
         </nav>
     )
