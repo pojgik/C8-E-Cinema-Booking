@@ -2,12 +2,13 @@ package com.cs4050.cinema;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 import lombok.Data;
 
@@ -19,13 +20,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId", nullable = false)
-    private int userId;
-
-    @Column(name="userType", nullable = false, columnDefinition = "INT DEFAULT 0")
-    private int userType;
-
-    @Column(name="customerStatus", nullable = false, columnDefinition = "INT DEFAULT 0")
-    private int customerStatus;
+    private Long userId;
 
     @Column(name = "firstName", nullable = false)
     private String firstName;
@@ -39,11 +34,15 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "userType", referencedColumnName = "typeId", insertable = false, updatable = false)
-    private UserType userTypeEntity;
+    @Enumerated(EnumType.STRING)
+    @Column(name="userType", nullable = false)
+    private UserType userType = UserType.CUSTOMER;
 
-    @ManyToOne
-    @JoinColumn(name = "customerStatus", referencedColumnName = "statusCode", insertable = false, updatable = false)
-    private CustomerStatus customerStatusEntity;
-} // user
+    @Enumerated(EnumType.STRING)
+    @Column(name="customerStatus", nullable = false)
+    private CustomerStatus customerStatus = CustomerStatus.INACTIVE;
+
+    @Column(name = "verificationCode", nullable = true)
+    private String verificationCode;
+
+} // User

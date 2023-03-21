@@ -22,6 +22,22 @@
     <name>Maven Central Repository</name>
     <url>https://repo.maven.apache.org/maven2</url>
   </repository>
+  <repository>
+    <id>central</id>
+    <url>https://repo.maven.apache.org/maven2</url>
+  </repository>
+  <repository>
+    <id>dotenv-java-repo</id>
+    <url>https://jitpack.io</url>
+  </repository>
+  <repository>
+    <id>sonatype-snapshots</id>
+    <name>Sonatype Snapshots</name>
+    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
 </repositories>
 	<dependencies>
 		<dependency>
@@ -59,6 +75,20 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.6.2</version>
+</dependency>
+<dependency>
+    <groupId>io.github.cdimascio</groupId>
+    <artifactId>dotenv-java</artifactId>
+    <version>2.2.0</version>
+</dependency>
 	</dependencies>
 
 	<build>
