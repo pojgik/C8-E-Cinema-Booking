@@ -47,9 +47,7 @@ public class UserController {
             System.out.println("Invalid verification code for email: " + email);
             return ResponseEntity.badRequest().body("Invalid verification code");
         } else {
-            user.setCustomerStatus(CustomerStatus.ACTIVE);
-            user.setVerificationCode(null);
-            userService.save(user);
+            userService.verifyUser(user);
             return ResponseEntity.ok("Email verified successfully");
         } // if
     } // ResponseEntity

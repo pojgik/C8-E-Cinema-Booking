@@ -71,6 +71,12 @@ public class UserService {
         }
         return code.toString();
     } // generateVerificationCode
+
+    public void verifyUser(User user) {
+        user.setCustomerStatus(CustomerStatus.ACTIVE);
+        user.setVerificationCode(null);
+        save(user);
+    } // verifyUser
     
     public void save(User user) {
         userRepository.save(user);
