@@ -299,6 +299,7 @@ CREATE TABLE `user` (
   `userType` enum('ADMIN','CUSTOMER') NOT NULL DEFAULT 'CUSTOMER',
   `customerStatus` enum('INACTIVE','ACTIVE','SUSPENDED') NOT NULL DEFAULT 'INACTIVE',
   `verificationCode` varchar(255) DEFAULT NULL,
+  `promotionStatus` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -309,7 +310,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (22,'Luke','Dinkla','pojgik@gmail.com','$2a$10$7xrvOZH8RQLBRcrTHjeldOSDfOyqkOeiELNr.k.U4.QzqpPubWQq6','ADMIN','ACTIVE',NULL);
+INSERT INTO `user` VALUES (22,'Luke','Dinkla','pojgik@gmail.com','$2a$10$7xrvOZH8RQLBRcrTHjeldOSDfOyqkOeiELNr.k.U4.QzqpPubWQq6','ADMIN','ACTIVE',NULL,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -322,4 +323,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-21  1:41:10
+-- Dump completed on 2023-03-22 13:13:26
