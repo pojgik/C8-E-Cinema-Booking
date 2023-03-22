@@ -13,9 +13,12 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private final PaymentInfoRepository paymentInfoRepository;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PaymentInfoRepository paymentInfoRepository ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.paymentInfoRepository = paymentInfoRepository;
     } // UserService
 
     public List<User> getAllUsers() {
@@ -81,5 +84,11 @@ public class UserService {
     public void save(User user) {
         userRepository.save(user);
     } // save
+
+    public void addPaymentCard(User user, PaymentInfo paymentCard) {
+        paymentCard.setUser(user);
+        user.getPaymentCards().add(paymentCard);
+        paymentInfoRepository.save(paymentCard);
+    } // addPaymentCard
 
 } // UserService
