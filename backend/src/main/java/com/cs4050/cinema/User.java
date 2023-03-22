@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -52,7 +53,7 @@ public class User {
     @Column(name = "promotionStatus", nullable = false) 
     private boolean promotionStatus = false;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name="paymentId") 
     private List<PaymentInfo> paymentCards;
 } // User
