@@ -28,7 +28,12 @@ public class EditProfile {
          userService.save(user);
     } //editUser
 
-        // getAll data and set 
+    public void changePassword(@PathVariable String oldPassword, @PathVariable String newPassword) {
+        if (user.getPassword().equals(userService.encoder(oldPassword)))     //checks password
+          user.setPassword(userService.encoder(newPassword));                // sets password and encodes it
+        userService.save(user);
+    }
+       
 
     
 } //EditProfile
