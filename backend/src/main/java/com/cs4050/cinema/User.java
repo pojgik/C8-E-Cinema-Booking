@@ -45,4 +45,7 @@ public class User {
     @Column(name = "verificationCode", nullable = true)
     private String verificationCode;
 
+    @Column(name = "promotionStatus", nullable = false) 
+    private boolean promotionStatus = false;
+
 } // User
