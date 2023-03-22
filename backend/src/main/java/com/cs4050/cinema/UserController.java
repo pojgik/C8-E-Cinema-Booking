@@ -22,9 +22,12 @@ public class UserController {
 
     private final EmailService emailService;
 
-    public UserController(UserService userService, EmailService emailService) {
+    private final LoginRequest loginRequest;
+
+    public UserController(UserService userService, EmailService emailService, LoginRequest loginRequest) {
         this.userService = userService;
         this.emailService = emailService;
+        this.loginRequest = loginRequest;
     } // UserController
 
     @PostMapping("/register")
@@ -78,11 +81,18 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) throws AuthenticationException {
-        if (userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword())) {
-            // Handle login request
-        } else {
-            throw new AuthenticationException("Authentication Failed");
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+
+        User user = userService.getUserByEmail(email);
+        if (user == null) {
+            throw new AuthenticationException("User with email " + email + " not found");
         } // if
-        return ResponseEntity.ok().build(); // Replace with user object who just logged in
+
+        if (userService.authenticate(email, password)) {
+            return ResponseEntity.ok(user);
+        } else {
+            throw new AuthenticationException("Authentication failure: Invalid email or password.");
+        } // if
     } // login
 } // UserController

@@ -1,5 +1,8 @@
 package com.cs4050.cinema;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class LoginRequest {
     private String email;
     private String password;
