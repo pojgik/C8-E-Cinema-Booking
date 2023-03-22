@@ -66,6 +66,7 @@ const Registration = (props) => {
                 lastName:lastname,
                 email:email,
                 password:password,
+                // phoneNumber:phoneNumber
             };
             // console.log(myUser)
             fetch("http://localhost:8080/users/register",{
@@ -85,13 +86,14 @@ const Registration = (props) => {
                 else {
                     alert("You have created an account!")
                 }
-                
-               console.log(data);}); 
-        }
+               console.log(data);});
+            }
+            navigate("/reg-conf");
     }
     
 
-    return (        <div className='reg'>
+    return (       
+         <div className='reg'>
             <h1 className='form-heading'>Register an Account</h1>
             <div className="add-window">    
                 <form onSubmit = {submitHandler} className="add" id = "registration-form" >
