@@ -61,11 +61,11 @@ public class UserService {
         return userRepository.save(user);
     } // updateUser
 
-    public void changePassword(Long id, User user, String oldPassword, String newPassword) {
+    public User changePassword(Long id, User user, String oldPassword, String newPassword) {
         
         if (user.getPassword().equals(passwordEncoder.encode(oldPassword)))     //checks password
           user.setPassword(passwordEncoder.encode(newPassword));                // sets password and encodes it
-        userRepository.save(user);
+        return userRepository.save(user);
     }
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
