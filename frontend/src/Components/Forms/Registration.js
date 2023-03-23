@@ -56,8 +56,6 @@ const Registration = (props) => {
     // submitition handler -- assigns a new User and checks for validations
     const submitHandler = (event) => {
         event.preventDefault();
-        console.log(phoneNumber);
-
         if (password !== passwordConf) { // passwords must match
             alert("Passwords must match")
         }
