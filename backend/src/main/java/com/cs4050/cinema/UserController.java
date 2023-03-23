@@ -5,6 +5,7 @@ import java.util.List;
 import javax.security.sasl.AuthenticationException;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,18 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserController {
 
     private final UserService userService;
 
     private final EmailService emailService;
 
-    private final LoginRequest loginRequest;
-
     public UserController(UserService userService, EmailService emailService, LoginRequest loginRequest) {
         this.userService = userService;
         this.emailService = emailService;
-        this.loginRequest = loginRequest;
     } // UserController
 
     @PostMapping("/register")
@@ -66,7 +65,7 @@ public class UserController {
     } // getUserById
 
     @PutMapping("/editProfile/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestParam(required    = false) String firstName, @RequestParam(required = false) String lastName) {
         User user = userService.getUserById(id);
         return ResponseEntity.ok(userService.updateUser(id, user, firstName, lastName));
     } // updateUser
@@ -90,7 +89,7 @@ public class UserController {
     } // getAllUsers
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) throws AuthenticationException {
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) throws AuthenticationException, javax.naming.AuthenticationException {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
 

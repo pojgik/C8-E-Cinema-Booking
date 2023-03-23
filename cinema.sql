@@ -326,7 +326,7 @@ CREATE TABLE `user` (
   `promotionStatus` tinyint(1) NOT NULL DEFAULT '0',
   `phone` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -335,7 +335,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (22,'Luke','Dinkla','pojgik@gmail.com','$2a$10$7xrvOZH8RQLBRcrTHjeldOSDfOyqkOeiELNr.k.U4.QzqpPubWQq6','ADMIN','ACTIVE',NULL,1,NULL),(35,'Tristan','Dominy','tristandominy413@gmail.com','$2a$10$YpbCeQgF0QuQcmbSL0uZJuL/L1KbwRT6PrS77V3oFu3K1IMpAG4fi','CUSTOMER','INACTIVE','BqU0mjFc',0,NULL),(36,'Tristan','Dominy','ristandominy413@gmail.com','$2a$10$ZvjdQf8qFzM2eisGwZgmsOfgsLKujpJ8oK.t60JIU0xpNvgryFaIS','CUSTOMER','INACTIVE','CPVE5Jxz',0,NULL),(37,'Tristan','Dominy','tristandominy413@gmail.m','$2a$10$yrK/2rXYCuFxqFk1FMeVzumdNHG3YqF7DrkxuA5iUUE6wIw/NuHO6','CUSTOMER','ACTIVE',NULL,1,NULL);
+INSERT INTO `user` VALUES (22,'Luke','Dinkla','pojgik@gmail.com','$2a$10$7xrvOZH8RQLBRcrTHjeldOSDfOyqkOeiELNr.k.U4.QzqpPubWQq6','ADMIN','ACTIVE',NULL,1,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,4 +372,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-22 20:05:42
+-- Dump completed on 2023-03-23  1:52:09
