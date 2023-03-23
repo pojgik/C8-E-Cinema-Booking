@@ -28,7 +28,7 @@ CREATE TABLE `address` (
   `city` varchar(255) DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
-  `zip` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Zip Code',
+  `zip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`addressId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -147,14 +147,11 @@ CREATE TABLE `paymentinfo` (
   `cardNumber` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Credit Card number',
   `cardType` varchar(255) DEFAULT NULL,
   `expDate` date DEFAULT NULL COMMENT 'CC expiration date',
-  `cvc` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'card security code',
   `cardName` varchar(255) DEFAULT NULL,
-  `addressId` int DEFAULT NULL COMMENT 'fk to billing address',
+  `cvv` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`paymentId`),
   UNIQUE KEY `paymentId` (`paymentId`),
   KEY `userId` (`userId`),
-  KEY `fk_address_id` (`addressId`),
-  CONSTRAINT `fk_address_id` FOREIGN KEY (`addressId`) REFERENCES `address` (`addressId`),
   CONSTRAINT `paymentinfo_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -325,8 +322,11 @@ CREATE TABLE `user` (
   `verificationCode` varchar(255) DEFAULT NULL,
   `promotionStatus` tinyint(1) NOT NULL DEFAULT '0',
   `phone` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `addressId` int DEFAULT NULL,
+  PRIMARY KEY (`userId`),
+  KEY `address_fk` (`addressId`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`addressId`) REFERENCES `address` (`addressId`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -335,7 +335,6 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (22,'Luke','Dinkla','pojgik@gmail.com','$2a$10$7xrvOZH8RQLBRcrTHjeldOSDfOyqkOeiELNr.k.U4.QzqpPubWQq6','ADMIN','ACTIVE',NULL,1,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,4 +371,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-23  1:52:09
+-- Dump completed on 2023-03-23  4:46:08
