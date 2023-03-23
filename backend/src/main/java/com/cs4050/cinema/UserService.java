@@ -12,9 +12,13 @@ import javax.naming.AuthenticationException;
 public class UserService {
     
     private final UserRepository userRepository;
+    private final PaymentInfoRepository paymentInfoRepository;
+    private final AddressRepository billingAddressRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PaymentInfoRepository paymentInfoRepository, AddressRepository billingAddressRepository) {
         this.userRepository = userRepository;
+        this.paymentInfoRepository = paymentInfoRepository;
+        this.billingAddressRepository = billingAddressRepository;
     } // UserService
 
     public List<User> getAllUsers() {
@@ -42,22 +46,30 @@ public class UserService {
         return userRepository.save(user);
     } // getUserById
 
-    // public User updateUser(Long id, User user, String firstName, String lastName, String verificationCode, CustomerStatus customerStatus) {
-    //     if (firstName != null) {
-    //         user.setFirstName(firstName);
-    //     } // if
-    //     if (lastName != null) {
-    //         user.setLastName(lastName);
-    //     } // if
-    //     if (verificationCode != null) {
-    //         user.setVerificationCode(verificationCode);
-    //     }
-    //     return userRepository.save(user);
-    // } // updateUser
-    public User updateUser(Long id, User user) {
-        // Implement updateUser logic here
+    public User updateUser(Long id, User user, String firstName, String lastName,
+    PaymentInfo paymentCard, Address billingAddress, boolean promotionStatus) {
+        if (firstName != null) {
+            user.setFirstName(firstName);
+        } // if
+        if (lastName != null) {
+            user.setLastName(lastName);
+        } // if
+        if (billingAddress !=null) {
+            user.setBillingAddress(billingAddress); 
+        } // if
+        if ( paymentCard!=null) {
+            user.getPaymentCards().set(0, paymentCard);
+        } // if        
+        user.setPromotionStatus(promotionStatus);
         return userRepository.save(user);
     } // updateUser
+
+    public User changePassword(Long id, User user, String oldPassword, String newPassword) {
+        
+        if (BCrypt.checkpw(oldPassword, user.getPassword()))     //checks password
+          user.setPassword(encodePassword(newPassword));                // sets password and encodes it
+        return userRepository.save(user);
+    } // changePassword
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
@@ -96,6 +108,16 @@ public class UserService {
         user.setVerificationCode(null);
         save(user);
     } // verifyUser
+
+    public void addPaymentCard(User user, PaymentInfo paymentInfo) {
+        user.getPaymentCards().add(paymentInfo);
+        paymentInfoRepository.save(paymentInfo);
+    } // addPaymentCard
+
+    public void addBillingAddress(User user, Address billingAddress) {
+        user.setBillingAddress(billingAddress);
+        billingAddressRepository.save(billingAddress);
+    }
     
     public void save(User user) {
         userRepository.save(user);

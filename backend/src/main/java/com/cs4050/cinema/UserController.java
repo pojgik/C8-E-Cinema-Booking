@@ -30,11 +30,17 @@ public class UserController {
     } // UserController
 
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user, @RequestBody(required = false) PaymentInfo paymentInfo, @RequestBody Address address) {
         user.setVerificationCode(UserService.generateVerificationCode(8));
         User newUser = userService.createUser(user);
 
-        
+        if (paymentInfo != null) {
+            userService.addPaymentCard(newUser, paymentInfo);
+        } // if
+
+        if (address != null) {
+            userService.addBillingAddress(newUser, address);
+        } // if
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
         return ResponseEntity.ok(newUser);
@@ -69,10 +75,18 @@ public class UserController {
     //     // , firstName, lastName,verficationCode,customerStatus
     // } // updateUser
     @PutMapping("/editProfile/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        User updatedUser = userService.updateUser(id, user);
-        return ResponseEntity.ok(updatedUser);
+
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName,
+     @RequestParam(required = false) PaymentInfo paymentCard, @RequestParam(required = false) Address billingAddress, @RequestParam boolean promotionStatus) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(userService.updateUser(id, user, firstName, lastName, paymentCard, billingAddress, promotionStatus));
     } // updateUser
+
+    @PutMapping("/changePassword/{id}")
+    public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestParam String oldPassword, @RequestParam String newPassword) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(userService.changePassword(id, user, newPassword, oldPassword));
+    } //changePassword
 
     @GetMapping("/delete/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
