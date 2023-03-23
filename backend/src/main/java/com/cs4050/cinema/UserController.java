@@ -63,10 +63,18 @@ public class UserController {
     } // getUserById
 
     @PutMapping("/editProfile/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestParam(required    = false) String firstName, @RequestParam(required = false) String lastName) {
+
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName,
+     @RequestParam(required = false) PaymentInfo paymentCard, @RequestParam(required = false) Address billingAddress, @RequestParam boolean promotionStatus) {
         User user = userService.getUserById(id);
-        return ResponseEntity.ok(userService.updateUser(id, user, firstName, lastName));
+        return ResponseEntity.ok(userService.updateUser(id, user, firstName, lastName, paymentCard, billingAddress, promotionStatus));
     } // updateUser
+
+    @PutMapping("/changePassword/{id}")
+    public ResponseEntity<User> changePassword((@PathVariable Long id, @RequestParam String oldPassword, @RequestParam String newPassword) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(userService.changePassword(id, user, newPassword, oldPassword));
+    } //changePassword
 
     @GetMapping("/delete/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
