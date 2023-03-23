@@ -78,6 +78,9 @@ public class UserService {
         save(user);
     } // verifyUser
     
+    public String encoder(String str) {
+        return passwordEncoder.encode(str);
+    }
     public void save(User user) {
         userRepository.save(user);
     } // save
