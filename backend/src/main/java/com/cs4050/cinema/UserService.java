@@ -43,11 +43,30 @@ public class UserService {
         return userRepository.save(user);
     } // getUserById
 
-    public User updateUser(Long id, User user) {
-        // Implement updateUser logic here
+    public User updateUser(Long id, User user, String firstName, String lastName,
+    PaymentInfo paymentCard, Address billingAddress, boolean promotionStatus) {
+        if (firstName != null) {
+            user.setFirstName(firstName);
+        } // if
+        if (lastName != null) {
+            user.setLastName(lastName);
+        } // if
+        if (billingAddress !=null) {
+            user.setBillingAddress(billingAddress); 
+        } // if
+        if ( paymentCard!=null) {
+            user.setPaymentCard(paymentCard);
+        } // if        
+        user.setPromotionStatus(promotionStatus);
         return userRepository.save(user);
     } // updateUser
 
+    public void changePassword(Long id, User user, String oldPassword, String newPassword) {
+        
+        if (user.getPassword().equals(passwordEncoder.encode(oldPassword)))     //checks password
+          user.setPassword(passwordEncoder.encode(newPassword));                // sets password and encodes it
+        userRepository.save(user);
+    }
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     } // deleteUser
