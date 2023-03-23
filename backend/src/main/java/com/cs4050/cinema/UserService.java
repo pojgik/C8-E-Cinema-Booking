@@ -13,7 +13,6 @@ public class UserService {
     
     private final UserRepository userRepository;
 
-
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     } // UserService
@@ -94,11 +93,5 @@ public class UserService {
     public void save(User user) {
         userRepository.save(user);
     } // save
-
-    public void addPaymentCard(User user, PaymentInfo paymentCard) {
-        paymentCard.setUser(user);
-        user.getPaymentCards().add(paymentCard);
-        paymentInfoRepository.save(paymentCard);
-    } // addPaymentCard
 
 } // UserService
