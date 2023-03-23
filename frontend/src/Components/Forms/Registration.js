@@ -26,6 +26,7 @@ const Registration = (props) => {
     const [passwordConf,setPasswordConf] = useState("");
     const [addresses,setAddresses] = useState(null);
     const [payment,setPayment] = useState(null);
+    const[promo,setPromo] = useState(false);
 
 
     // handles input being put into each input box
@@ -47,34 +48,59 @@ const Registration = (props) => {
         if (name === "pass-conf") {
             setPasswordConf(value);
         }
+        if (name === "phone") {
+            setPhoneNumber(value);
+        }
     }
 
     // submitition handler -- assigns a new User and checks for validations
     const submitHandler = (event) => {
         event.preventDefault();
+        console.log(phoneNumber);
+
         if (password !== passwordConf) { // passwords must match
             alert("Passwords must match")
         }
         else {
-            const newUser = new User (username,phoneNumber,email,password,props.addresses)
-            let inUse = false;
-            // console.log(newUser);
-            props.users.map(user => {
-                if (user.email === newUser.email) { // finds if email is already in use
-                    inUse = true;
-                    console.log("email already in use")
-                }
+            const names = username.split(" ");
+            const firstname = names[0];
+            const lastname = names[names.length-1];
+            const myUser = {
+                userType: 1,
+                customerStatus: 0,
+                firstName: firstname,
+                lastName:lastname,
+                email:email,
+                password:password,
+                promotionStatus:promo,
+                phone:phoneNumber
+            };
+            // console.log(myUser)
+            fetch("http://localhost:8080/users/register",{
+                method: "POST",
+                mode:"cors",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Accept":"application/json"
+                },
+                body: JSON.stringify(myUser)
             })
-            if (!inUse)
-                props.users.push(newUser); // creates new user and pushes them to allUser
-                console.log(props.users)
-                navigate('/login')
-            }   
+            .then(res =>res.json())
+            .then(data => {
+                if(data.message === "User with that email already exists."){
+                    alert("User with that email already exists.")
+                }
+                else {
+                    alert("You have created an account!")
+                }
+               console.log(data);});
+            }
+            navigate("/reg-conf");
     }
     
 
-    return (
-        <div className='reg'>
+    return (       
+         <div className='reg'>
             <h1 className='form-heading'>Register an Account</h1>
             <div className="add-window">    
                 <form onSubmit = {submitHandler} className="add" id = "registration-form" >
@@ -89,6 +115,10 @@ const Registration = (props) => {
                     </ul>
                     <ul>
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder='Password' type="password" name = 'pass'required />
+                    </ul>
+                    <ul>
+                    <input value = {true} onChange = {(e)=>setPromo(e.target.value)}  className='reg-field' type="checkbox" name = 'promo'></input>
+                    <label className='reg-field'>Recieve Promotions?</label>
                     </ul>
                     <ul>
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = "Confirm Password" type="password" name = 'pass-conf'required/>

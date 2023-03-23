@@ -79,6 +79,30 @@ LOCK TABLES `booking` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `customerstatus`
+--
+
+DROP TABLE IF EXISTS `customerstatus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `customerstatus` (
+  `statusCode` int NOT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`statusCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customerstatus`
+--
+
+LOCK TABLES `customerstatus` WRITE;
+/*!40000 ALTER TABLE `customerstatus` DISABLE KEYS */;
+INSERT INTO `customerstatus` VALUES (0,'INACTIVE'),(1,'ACTIVE'),(2,'SUSPENDED');
+/*!40000 ALTER TABLE `customerstatus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `movie`
 --
 
@@ -294,14 +318,15 @@ CREATE TABLE `user` (
   `userId` int NOT NULL AUTO_INCREMENT,
   `firstName` varchar(255) DEFAULT NULL,
   `lastName` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   `userType` enum('ADMIN','CUSTOMER') NOT NULL DEFAULT 'CUSTOMER',
   `customerStatus` enum('INACTIVE','ACTIVE','SUSPENDED') NOT NULL DEFAULT 'INACTIVE',
   `verificationCode` varchar(255) DEFAULT NULL,
   `promotionStatus` tinyint(1) NOT NULL DEFAULT '0',
+  `phone` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,8 +335,32 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (22,'Luke','Dinkla','pojgik@gmail.com','$2a$10$7xrvOZH8RQLBRcrTHjeldOSDfOyqkOeiELNr.k.U4.QzqpPubWQq6','ADMIN','ACTIVE',NULL,1);
+INSERT INTO `user` VALUES (22,'Luke','Dinkla','pojgik@gmail.com','$2a$10$7xrvOZH8RQLBRcrTHjeldOSDfOyqkOeiELNr.k.U4.QzqpPubWQq6','ADMIN','ACTIVE',NULL,1,NULL),(35,'Tristan','Dominy','tristandominy413@gmail.com','$2a$10$YpbCeQgF0QuQcmbSL0uZJuL/L1KbwRT6PrS77V3oFu3K1IMpAG4fi','CUSTOMER','INACTIVE','BqU0mjFc',0,NULL),(36,'Tristan','Dominy','ristandominy413@gmail.com','$2a$10$ZvjdQf8qFzM2eisGwZgmsOfgsLKujpJ8oK.t60JIU0xpNvgryFaIS','CUSTOMER','INACTIVE','CPVE5Jxz',0,NULL),(37,'Tristan','Dominy','tristandominy413@gmail.m','$2a$10$yrK/2rXYCuFxqFk1FMeVzumdNHG3YqF7DrkxuA5iUUE6wIw/NuHO6','CUSTOMER','ACTIVE',NULL,1,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usertype`
+--
+
+DROP TABLE IF EXISTS `usertype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usertype` (
+  `typeId` int NOT NULL,
+  `userType` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`typeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usertype`
+--
+
+LOCK TABLES `usertype` WRITE;
+/*!40000 ALTER TABLE `usertype` DISABLE KEYS */;
+INSERT INTO `usertype` VALUES (0,'Customer'),(1,'Admin');
+/*!40000 ALTER TABLE `usertype` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -323,4 +372,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-22 13:13:26
+-- Dump completed on 2023-03-22 20:05:42
