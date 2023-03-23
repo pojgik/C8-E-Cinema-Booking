@@ -59,7 +59,7 @@ public class UserService {
         if (!oldUser.getPhone().equals(newUser.getPhone()) && newUser.getPhone() != null) {
             oldUser.setPhone(newUser.getPhone());
         } // if
-        if (!oldUser.getPaymentCards().equals(newUser.getPaymentCards()) && !newUser.getPaymentCards().isEmpty()) {
+        if (!oldUser.getPaymentCards().equals(newUser.getPaymentCards()) && newUser.getPaymentCards() != null && !newUser.getPaymentCards().isEmpty() ) {
             oldUser.setPaymentCards(newUser.getPaymentCards());
         } // if
         if (oldUser.getBillingAddress().getAddressId() != newUser.getBillingAddress().getAddressId()) {
@@ -111,18 +111,18 @@ public class UserService {
         return userRepository.save(user);
     } // verifyUser
 
-    public void addPaymentCard(User user, PaymentInfo paymentInfo) {
+    public PaymentInfo addPaymentCard(User user, PaymentInfo paymentInfo) {
         paymentInfo.setEncryptedCardNumber(encodePassword(paymentInfo.getCardNumber()));
         paymentInfo.setCardNumber(null);
         paymentInfo.setEncryptedCvv(encodePassword(paymentInfo.getCvv()));
         paymentInfo.setCvv(null);
         user.getPaymentCards().add(paymentInfo);
-        paymentInfoRepository.save(paymentInfo);
+        return paymentInfoRepository.save(paymentInfo);
     } // addPaymentCard
 
-    public void addBillingAddress(User user, Address billingAddress) {
+    public Address addBillingAddress(User user, Address billingAddress) {
         user.setBillingAddress(billingAddress);
-        billingAddressRepository.save(billingAddress);
+        return billingAddressRepository.save(billingAddress);
     }
     
     public void save(User user) {

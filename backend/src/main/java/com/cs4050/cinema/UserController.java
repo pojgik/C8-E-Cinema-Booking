@@ -108,4 +108,16 @@ public class UserController {
             throw new AuthenticationException("Authentication failure: Invalid email or password.");
         } // if
     } // login
+
+    @PutMapping("/addPaymentInfo/{id}")
+    public ResponseEntity<PaymentInfo> addPaymentInfo(@PathVariable Long id, @RequestBody PaymentInfo paymentCard) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(userService.addPaymentCard(user, paymentCard));
+    } // paymentInfo
+
+    @PutMapping("/addBillingAddress/{id}") 
+    public ResponseEntity<Address> addAddress(@PathVariable Long id, @RequestBody Address billingAddress) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(userService.addBillingAddress(user, billingAddress));
+    } // billingAddress
 } // UserController

@@ -9,16 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PostLoad;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+// import javax.persistence.PostLoad;
+// import javax.persistence.PrePersist;
+// import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
+// import javax.crypto.Cipher;
+// import javax.crypto.KeyGenerator;
+// import javax.crypto.SecretKey;
+// import java.nio.charset.StandardCharsets;
+// import java.security.SecureRandom;
 
 import lombok.Data;
 
