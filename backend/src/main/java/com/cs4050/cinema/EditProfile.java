@@ -13,9 +13,9 @@ public class EditProfile {
     
     public void editUser(@PathVariable String firstName, @PathVariable String lastName, 
     @PathVariable String billingAddress, @PathVariable String paymentCard, @PathVariable boolean promotionStatus) {
-        if (firstName !=null) 
+        if (firstName != null) 
          user.setFirstName(firstName);
-         if (lastName !=null) 
+         if (lastName != null) 
          user.setLastName(lastName);
          user.setPromotionStatus(promotionStatus);
          /*

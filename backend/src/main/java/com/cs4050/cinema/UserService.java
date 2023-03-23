@@ -43,8 +43,8 @@ public class UserService {
         return userRepository.save(user);
     } // getUserById
 
-    public User updateUser(Long id, User user) {
-        // Implement updateUser logic here
+    public User updateUser(Long id, @PathVariable String firstName, @PathVariable String lastName) {
+        
         return userRepository.save(user);
     } // updateUser
 

@@ -31,9 +31,13 @@ public class UserController {
     } // UserController
 
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user, @RequestBody(required = false) PaymentInfo paymentInfo) {
         user.setVerificationCode(UserService.generateVerificationCode(8));
         User newUser = userService.createUser(user);
+
+        if (paymentInfo != null) {
+            userService.addPaymentCard(newUser, paymentInfo);
+        } // if
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
         return ResponseEntity.ok(newUser);
@@ -61,9 +65,9 @@ public class UserController {
         return ResponseEntity.ok(user);
     } // getUserById
 
-    @PutMapping("/editProfile/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable String email) {
-        User updatedUser = userService.updateUser(email);
+    @PutMapping("/editProfile")
+    public ResponseEntity<User> updateUser(@PathVariable String email, @PathVariable String firstName, @PathVariable String lastName) {
+        User updatedUser = userService.updateUser(email, user);
         return ResponseEntity.ok(updatedUser);
     } // updateUser
 
