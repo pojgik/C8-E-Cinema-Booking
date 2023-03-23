@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 // import javax.crypto.Cipher;
@@ -39,8 +38,8 @@ public class PaymentInfo {
     @Column(name = "expDate", nullable = false)
     private Date expDate;
 
-    @Column(name = "cvc", nullable = false)
-    private String cvc;
+    @Column(name = "cvv", nullable = false)
+    private String cvv;
 
     @Column(name = "cardName", nullable = false)
     private String cardName;
@@ -48,10 +47,6 @@ public class PaymentInfo {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
-
-    @OneToOne
-    @JoinColumn(name="addresId")
-    private Address address;
 
     // private static final String ALIAS = "mykey";
     // private static final String STORE_PASSWORD = "mystorepassword";

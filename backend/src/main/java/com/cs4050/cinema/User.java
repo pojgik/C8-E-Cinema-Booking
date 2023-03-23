@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -58,4 +59,8 @@ public class User {
     @OneToMany
     @JoinColumn(name="paymentId") 
     private List<PaymentInfo> paymentCards;
+
+    @OneToOne
+    @JoinColumn(name="addressId")
+    private Address billingAddress;
 } // User

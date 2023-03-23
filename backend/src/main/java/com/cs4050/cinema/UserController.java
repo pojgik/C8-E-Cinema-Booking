@@ -37,6 +37,10 @@ public class UserController {
         if (paymentInfo != null) {
             userService.addPaymentCard(newUser, paymentInfo);
         } // if
+
+        if (address != null) {
+            userService.addBillingAddress(newUser, address);
+        } // if
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
         return ResponseEntity.ok(newUser);
