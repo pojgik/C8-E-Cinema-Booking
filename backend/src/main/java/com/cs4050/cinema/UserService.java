@@ -64,11 +64,9 @@ public class UserService {
         return userRepository.save(user);
     } // updateUser
 
-    public User changePassword(Long id, User user, String oldPassword, String newPassword) {
-        
-        if (BCrypt.checkpw(oldPassword, user.getPassword()))     //checks password
-          user.setPassword(encodePassword(newPassword));                // sets password and encodes it
-        return userRepository.save(user);
+    public User changePassword(User oldUser, User newUser) {
+        oldUser.setPassword(encodePassword(newUser.getPassword()));
+        return userRepository.save(oldUser);
     } // changePassword
 
     public void deleteUser(Long id) {
