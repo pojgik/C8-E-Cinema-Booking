@@ -26,6 +26,7 @@ const Registration = (props) => {
     const [passwordConf,setPasswordConf] = useState("");
     const [addresses,setAddresses] = useState(null);
     const [payment,setPayment] = useState(null);
+    const[promo,setPromo] = useState(false);
 
 
     // handles input being put into each input box
@@ -47,11 +48,16 @@ const Registration = (props) => {
         if (name === "pass-conf") {
             setPasswordConf(value);
         }
+        if (name === "phone") {
+            setPhoneNumber(value);
+        }
     }
 
     // submitition handler -- assigns a new User and checks for validations
     const submitHandler = (event) => {
         event.preventDefault();
+        console.log(phoneNumber);
+
         if (password !== passwordConf) { // passwords must match
             alert("Passwords must match")
         }
@@ -66,6 +72,8 @@ const Registration = (props) => {
                 lastName:lastname,
                 email:email,
                 password:password,
+                promotionStatus:promo,
+                phone:phoneNumber
             };
             // console.log(myUser)
             fetch("http://localhost:8080/users/register",{
@@ -85,13 +93,14 @@ const Registration = (props) => {
                 else {
                     alert("You have created an account!")
                 }
-                
-               console.log(data);}); 
-        }
+               console.log(data);});
+            }
+            navigate("/reg-conf");
     }
     
 
-    return (        <div className='reg'>
+    return (       
+         <div className='reg'>
             <h1 className='form-heading'>Register an Account</h1>
             <div className="add-window">    
                 <form onSubmit = {submitHandler} className="add" id = "registration-form" >
@@ -106,6 +115,10 @@ const Registration = (props) => {
                     </ul>
                     <ul>
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder='Password' type="password" name = 'pass'required />
+                    </ul>
+                    <ul>
+                    <input value = {true} onChange = {(e)=>setPromo(e.target.value)}  className='reg-field' type="checkbox" name = 'promo'></input>
+                    <label className='reg-field'>Recieve Promotions?</label>
                     </ul>
                     <ul>
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = "Confirm Password" type="password" name = 'pass-conf'required/>

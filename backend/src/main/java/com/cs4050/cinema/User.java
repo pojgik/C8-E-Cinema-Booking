@@ -51,7 +51,13 @@ public class User {
     private String verificationCode;
 
     @Column(name = "promotionStatus", nullable = false) 
-    private boolean promotionStatus = false;
+    private boolean promotionStatus = false;    
+
+    @Column(name = "phone", nullable = false)
+    private String phone;
+
+    // @Column(name = "phoneNumber", nullable = false) 
+    // private String phoneNumber;
 
     @OneToMany
     @JoinColumn(name="paymentId") 

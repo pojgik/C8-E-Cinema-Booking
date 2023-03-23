@@ -46,8 +46,13 @@ public class UserService {
         return userRepository.save(user);
     } // getUserById
 
-    public User updateUser(Long id, User user) {
-        // Implement updateUser logic here
+    public User updateUser(Long id, User user, String firstName, String lastName) {
+        if (firstName != null) {
+            user.setFirstName(firstName);
+        } // if
+        if (lastName != null) {
+            user.setLastName(lastName);
+        } // if
         return userRepository.save(user);
     } // updateUser
 
@@ -81,6 +86,9 @@ public class UserService {
         save(user);
     } // verifyUser
     
+    public String encoder(String str) {
+        return passwordEncoder.encode(str);
+    }
     public void save(User user) {
         userRepository.save(user);
     } // save
