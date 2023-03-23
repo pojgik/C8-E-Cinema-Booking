@@ -68,6 +68,12 @@ public class UserController {
         return ResponseEntity.ok(user);
     } // getUserById
 
+    // @PutMapping("/editProfile/{id}")
+    // public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestParam(required    = false) String firstName, @RequestParam(required = false) String lastName,@RequestParam(required = false) String verficationCode,@RequestParam(required = false) CustomerStatus customerStatus) {
+    //     User user = userService.getUserById(id);
+    //     return ResponseEntity.ok(userService.updateUser(id, user));
+    //     // , firstName, lastName,verficationCode,customerStatus
+    // } // updateUser
     @PutMapping("/editProfile/{id}")
 
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName,

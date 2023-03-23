@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Form-Style/Login.css'
 
 
 
 const Login = () => {
 
+    const nav = useNavigate();
     const [loginEmail,setLoginEmail] = useState();
     const [loginPass,setLoginPass] = useState();
 
@@ -30,7 +31,11 @@ const Login = () => {
             })
             .then(res=> res.json())
             .then(data => {
+                alert('Successfully Logged In!')
                 console.log(data)
+                sessionStorage.setItem("userId",data.userId)
+                // console.log(sessionStorage.userId)
+                nav('/')
             });
 
     }

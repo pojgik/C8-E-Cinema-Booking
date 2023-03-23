@@ -2,7 +2,7 @@ import './Style/Card.css'
 import { Link } from 'react-router-dom'
 
 const Card = (props) => {
-    console.log(props)
+    // console.log(props)
     return (
         <div  className = "card">
             <h1> {props.title} </h1>  
