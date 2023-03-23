@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -56,7 +55,7 @@ public class User {
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    //@OneToMany
-    //@JoinColumn(name="paymentId") 
-    //private List<PaymentInfo> paymentCards;
+    @OneToMany
+    @JoinColumn(name="paymentId") 
+    private List<PaymentInfo> paymentCards;
 } // User
