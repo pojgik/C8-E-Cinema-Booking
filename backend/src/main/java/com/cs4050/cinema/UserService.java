@@ -6,6 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 
+import javax.naming.AuthenticationException;
+
 @Service
 public class UserService {
     
@@ -74,15 +76,17 @@ public class UserService {
         return encrypted;
     }
 
-    public boolean authenticate(String email, String password) {
+    public boolean authenticate(String email, String password) throws AuthenticationException {
         User user = userRepository.findByEmail(email);
 
         if (user == null) {
-            return false;
+            throw new AuthenticationException("Invalid email");
+            //return false;
         } // if
 
-        return user.getPassword().equals(encodePassword(password));
+        return BCrypt.checkpw(password, user.getPassword());
     } // authenticate
+
 
     public static String generateVerificationCode(int length) {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

@@ -1,6 +1,10 @@
 import './Form-Style/EditProfile.css'
+import { useState } from 'react';
 
 const EditProfile = () => {
+    
+    const[promo,setPromo] = useState(false);
+
     return (
     <div className='create'>
     <h1 className='form-heading'>Edit your profile</h1>
@@ -19,6 +23,10 @@ const EditProfile = () => {
             <label>Email Adress:</label>
             <input className = "edit" placeholder = 'your email'type="email" name = 'email'/>
             </ul>
+            <ul>
+                <input value = {true} onChange = {(e)=>setPromo(e.target.value)}  className='reg-field' type="checkbox" name = 'promo'></input>
+                <label className='reg-field'>Recieve Promotions?</label>
+                </ul>
             <ul>
             <label>Password:</label>
             <input className = "edit" placeholder = 'your password'type="password" name = 'pass'/>

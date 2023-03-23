@@ -1,5 +1,7 @@
 package com.cs4050.cinema;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,6 +9,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -51,7 +56,7 @@ public class User {
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    // @Column(name = "phoneNumber", nullable = false) 
-    // private String phoneNumber;
-
+    //@OneToMany
+    //@JoinColumn(name="paymentId") 
+    //private List<PaymentInfo> paymentCards;
 } // User
