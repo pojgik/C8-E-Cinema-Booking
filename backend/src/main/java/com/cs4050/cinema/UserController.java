@@ -75,6 +75,7 @@ public class UserController {
         } else if (newUser == null) {
             throw new Exception("User not found: Invalid Request Body");
         } else {
+            emailService.sendEmail(oldUser.getEmail(), "Updated Profile", "Dear user, your profile has been updated.");
             return ResponseEntity.ok(userService.updateUser(oldUser, newUser));
         }
     } // updateUser
