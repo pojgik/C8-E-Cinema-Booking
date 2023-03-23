@@ -81,6 +81,8 @@ function App() {
   ])
   const [user,setUser] = useState([]);
   const [address,setAddress] = useState([]);
+  const [admin,setAdmin] = useState(false);
+
   
 
   useEffect(() => {
@@ -90,9 +92,14 @@ function App() {
     })
     .then(res=>res.json())
     .then(data => {
-        setUser(data);
-    })
-    console.log(user)
+        console.log(data)
+        if (data.userType === "ADMIN") {
+          admin = true;
+          console.log("found admin")
+          console.log(admin)
+        }})
+   
+    console.log(admin)
   },[])
 
   return (
