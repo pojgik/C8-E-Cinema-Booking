@@ -40,19 +40,14 @@ public class UserService {
         return userRepository.save(user);
     } // getUserById
 
-<<<<<<< HEAD
     public User updateUser(Long id, User user, String firstName, String lastName,
     PaymentInfo paymentCard, Address billingAddress, boolean promotionStatus) {
-=======
-    public User updateUser(Long id, User user, String firstName, String lastName) {
->>>>>>> a327736758bdf0fec7ec40a46b6b987c3b7ebcf4
         if (firstName != null) {
             user.setFirstName(firstName);
         } // if
         if (lastName != null) {
             user.setLastName(lastName);
         } // if
-<<<<<<< HEAD
         if (billingAddress !=null) {
             user.setBillingAddress(billingAddress); 
         } // if
@@ -60,8 +55,6 @@ public class UserService {
             user.setPaymentCard(paymentCard);
         } // if        
         user.setPromotionStatus(promotionStatus);
-=======
->>>>>>> a327736758bdf0fec7ec40a46b6b987c3b7ebcf4
         return userRepository.save(user);
     } // updateUser
 
