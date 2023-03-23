@@ -112,6 +112,10 @@ public class UserService {
     } // verifyUser
 
     public void addPaymentCard(User user, PaymentInfo paymentInfo) {
+        paymentInfo.setEncryptedCardNumber(encodePassword(paymentInfo.getCardNumber()));
+        paymentInfo.setCardNumber(null);
+        paymentInfo.setEncryptedCvv(encodePassword(paymentInfo.getCvv()));
+        paymentInfo.setCvv(null);
         user.getPaymentCards().add(paymentInfo);
         paymentInfoRepository.save(paymentInfo);
     } // addPaymentCard
