@@ -58,7 +58,7 @@ public class UserService {
             user.setBillingAddress(billingAddress); 
         } // if
         if ( paymentCard!=null) {
-            user.setPaymentCard(paymentCard);
+            user.getPaymentCards().set(0, paymentCard);
         } // if        
         user.setPromotionStatus(promotionStatus);
         return userRepository.save(user);
