@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.security.sasl.AuthenticationException;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +47,7 @@ public class UserController {
     } // createUser
 
     @PutMapping("/verify-email/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) throws Exception {
+    public ResponseEntity<User> verifyEmail(@PathVariable Long id, @RequestBody User user) throws Exception {
         if (user == null) {
             throw new Exception("User not found");
         } else {
@@ -64,7 +65,19 @@ public class UserController {
     public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestBody User newUser) {
         User oldUser = userService.getUserById(id);
         return ResponseEntity.ok(userService.changePassword(oldUser, newUser));
-    } //changePassword
+    } // changePassword
+
+    @PutMapping("/editProfile/{id}") 
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User newUser) throws Exception{
+        User oldUser = userService.getUserById(id);
+        if (oldUser == null) {
+            throw new Exception("User with id " + id + " not found");
+        } else if (newUser == null) {
+            throw new Exception("User not found: Invalid Request Body");
+        } else {
+            return ResponseEntity.ok(userService.updateUser(oldUser, newUser));
+        }
+    } // updateUser
 
     @GetMapping("/delete/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {

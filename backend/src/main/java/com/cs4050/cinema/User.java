@@ -63,4 +63,12 @@ public class User {
     @OneToOne
     @JoinColumn(name="addressId")
     private Address billingAddress;
+
+    public boolean getPromotionStatus() {
+        return this.promotionStatus;
+    } // getPromotionStatus
+
+    public void setPromotionStatus(boolean status) {
+        this.promotionStatus = status;
+    } // setPromotionStatus
 } // User

@@ -46,22 +46,26 @@ public class UserService {
         return userRepository.save(user);
     } // getUserById
 
-    public User updateUser(Long id, User user, String firstName, String lastName,
-    PaymentInfo paymentCard, Address billingAddress, boolean promotionStatus) {
-        if (firstName != null) {
-            user.setFirstName(firstName);
+    public User updateUser(User oldUser, User newUser) {
+        if (!oldUser.getFirstName().equals(newUser.getFirstName()) && newUser.getFirstName() != null) {
+            oldUser.setFirstName(newUser.getFirstName());
         } // if
-        if (lastName != null) {
-            user.setLastName(lastName);
+        if (!oldUser.getLastName().equals(newUser.getLastName()) && newUser.getLastName() != null) {
+            oldUser.setLastName(newUser.getLastName());
         } // if
-        if (billingAddress !=null) {
-            user.setBillingAddress(billingAddress); 
+        if (oldUser.getPromotionStatus() != newUser.getPromotionStatus()) {
+            oldUser.setPromotionStatus(newUser.getPromotionStatus());
         } // if
-        if ( paymentCard!=null) {
-            user.getPaymentCards().set(0, paymentCard);
-        } // if        
-        user.setPromotionStatus(promotionStatus);
-        return userRepository.save(user);
+        if (!oldUser.getPhone().equals(newUser.getPhone()) && newUser.getPhone() != null) {
+            oldUser.setPhone(newUser.getPhone());
+        } // if
+        if (!oldUser.getPaymentCards().equals(newUser.getPaymentCards()) && !newUser.getPaymentCards().isEmpty()) {
+            oldUser.setPaymentCards(newUser.getPaymentCards());
+        } // if
+        if (oldUser.getBillingAddress().getAddressId() != newUser.getBillingAddress().getAddressId()) {
+            oldUser.setBillingAddress(newUser.getBillingAddress());
+        } // if
+        return userRepository.save(oldUser);
     } // updateUser
 
     public User changePassword(User oldUser, User newUser) {
