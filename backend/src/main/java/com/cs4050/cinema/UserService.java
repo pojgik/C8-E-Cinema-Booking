@@ -117,6 +117,7 @@ public class UserService {
         paymentInfo.setEncryptedCvv(encodePassword(paymentInfo.getCvv()));
         paymentInfo.setCvv(null);
         user.getPaymentCards().add(paymentInfo);
+        paymentInfo.setUser(user);
         return paymentInfoRepository.save(paymentInfo);
     } // addPaymentCard
 
