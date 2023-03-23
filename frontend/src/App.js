@@ -82,6 +82,7 @@ function App() {
   const currentUser = null;
   const [user,setUser] = useState([]);
   const [address,setAddress] = useState([]);
+  
   useEffect(() => {
     console.log(sessionStorage.userId)
     fetch("http://localhost:8080/users/changePassword" + sessionStorage.userId,{
