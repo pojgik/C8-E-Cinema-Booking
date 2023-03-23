@@ -80,31 +80,33 @@ function App() {
     },
   ]);
   const currentUser = null;
-  const [user,setUser] = useState([]);
+  const [user,setUser] = useState();
   const [address,setAddress] = useState([]);
   
   useEffect(() => {
     console.log(sessionStorage.userId)
-    fetch("http://localhost:8080/users/changePassword" + sessionStorage.userId,{
-
+    if (sessionStorage.userId !== undefined) {
+    fetch("http://localhost:8080/users/getUser/" + sessionStorage.userId,{
     })
     .then(res=>res.json())
-    .then(data => {
-        console.log(data)
-        if (data.userType === "ADMIN") {
-          admin = true;
-          console.log("found admin")
-          console.log(admin)
-        }})
-   
-    console.log(admin)
-  },[])
+    .then(data => {setUser(data)})
+    }
+    },[])
+    
 
+  useEffect(() => {
+    if (sessionStorage.userId !== undefined) {
+
+    // console.log(user);
+    }
+  }, [user]);
+
+  console.log(user)
   return (
    
         <Router>
         <div className="App"> 
-        <NavBar currentUser/> 
+        <NavBar currentUser = {user}/> 
         <Routes>
         <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
             <Route path = '/login' element = {<Login/>}></Route>
@@ -119,6 +121,8 @@ function App() {
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
             <Route path='/login/reset' element = {<ForgotPassword></ForgotPassword>}></Route>
+            <Route path='/profile' element = {<EditProfile currentUser = {user}></EditProfile>}></Route>
+
         </Routes>
         <Footer/>
         </div>
