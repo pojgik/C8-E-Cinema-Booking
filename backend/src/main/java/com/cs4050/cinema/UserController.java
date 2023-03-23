@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin
 public class UserController {
 
     private final UserService userService;
@@ -36,6 +35,8 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         user.setVerificationCode(UserService.generateVerificationCode(8));
         User newUser = userService.createUser(user);
+
+        
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
         return ResponseEntity.ok(newUser);
@@ -64,8 +65,8 @@ public class UserController {
     } // getUserById
 
     @PutMapping("/editProfile/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        User updatedUser = userService.updateUser(id, user);
+    public ResponseEntity<User> updateUser(@PathVariable String email) {
+        User updatedUser = userService.updateUser(email);
         return ResponseEntity.ok(updatedUser);
     } // updateUser
 
