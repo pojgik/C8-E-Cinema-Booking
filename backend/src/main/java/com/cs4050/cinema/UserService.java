@@ -67,8 +67,9 @@ public class UserService {
             return false;
         } // if
 
-        return user.getPassword().equals(encodePassword(password));
+        return BCrypt.checkpw(password, user.getPassword());
     } // authenticate
+
 
     public static String generateVerificationCode(int length) {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
