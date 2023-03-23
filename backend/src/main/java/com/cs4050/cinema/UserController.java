@@ -46,18 +46,12 @@ public class UserController {
         return ResponseEntity.ok(newUser);
     } // createUser
 
-    @PostMapping("/verify-email")
-    public ResponseEntity<String> verifyEmail(@RequestParam String email, @RequestParam String code) {
-        User user = userService.getUserByEmail(email);
+    @PutMapping("/verify-email/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) throws Exception {
         if (user == null) {
-            System.out.println("User not found for email: " + email);
-            return ResponseEntity.badRequest().body("User not found");
-        } else if (!user.getVerificationCode().equals(code)) {
-            System.out.println("Invalid verification code for email: " + email);
-            return ResponseEntity.badRequest().body("Invalid verification code");
+            throw new Exception("User not found");
         } else {
-            userService.verifyUser(user);
-            return ResponseEntity.ok("Email verified successfully");
+            return ResponseEntity.ok(userService.verifyUser(user));
         } // if
     } // ResponseEntity
 
@@ -74,9 +68,8 @@ public class UserController {
     //     // , firstName, lastName,verficationCode,customerStatus
     // } // updateUser
     @PutMapping("/editProfile/{id}")
-
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName,
-     @RequestParam(required = false) PaymentInfo paymentCard, @RequestParam(required = false) Address billingAddress, @RequestParam boolean promotionStatus) {
+     @RequestParam(required = false) PaymentInfo paymentCard, @RequestParam(required = false) Address billingAddress, @RequestParam(required=false) boolean promotionStatus) {
         User user = userService.getUserById(id);
         return ResponseEntity.ok(userService.updateUser(id, user, firstName, lastName, paymentCard, billingAddress, promotionStatus));
     } // updateUser
