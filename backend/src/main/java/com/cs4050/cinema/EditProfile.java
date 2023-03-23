@@ -28,11 +28,11 @@ public class EditProfile {
          userService.save(user);
     } //editUser
 
-    public void changePassword(@PathVariable String oldPassword, @PathVariable String newPassword) {
-        if (user.getPassword().equals(userService.encoder(oldPassword)))     //checks password
-          user.setPassword(userService.encoder(newPassword));                // sets password and encodes it
-        userService.save(user);
-    }
+    // public void changePassword(@PathVariable String oldPassword, @PathVariable String newPassword) {
+    //     if (user.getPassword().equals(userService.encoder(oldPassword)))     //checks password
+    //       user.setPassword(userService.encoder(newPassword));                // sets password and encodes it
+    //     userService.save(user);
+    // }
        
 
     

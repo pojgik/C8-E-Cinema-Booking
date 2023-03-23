@@ -114,11 +114,11 @@ const Registration = (props) => {
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = "Email Adress" type="email" name = 'email'required />
                     </ul>
                     <ul>
-                    <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder='Password' type="password" name = 'pass'required />
-                    </ul>
-                    <ul>
                     <input value = {true} onChange = {(e)=>setPromo(e.target.value)}  className='reg-field' type="checkbox" name = 'promo'></input>
                     <label className='reg-field'>Recieve Promotions?</label>
+                    </ul>
+                    <ul>
+                    <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder='Password' type="password" name = 'pass'required />
                     </ul>
                     <ul>
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = "Confirm Password" type="password" name = 'pass-conf'required/>

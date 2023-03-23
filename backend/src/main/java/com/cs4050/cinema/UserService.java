@@ -6,6 +6,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 
+import javax.naming.AuthenticationException;
+
 @Service
 public class UserService {
     
@@ -52,15 +54,22 @@ public class UserService {
         userRepository.deleteById(id);
     } // deleteUser
 
-    public boolean authenticate(String email, String password) {
+    public boolean authenticate(String email, String password) throws AuthenticationException{
         User user = userRepository.findByEmail(email);
 
         if (user == null) {
-            return false;
+            throw new AuthenticationException("Invalid email");
+            //return false;
         } // if
-
-        return passwordEncoder.matches(password, user.getPassword());
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new AuthenticationException("invalid password" + user.getPassword());
+        }
+        System.out.println(user.getPassword());
+        return passwordEncoder.matches(passwordEncoder.encode(password), user.getPassword());
     } // authenticate
+
+
+
 
     public static String generateVerificationCode(int length) {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -78,9 +87,6 @@ public class UserService {
         save(user);
     } // verifyUser
     
-    public String encoder(String str) {
-        return passwordEncoder.encode(str);
-    }
     public void save(User user) {
         userRepository.save(user);
     } // save
