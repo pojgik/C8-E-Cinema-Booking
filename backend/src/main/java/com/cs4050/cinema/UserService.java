@@ -66,10 +66,11 @@ public class UserService {
 
     public User changePassword(Long id, User user, String oldPassword, String newPassword) {
         
-        if (user.getPassword().equals(passwordEncoder.encode(oldPassword)))     //checks password
-          user.setPassword(passwordEncoder.encode(newPassword));                // sets password and encodes it
+        if (BCrypt.checkpw(oldPassword, user.getPassword()))     //checks password
+          user.setPassword(encodePassword(newPassword));                // sets password and encodes it
         return userRepository.save(user);
-    }
+    } // changePassword
+
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     } // deleteUser

@@ -77,7 +77,7 @@ public class UserController {
     } // updateUser
 
     @PutMapping("/changePassword/{id}")
-    public ResponseEntity<User> changePassword((@PathVariable Long id, @RequestParam String oldPassword, @RequestParam String newPassword) {
+    public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestParam String oldPassword, @RequestParam String newPassword) {
         User user = userService.getUserById(id);
         return ResponseEntity.ok(userService.changePassword(id, user, newPassword, oldPassword));
     } //changePassword
