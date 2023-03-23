@@ -78,26 +78,36 @@ function App() {
   ])
   const [users,setUsers] = useState([]);
   const [address,setAddress] = useState([]);
-  
+  const currentUser = null;
   useEffect(() => {
     const _id = sessionStorage.userId;
     console.log("hello");
     console.log(_id);
     if (_id !== undefined) {
     console.log("not null")
-    fetch("http://localhost:8080/users/getUser/" + _id,{
+    fetch("http://localhost:8080/users/getUser/67",{
       method:"GET",
-      mode:"no-cors",
+      mode:"cors",
       headers: {
           "Content-Type":"application/json",
           "Accept":"application/json"
       }
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
+    .then(res => {
+        res.json()
+        console.log(res)
+    })
+    .then(data => 
+        {
+            console.log(data)
+            data.json();
+            currentUser = data;
+            console.log(data)
+        })
+    
     .catch(error => console.error(error))
       }
-
+      console.log((currentUser))
   },[sessionStorage])
 
   return (

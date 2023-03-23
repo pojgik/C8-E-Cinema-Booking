@@ -73,7 +73,7 @@ const Registration = (props) => {
                 promotionStatus:promo,
                 phone:phoneNumber
             };
-            // console.log(myUser)
+            console.log(myUser)
             fetch("http://localhost:8080/users/register",{
                 method: "POST",
                 mode:"cors",
