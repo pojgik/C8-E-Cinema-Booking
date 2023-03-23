@@ -43,8 +43,13 @@ public class UserService {
         return userRepository.save(user);
     } // getUserById
 
-    public User updateUser(Long id, @PathVariable String firstName, @PathVariable String lastName) {
-        
+    public User updateUser(Long id, User user, String firstName, String lastName) {
+        if (firstName != null) {
+            user.setFirstName(firstName);
+        } // if
+        if (lastName != null) {
+            user.setLastName(lastName);
+        } // if
         return userRepository.save(user);
     } // updateUser
 
