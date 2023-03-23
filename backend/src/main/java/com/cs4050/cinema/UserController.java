@@ -30,7 +30,7 @@ public class UserController {
     } // UserController
 
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User user, @RequestBody(required = false) PaymentInfo paymentInfo, @RequestBody Address address) {
+    public ResponseEntity<User> createUser(@RequestBody User user, @RequestBody(required = false) PaymentInfo paymentInfo, @RequestBody(required=false) Address address) {
         user.setVerificationCode(UserService.generateVerificationCode(8));
         User newUser = userService.createUser(user);
 
@@ -49,7 +49,6 @@ public class UserController {
     @PostMapping("/verify-email")
     public ResponseEntity<String> verifyEmail(@RequestParam String email, @RequestParam String code) {
         User user = userService.getUserByEmail(email);
-        System.out.println("email is: " + email);
         if (user == null) {
             System.out.println("User not found for email: " + email);
             return ResponseEntity.badRequest().body("User not found");
