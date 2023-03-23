@@ -21,9 +21,12 @@ import OrderSummary from './Components/Forms/OrderSummary';
 import OrderConfirmation from './Components/Forms/OrderConfirmation';
 import Footer from './Components/Footer';
 import Search from './Components/Forms/Search';
+import ForgotPassword from './Components/Forms/ForgotPassword';
 
 
 function App() {
+
+
   const [WickCards] = useState([
     {
         title: "movie-1",
@@ -76,50 +79,32 @@ function App() {
         link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
   ])
-  const [users,setUsers] = useState([]);
+  const [user,setUser] = useState([]);
   const [address,setAddress] = useState([]);
-  const currentUser = null;
+  
+
   useEffect(() => {
-    const _id = sessionStorage.userId;
-    console.log("hello");
-    console.log(_id);
-    if (_id !== undefined) {
-    console.log("not null")
-    fetch("http://localhost:8080/users/getUser/67",{
-      method:"GET",
-      mode:"cors",
-      headers: {
-          "Content-Type":"application/json",
-          "Accept":"application/json"
-      }
+    console.log(sessionStorage.userId)
+    fetch("http://localhost:8080/users/getUser/"+sessionStorage.userId,{
+
     })
-    .then(res => {
-        res.json()
-        console.log(res)
+    .then(res=>res.json())
+    .then(data => {
+        setUser(data);
     })
-    .then(data => 
-        {
-            console.log(data)
-            data.json();
-            currentUser = data;
-            console.log(data)
-        })
-    
-    .catch(error => console.error(error))
-      }
-      console.log((currentUser))
-  },[sessionStorage])
+    console.log(user)
+  },[])
 
   return (
    
         <Router>
         <div className="App"> 
-        <NavBar/> 
+        <NavBar currentUser/> 
         <Routes>
         <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
             <Route path = '/login' element = {<Login/>}></Route>
             <Route path = '/search' element = {<Search/>}></Route>
-            <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} addresses = {address} users = {users}/>}></Route>
+            <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} addresses = {address}/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
             <Route path = "/update-movie" element = {<UpdateMovie/>}></Route>
             <Route path = "/add-payment" element = {<AddPayment/>}></Route>
@@ -128,6 +113,8 @@ function App() {
             <Route path='/reg-conf' element = {<RegConf/>}></Route>
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
+            <Route path='/login/reset' element = {<ForgotPassword></ForgotPassword>}></Route>
+
         </Routes>
         <Footer/>
         </div>
