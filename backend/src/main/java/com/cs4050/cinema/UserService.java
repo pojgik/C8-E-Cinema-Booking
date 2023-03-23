@@ -12,9 +12,11 @@ import javax.naming.AuthenticationException;
 public class UserService {
     
     private final UserRepository userRepository;
+    private final PaymentInfoRepository paymentInfoRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+        this.paymentInfoRepository = paymentInfoRepository;
     } // UserService
 
     public List<User> getAllUsers() {
@@ -89,6 +91,11 @@ public class UserService {
         user.setVerificationCode(null);
         save(user);
     } // verifyUser
+
+    public void addPaymentCard(User user, PaymentInfo paymentInfo) {
+        user.getPaymentCards().add(paymentInfo);
+        paymentInfoRepository.save(paymentInfo);
+    } // addPaymentCard
     
     public void save(User user) {
         userRepository.save(user);

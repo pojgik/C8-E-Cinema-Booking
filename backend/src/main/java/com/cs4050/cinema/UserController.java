@@ -30,13 +30,13 @@ public class UserController {
     } // UserController
 
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User user, @RequestBody(required = false) PaymentInfo paymentInfo) {
+    public ResponseEntity<User> createUser(@RequestBody User user, @RequestBody(required = false) PaymentInfo paymentInfo, @RequestBody Address address) {
         user.setVerificationCode(UserService.generateVerificationCode(8));
         User newUser = userService.createUser(user);
 
-        // if (paymentInfo != null) {
-        //     userService.addPaymentCard(newUser, paymentInfo);
-        // } // if
+        if (paymentInfo != null) {
+            userService.addPaymentCard(newUser, paymentInfo);
+        } // if
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
         return ResponseEntity.ok(newUser);
