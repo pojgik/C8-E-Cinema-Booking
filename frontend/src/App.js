@@ -78,14 +78,13 @@ function App() {
         title: "movie-12",
         link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
-  ])
+  ]);
+  const currentUser = null;
   const [user,setUser] = useState([]);
   const [address,setAddress] = useState([]);
-  
-
   useEffect(() => {
     console.log(sessionStorage.userId)
-    fetch("http://localhost:8080/users/getUser/"+sessionStorage.userId,{
+    fetch("http://localhost:8080/users/changePassword" + sessionStorage.userId,{
 
     })
     .then(res=>res.json())
@@ -104,7 +103,7 @@ function App() {
         <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
             <Route path = '/login' element = {<Login/>}></Route>
             <Route path = '/search' element = {<Search/>}></Route>
-            <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} addresses = {address}/>}></Route>
+            <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} addresses = {address} users = {user}/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
             <Route path = "/update-movie" element = {<UpdateMovie/>}></Route>
             <Route path = "/add-payment" element = {<AddPayment/>}></Route>
@@ -114,7 +113,6 @@ function App() {
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
             <Route path='/login/reset' element = {<ForgotPassword></ForgotPassword>}></Route>
-
         </Routes>
         <Footer/>
         </div>
