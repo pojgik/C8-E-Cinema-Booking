@@ -41,7 +41,7 @@ const ForgotPassword = () => {
             console.log(user)
             user.password = resetPassword;
             console.log(user)
-            fetch("http://localhost:8080/users/editProfile/" + user.userId, {
+            fetch("http://localhost:8080/users/changePassword/" + user.userId, {
                 method: "PUT",
                 headers: {
                     "Accept" : "application/json",
