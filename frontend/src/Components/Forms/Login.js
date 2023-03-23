@@ -16,7 +16,7 @@ const Login = () => {
         console.log(loginPass)
         const loginUser = {
             email: loginEmail,
-            password: loginEmail
+            password: loginPass
         }
         
         fetch("http://localhost:8080/users/login",{

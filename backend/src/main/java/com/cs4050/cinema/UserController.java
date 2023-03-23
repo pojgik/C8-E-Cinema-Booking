@@ -24,12 +24,9 @@ public class UserController {
 
     private final EmailService emailService;
 
-    private final LoginRequest loginRequest;
-
     public UserController(UserService userService, EmailService emailService, LoginRequest loginRequest) {
         this.userService = userService;
         this.emailService = emailService;
-        this.loginRequest = loginRequest;
     } // UserController
 
     @PostMapping("/register")

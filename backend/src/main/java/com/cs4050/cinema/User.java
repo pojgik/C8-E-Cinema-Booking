@@ -56,9 +56,6 @@ public class User {
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    @Column(name = "phoneNumber", nullable = false) 
-    private String phoneNumber;
-
     //@OneToMany
     //@JoinColumn(name="paymentId") 
     //private List<PaymentInfo> paymentCards;
