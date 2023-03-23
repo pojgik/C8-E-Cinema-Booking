@@ -3,7 +3,7 @@ import './App.css';
 import NavBar from './Components/NavBar';
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import CardPane from './Components/CardPane';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ManageMovies from './Components/ManageMovies';
 import ManagePromotions from './Components/ManagePromotions';
 import AddMovie from './Components/Forms/AddMovie'
@@ -78,6 +78,27 @@ function App() {
   ])
   const [users,setUsers] = useState([]);
   const [address,setAddress] = useState([]);
+  
+  useEffect(() => {
+    const _id = sessionStorage.userId;
+    console.log("hello");
+    console.log(_id);
+    if (_id !== undefined) {
+    console.log("not null")
+    fetch("http://localhost:8080/users/getUser/" + _id,{
+      method:"GET",
+      mode:"no-cors",
+      headers: {
+          "Content-Type":"application/json",
+          "Accept":"application/json"
+      }
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error))
+      }
+
+  },[sessionStorage])
 
   return (
    

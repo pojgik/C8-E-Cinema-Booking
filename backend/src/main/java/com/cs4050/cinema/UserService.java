@@ -42,13 +42,20 @@ public class UserService {
         return userRepository.save(user);
     } // getUserById
 
-    public User updateUser(Long id, User user, String firstName, String lastName) {
-        if (firstName != null) {
-            user.setFirstName(firstName);
-        } // if
-        if (lastName != null) {
-            user.setLastName(lastName);
-        } // if
+    // public User updateUser(Long id, User user, String firstName, String lastName, String verificationCode, CustomerStatus customerStatus) {
+    //     if (firstName != null) {
+    //         user.setFirstName(firstName);
+    //     } // if
+    //     if (lastName != null) {
+    //         user.setLastName(lastName);
+    //     } // if
+    //     if (verificationCode != null) {
+    //         user.setVerificationCode(verificationCode);
+    //     }
+    //     return userRepository.save(user);
+    // } // updateUser
+    public User updateUser(Long id, User user) {
+        // Implement updateUser logic here
         return userRepository.save(user);
     } // updateUser
 
@@ -93,5 +100,6 @@ public class UserService {
     public void save(User user) {
         userRepository.save(user);
     } // save
+
 
 } // UserService

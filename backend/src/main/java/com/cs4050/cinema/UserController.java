@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
     private final UserService userService;
@@ -62,10 +62,16 @@ public class UserController {
         return ResponseEntity.ok(user);
     } // getUserById
 
+    // @PutMapping("/editProfile/{id}")
+    // public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestParam(required    = false) String firstName, @RequestParam(required = false) String lastName,@RequestParam(required = false) String verficationCode,@RequestParam(required = false) CustomerStatus customerStatus) {
+    //     User user = userService.getUserById(id);
+    //     return ResponseEntity.ok(userService.updateUser(id, user));
+    //     // , firstName, lastName,verficationCode,customerStatus
+    // } // updateUser
     @PutMapping("/editProfile/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestParam(required    = false) String firstName, @RequestParam(required = false) String lastName) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(userService.updateUser(id, user, firstName, lastName));
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User updatedUser = userService.updateUser(id, user);
+        return ResponseEntity.ok(updatedUser);
     } // updateUser
 
     @GetMapping("/delete/{id}")
