@@ -68,7 +68,7 @@ public class UserController {
     } // changePassword
 
     @PutMapping("/editProfile/{id}") 
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User newUser) throws Exception{
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User newUser) throws Exception{
         User oldUser = userService.getUserById(id);
         if (oldUser == null) {
             throw new Exception("User with id " + id + " not found");
@@ -76,7 +76,8 @@ public class UserController {
             throw new Exception("User not found: Invalid Request Body");
         } else {
             emailService.sendEmail(oldUser.getEmail(), "Updated Profile", "Dear user, your profile has been updated.");
-            return ResponseEntity.ok(userService.updateUser(oldUser, newUser));
+            userService.updateUser(oldUser, newUser);
+            return ResponseEntity.ok("Successfully edited profile");
         }
     } // updateUser
 
@@ -110,9 +111,10 @@ public class UserController {
     } // login
 
     @PutMapping("/addPaymentInfo/{id}")
-    public ResponseEntity<PaymentInfo> addPaymentInfo(@PathVariable Long id, @RequestBody PaymentInfo paymentCard) {
+    public ResponseEntity<String> addPaymentInfo(@PathVariable Long id, @RequestBody PaymentInfo paymentCard) {
         User user = userService.getUserById(id);
-        return ResponseEntity.ok(userService.addPaymentCard(user, paymentCard));
+        userService.addPaymentCard(user, paymentCard);
+        return ResponseEntity.ok("Successfully added paymentCard");
     } // paymentInfo
 
     @PutMapping("/addBillingAddress/{id}") 

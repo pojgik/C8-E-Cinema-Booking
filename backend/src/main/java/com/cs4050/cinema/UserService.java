@@ -59,12 +59,12 @@ public class UserService {
         if (!oldUser.getPhone().equals(newUser.getPhone()) && newUser.getPhone() != null) {
             oldUser.setPhone(newUser.getPhone());
         } // if
-        if (!oldUser.getPaymentCards().equals(newUser.getPaymentCards()) && newUser.getPaymentCards() != null && !newUser.getPaymentCards().isEmpty() ) {
-            oldUser.setPaymentCards(newUser.getPaymentCards());
-        } // if
-        if (oldUser.getBillingAddress().getAddressId() != newUser.getBillingAddress().getAddressId()) {
-            oldUser.setBillingAddress(newUser.getBillingAddress());
-        } // if
+        // if (!oldUser.getPaymentCards().equals(newUser.getPaymentCards()) && newUser.getPaymentCards() != null && !newUser.getPaymentCards().isEmpty() ) {
+        //     oldUser.setPaymentCards(newUser.getPaymentCards());
+        // } // if
+        // if (oldUser.getBillingAddress().getAddressId() != newUser.getBillingAddress().getAddressId()) {
+        //     oldUser.setBillingAddress(newUser.getBillingAddress());
+        // } // if
         return userRepository.save(oldUser);
     } // updateUser
 
