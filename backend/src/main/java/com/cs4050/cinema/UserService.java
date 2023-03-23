@@ -2,7 +2,7 @@ package com.cs4050.cinema;
 
 import java.util.List;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 
@@ -11,11 +11,8 @@ public class UserService {
     
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     } // UserService
 
     public List<User> getAllUsers() {
@@ -39,18 +36,29 @@ public class UserService {
             throw new IllegalArgumentException("User with that email already exists.");
         } // if
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(encodePassword(user.getPassword()));
         return userRepository.save(user);
     } // getUserById
 
-    public User updateUser(Long id, User user) {
-        // Implement updateUser logic here
+    public User updateUser(Long id, User user, String firstName, String lastName) {
+        if (firstName != null) {
+            user.setFirstName(firstName);
+        } // if
+        if (lastName != null) {
+            user.setLastName(lastName);
+        } // if
         return userRepository.save(user);
     } // updateUser
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     } // deleteUser
+
+    public String encodePassword(String password) {
+        String salt = BCrypt.gensalt(10);
+        String encrypted = BCrypt.hashpw(password, salt);
+        return encrypted;
+    }
 
     public boolean authenticate(String email, String password) {
         User user = userRepository.findByEmail(email);
@@ -59,8 +67,9 @@ public class UserService {
             return false;
         } // if
 
-        return passwordEncoder.matches(password, user.getPassword());
+        return BCrypt.checkpw(password, user.getPassword());
     } // authenticate
+
 
     public static String generateVerificationCode(int length) {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -78,9 +87,6 @@ public class UserService {
         save(user);
     } // verifyUser
     
-    public String encoder(String str) {
-        return passwordEncoder.encode(str);
-    }
     public void save(User user) {
         userRepository.save(user);
     } // save
