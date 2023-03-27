@@ -1,9 +1,11 @@
 package com.cs4050.cinema;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.security.sasl.AuthenticationException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class UserController {
     } // UserController
 
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody CreateUserRequest request) {
+    public HttpStatus createUser(@RequestBody UserRequest request) {
         User user = request.getUser();
         PaymentInfo paymentInfo = request.getPaymentInfo();
         Address address = request.getAddress();
@@ -47,7 +49,7 @@ public class UserController {
 
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
-        return ResponseEntity.ok(newUser);
+        return HttpStatus.CREATED;
     } // createUser
 
     // Currently the user is being found in the frontend, which should not be the case
@@ -67,22 +69,28 @@ public class UserController {
     } // getUserById
 
     @PutMapping("/changePassword/{id}")
-    public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestBody User newUser) {
+    public HttpStatus changePassword(@PathVariable Long id, @RequestBody User newUser) {
         User oldUser = userService.getUserById(id);
-        return ResponseEntity.ok(userService.changePassword(oldUser, newUser));
+        userService.changePassword(oldUser, newUser);
+        return HttpStatus.OK;
     } // changePassword
 
     @PutMapping("/editProfile/{id}") 
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User newUser) throws Exception{
+    public HttpStatus updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
         User oldUser = userService.getUserById(id);
+        User newUser = request.getUser();
+        PaymentInfo paymentInfo = request.getPaymentInfo();
+        Address billingAddress = request.getAddress();
+
         if (oldUser == null) {
-            throw new Exception("User with id " + id + " not found");
+            return HttpStatus.NOT_FOUND;
         } else if (newUser == null) {
-            throw new Exception("User not found: Invalid Request Body");
+            return HttpStatus.BAD_REQUEST;
         } else {
+            userService.updateUser(oldUser, newUser, paymentInfo, billingAddress);
             emailService.sendEmail(oldUser.getEmail(), "Updated Profile", "Dear user, your profile has been updated.");
-            return ResponseEntity.ok(userService.updateUser(oldUser, newUser));
-        }
+            return HttpStatus.OK;
+        } // if
     } // updateUser
 
     @GetMapping("/delete/{id}")
@@ -98,11 +106,15 @@ public class UserController {
     } // getAllUsers
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) throws Exception {
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) throws AuthenticationException {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
-
-        User user = userService.getUserByEmail(email);
+        User user;
+        try {
+            user = userService.getUserByEmail(email);
+        } catch (NoSuchElementException NEE) {
+            return ResponseEntity.badRequest().build();
+        } // try
         if (user == null) {
             throw new AuthenticationException("User with email " + email + " not found");
         } // if

@@ -2,8 +2,11 @@ package com.cs4050.cinema;
 
 import java.util.List;
 
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+
+
 import java.util.NoSuchElementException;
 
 import javax.security.sasl.AuthenticationException;
@@ -29,11 +32,11 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
     } // getUserById
 
-    public User getUserByEmail(String email) throws Exception {
+    public User getUserByEmail(String email) throws NoSuchElementException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new Exception("User with email " + email + " not found");
-        }
+            throw new NoSuchElementException("User with email " + email + " not found");
+        } // if
         return user;
     } // getUserByEmail
 
@@ -46,25 +49,32 @@ public class UserService {
         return userRepository.save(user);
     } // getUserById
 
-    public User updateUser(User oldUser, User newUser) {
+    public User updateUser(User oldUser, User newUser, PaymentInfo paymentInfo, Address address) {
         if (!oldUser.getFirstName().equals(newUser.getFirstName()) && newUser.getFirstName() != null) {
             oldUser.setFirstName(newUser.getFirstName());
         } // if
+
         if (!oldUser.getLastName().equals(newUser.getLastName()) && newUser.getLastName() != null) {
             oldUser.setLastName(newUser.getLastName());
         } // if
+
         if (oldUser.getPromotionStatus() != newUser.getPromotionStatus()) {
             oldUser.setPromotionStatus(newUser.getPromotionStatus());
         } // if
+
         if (!oldUser.getPhone().equals(newUser.getPhone()) && newUser.getPhone() != null) {
             oldUser.setPhone(newUser.getPhone());
         } // if
-        // if (!oldUser.getPaymentCards().equals(newUser.getPaymentCards()) && newUser.getPaymentCards() != null && !newUser.getPaymentCards().isEmpty() ) {
-        //     oldUser.setPaymentCards(newUser.getPaymentCards());
-        // } // if
-        // if (oldUser.getBillingAddress().getAddressId() != newUser.getBillingAddress().getAddressId()) {
-        //     oldUser.setBillingAddress(newUser.getBillingAddress());
-        // } // if
+
+        if (paymentInfo != null && !oldUser.getPaymentCards().get(0).equals(encryptPaymentInfo(paymentInfo))) {
+            oldUser.getPaymentCards().remove(0);
+            addPaymentCard(newUser, paymentInfo);
+        } // if
+        
+        if (address != null && !address.equals(oldUser.getBillingAddress())) {
+            addBillingAddress(oldUser, address);
+        } // if
+
         return userRepository.save(oldUser);
     } // updateUser
 
@@ -78,7 +88,7 @@ public class UserService {
     } // deleteUser
 
     public String encodePassword(String password) {
-        String salt = BCrypt.gensalt(10);
+        String salt = BCrypt.gensalt();
         String encrypted = BCrypt.hashpw(password, salt);
         return encrypted;
     }
@@ -112,10 +122,9 @@ public class UserService {
     } // verifyUser
 
     public PaymentInfo addPaymentCard(User user, PaymentInfo paymentInfo) {
-        paymentInfo.setEncryptedCardNumber(encodePassword(paymentInfo.getCardNumber()));
-        paymentInfo.setCardNumber(null);
-        paymentInfo.setEncryptedCvv(encodePassword(paymentInfo.getCvv()));
-        paymentInfo.setCvv(null);
+        if (paymentInfo.getCardNumber() != null || paymentInfo.getCvv() != null) {
+                paymentInfo = encryptPaymentInfo(paymentInfo);
+        } // if
         user.getPaymentCards().add(paymentInfo);
         paymentInfo.setUser(user);
         return paymentInfoRepository.save(paymentInfo);
@@ -123,9 +132,26 @@ public class UserService {
 
     public Address addBillingAddress(User user, Address billingAddress) {
         user.setBillingAddress(billingAddress);
+        userRepository.save(user);
         return billingAddressRepository.save(billingAddress);
-    }
-    
+    } // addBillingAddress
+
+    private PaymentInfo encryptPaymentInfo(PaymentInfo paymentInfo) {
+        BasicTextEncryptor encryptor = new BasicTextEncryptor();
+        encryptor.setPassword("MyKey");
+
+        String encryptedCardNumber = encryptor.encrypt(paymentInfo.getCardNumber());
+        String encryptedCvv = encryptor.encrypt(paymentInfo.getCvv());
+
+        paymentInfo.setEncryptedCardNumber(encryptedCardNumber);
+        paymentInfo.setEncryptedCvv(encryptedCvv);
+
+        paymentInfo.setCardNumber(null);
+        paymentInfo.setCvv(null);
+
+        return paymentInfo;
+    } // encryptPaymentInfo
+
     public void save(User user) {
         userRepository.save(user);
     } // save
