@@ -31,7 +31,6 @@ const Login = () => {
             })
             .then(res=> {
                 if (!res.ok) {
-                    throw new Error(res.status);
                     alert('Login failed, please try again') // Replace with better message
                 } else {
                     return res.json();
