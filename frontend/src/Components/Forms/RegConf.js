@@ -17,8 +17,15 @@ const RegConf = () => {
         }
     }
     const regSubmitHandler = (event) => {
+        /*
+        Currently, this searches every user looking for one with the verification code,
+        and then if one is found sends that user to be verified. This is redundant,
+        as this is what should be done in the backend. Instead, this should simply send a 
+        verify request with just the confirmation code that was put in. It does not need
+        to check users.
+        */
         event.preventDefault();
-        console.log(code)
+        // console.log(code)
         fetch("http://localhost:8080/users/getAllUsers",{
                 method: "GET",
                 mode:"cors",
@@ -68,7 +75,7 @@ const RegConf = () => {
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-conf" placeholder = "Confirmation Code"type="text" name = 'code' required/>
                     </ul>
                     <ul className='create-btn'>
-                    <button className = 'submit' type="subimt">Confirm</button>
+                    <button className = 'submit' type="submit">Confirm</button>
                     </ul>
                    
                 </form>

@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 
-import javax.naming.AuthenticationException;
+import javax.security.sasl.AuthenticationException;
 
 @Service
 public class UserService {
@@ -29,10 +29,10 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
     } // getUserById
 
-    public User getUserByEmail(String email) {
+    public User getUserByEmail(String email) throws Exception {
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            System.out.println("User not found for email: " + email);
+            throw new Exception("User with email " + email + " not found");
         }
         return user;
     } // getUserByEmail

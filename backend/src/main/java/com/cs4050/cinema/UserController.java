@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.security.sasl.AuthenticationException;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,13 +23,17 @@ public class UserController {
 
     private final EmailService emailService;
 
-    public UserController(UserService userService, EmailService emailService, LoginRequest loginRequest) {
+    public UserController(UserService userService, EmailService emailService) {
         this.userService = userService;
         this.emailService = emailService;
     } // UserController
 
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User user, @RequestBody(required = false) PaymentInfo paymentInfo, @RequestBody(required=false) Address address) {
+    public ResponseEntity<User> createUser(@RequestBody CreateUserRequest request) {
+        User user = request.getUser();
+        PaymentInfo paymentInfo = request.getPaymentInfo();
+        Address address = request.getAddress();
+
         user.setVerificationCode(UserService.generateVerificationCode(8));
         User newUser = userService.createUser(user);
 
@@ -41,11 +44,13 @@ public class UserController {
         if (address != null) {
             userService.addBillingAddress(newUser, address);
         } // if
+
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
         return ResponseEntity.ok(newUser);
     } // createUser
 
+    // Currently the user is being found in the frontend, which should not be the case
     @PutMapping("/verify-email/{id}")
     public ResponseEntity<User> verifyEmail(@PathVariable Long id, @RequestBody User user) throws Exception {
         if (user == null) {
@@ -93,7 +98,7 @@ public class UserController {
     } // getAllUsers
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) throws AuthenticationException, javax.naming.AuthenticationException {
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) throws Exception {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
 
@@ -105,7 +110,7 @@ public class UserController {
         if (userService.authenticate(email, password)) {
             return ResponseEntity.ok(user);
         } else {
-            throw new AuthenticationException("Authentication failure: Invalid email or password.");
+            throw new AuthenticationException("Incorrect password.");
         } // if
     } // login
 } // UserController
