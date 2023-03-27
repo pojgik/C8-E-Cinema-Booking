@@ -11,23 +11,32 @@ const EditProfile = (props) => {
     const [pass,setPass] = useState(thisUser.password);
     if (!props) {
     }
-    console.log(thisUser)
+    // console.log(thisUser)
+    // const fullName = thisUser.firstName.split(" ");
+    // console.log(fullName);
+    // const splitFirstName = fullName[0];
+    // const splitLastName = fullName[fullName.length-1];
     const editHandler = (event) => {
         console.log("subed")
         event.preventDefault();
-        // const editted = thisUser;
-        const editted = {firstName: userName,phone: number}
+        
+        const editted = {firstName:userName,lastName:userName, phone:number}
+        // thisUser.firstName =  userName
+        // thisUser.phone = number
         console.log(editted)
+        // console.log(editted)
         fetch("http://localhost:8080/users/editProfile/" + thisUser.userId, {
             method:"PUT",
             cors:"cors",
             headers: {
-                "Content-Type" : "application.json",
+                "Content-Type" : "application/json",
                 "Accept" : "application/json",
-                body: JSON.stringify(editted)
-            }
+            },
+            body: JSON.stringify(editted)
         })
-    }
+        .then(res=>res.json())
+        .then(data=>console.log(data))
+    }   
     return (
     <div className='create'>
     <h1 className='form-heading'>Edit your profile</h1>
@@ -36,7 +45,7 @@ const EditProfile = (props) => {
         <form  onSubmit = {editHandler}className="add">
             <ul>
             <label>Name:</label>
-            <input  onChange ={(e)=>setUserName(e.target.value)} className = "edit" type="text" id = 'name' name = 'name' placeholder={userName} required/>
+            <input  onChange ={(e)=>setUserName(e.target.value)} className = "edit" type="text" id = 'name' name = 'name' placeholder={userName}/>
             </ul>
             <ul>
             <label>Phone Number:</label>

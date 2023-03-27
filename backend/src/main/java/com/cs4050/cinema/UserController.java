@@ -51,7 +51,8 @@ public class UserController {
         if (user == null) {
             throw new Exception("User not found");
         } else {
-            return ResponseEntity.ok(userService.verifyUser(user));
+            User verifiedUser = userService.verifyUser(user);
+            return ResponseEntity.ok(verifiedUser);
         } // if
     } // ResponseEntity
 
@@ -68,16 +69,19 @@ public class UserController {
     } // changePassword
 
     @PutMapping("/editProfile/{id}") 
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User newUser) throws Exception{
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User newUser) throws Exception{
+        System.out.println("1");
         User oldUser = userService.getUserById(id);
         if (oldUser == null) {
+            System.out.println("1");
             throw new Exception("User with id " + id + " not found");
         } else if (newUser == null) {
+            System.out.println("1");
             throw new Exception("User not found: Invalid Request Body");
         } else {
+            System.out.println("HELLO");
             emailService.sendEmail(oldUser.getEmail(), "Updated Profile", "Dear user, your profile has been updated.");
-            userService.updateUser(oldUser, newUser);
-            return ResponseEntity.ok("Successfully edited profile");
+            return ResponseEntity.ok(userService.updateUser(oldUser, newUser));
         }
     } // updateUser
 
@@ -110,16 +114,16 @@ public class UserController {
         } // if
     } // login
 
-    @PutMapping("/addPaymentInfo/{id}")
-    public ResponseEntity<String> addPaymentInfo(@PathVariable Long id, @RequestBody PaymentInfo paymentCard) {
-        User user = userService.getUserById(id);
-        userService.addPaymentCard(user, paymentCard);
-        return ResponseEntity.ok("Successfully added paymentCard");
-    } // paymentInfo
+    // @PutMapping("/addPaymentInfo/{id}")
+    // public ResponseEntity<String> addPaymentInfo(@PathVariable Long id, @RequestBody PaymentInfo paymentCard) {
+    //     User user = userService.getUserById(id);
+    //     userService.addPaymentCard(user, paymentCard);
+    //     return ResponseEntity.ok("Successfully added paymentCard");
+    // } // paymentInfo
 
-    @PutMapping("/addBillingAddress/{id}") 
-    public ResponseEntity<Address> addAddress(@PathVariable Long id, @RequestBody Address billingAddress) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(userService.addBillingAddress(user, billingAddress));
-    } // billingAddress
+    // @PutMapping("/addBillingAddress/{id}") 
+    // public ResponseEntity<Address> addAddress(@PathVariable Long id, @RequestBody Address billingAddress) {
+    //     User user = userService.getUserById(id);
+    //     return ResponseEntity.ok(userService.addBillingAddress(user, billingAddress));
+    // } // billingAddress
 } // UserController

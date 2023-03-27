@@ -80,7 +80,7 @@ function App() {
     },
   ]);
   const currentUser = null;
-  const [user,setUser] = useState();
+  const [user,setUser] = useState(null);
   const [address,setAddress] = useState([]);
   
   useEffect(() => {

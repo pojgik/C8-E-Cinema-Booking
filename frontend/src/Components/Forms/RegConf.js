@@ -35,7 +35,8 @@ const RegConf = () => {
                 const updatedUser = user;
                 updatedUser.verificationCode = undefined;
                 updatedUser.customerStatus = 1;
-                if (user !== undefined) {
+                console.log(updatedUser)
+                if (updatedUser !== undefined) {
                     console.log("User Found from code")
                     fetch("http://localhost:8080/users/verify-email/" + user.userId, {
                         method: "PUT",
