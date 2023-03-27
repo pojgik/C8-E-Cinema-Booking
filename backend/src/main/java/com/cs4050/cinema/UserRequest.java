@@ -3,7 +3,7 @@ package com.cs4050.cinema;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateUserRequest {
+public class UserRequest {
     private User user;
     private PaymentInfo paymentInfo;
     private Address address;
