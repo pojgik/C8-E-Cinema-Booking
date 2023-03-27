@@ -89,11 +89,10 @@ const Registration = (props) => {
                     alert("User with that email already exists.")
                 }
                 else {
-                    alert("You have created an account!")
+                    navigate("/reg-conf");
                 }
                console.log(data);});
             }
-            navigate("/reg-conf");
     }
     
 

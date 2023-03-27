@@ -29,9 +29,15 @@ const Login = () => {
                 },
                 body: JSON.stringify(loginUser)
             })
-            .then(res=> res.json())
+            .then(res=> {
+                if (!res.ok) {
+                    throw new Error(res.status);
+                    alert('Login failed, please try again') // Replace with better message
+                } else {
+                    return res.json();
+                }})
             .then(data => {
-                alert('Successfully Logged In!')
+                // alert('Successfully Logged In!')
                 console.log(data)
                 sessionStorage.setItem("userId",data.userId)
                 // console.log(sessionStorage.userId)
