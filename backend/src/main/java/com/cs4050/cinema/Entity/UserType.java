@@ -1,4 +1,4 @@
-package com.cs4050.cinema;
+package com.cs4050.cinema.Entity;
 
 public enum UserType {
     ADMIN,

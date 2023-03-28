@@ -1,4 +1,4 @@
-package com.cs4050.cinema;
+package com.cs4050.cinema.Entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
