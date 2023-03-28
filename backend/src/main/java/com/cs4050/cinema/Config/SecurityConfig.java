@@ -1,4 +1,4 @@
-package com.cs4050.cinema;
+package com.cs4050.cinema.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
