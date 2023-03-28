@@ -1,71 +1,114 @@
 import './Form-Style/EditProfile.css'
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const EditProfile = (props) => {
-    const [thisUser,setThisUser] = useState(props.currentUser);
+
+    console.log(props.user)
+    const thisUser = props.user;
+
     // const thisUser = props.currentUser
     console.log(thisUser)
-    const [userName,setUserName] = useState(thisUser.firstName + " " + thisUser.lastName);
-    console.log(userName)
-    const [number,setNumber] = useState(thisUser.phone)
-    const [pass,setPass] = useState(thisUser.password);
-    if (!props) {
-    }
-    console.log(thisUser)
-    const editHandler = (event) => {
-        console.log("subed")
+    const [firstName,setFirstName] = useState(props.user.firstName);
+    const [lastName,setLastName] = useState(props.user.lastName);
+    const [email,setEmail] = useState(props.user.email);
+    const [phoneNumber,setPhoneNumber] = useState(props.user.phone);
+    const [password,setPassword] = useState(props.user.password);
+    const [passwordConf,setPasswordConf] = useState();
+    const [addresses,setAddresses] = useState(props.user.billingAddress);
+    const [payment,setPayment] = useState(props.user.paymentCards);
+    const[promo,setPromo] = useState(props.user.promotionStatus);
+
+
+    // handles input being put into each input box
+    const handleInputChange = (event) => {
         event.preventDefault();
-        // const editted = thisUser;
-        const editted = {firstName: userName,phone: number}
-        console.log(editted)
+        const {name,value} = event.target; 
+        if (name === "firstName") {
+            setFirstName(value);
+        }
+        if (name === "lastName") {
+            setLastName(value);
+        }
+        if (name === "phone") {
+            setPhoneNumber(value);
+        }
+        if (name === "promo") {
+            setPromo(value);
+        }
+        if (name === "pass") {
+            setPassword(value);
+        }
+        if (name === "pass-conf") {
+            setPasswordConf(value);
+        }
+    }
+
+    // submitition handler -- assigns a new User and checks for validations
+    const submitHandler = (event) => {
+        event.preventDefault();
+
+            const myUser = {
+                firstName: firstName,
+                lastName: lastName,
+                promotionStatus:promo,
+                phone:phoneNumber,
+            };
+            console.log(myUser)
+            
+    
         fetch("http://localhost:8080/users/editProfile/" + thisUser.userId, {
             method:"PUT",
             cors:"cors",
             headers: {
                 "Content-Type" : "application.json",
                 "Accept" : "application/json",
-                body: JSON.stringify(editted)
+                body: JSON.stringify(myUser)
             }
         })
+        .then(res=>res.json())
+        .then(data => console.log(data))
     }
     return (
-    <div className='create'>
-    <h1 className='form-heading'>Edit your profile</h1>
-    <div className="add-window">
-        
-        <form  onSubmit = {editHandler}className="add">
-            <ul>
-            <label>Name:</label>
-            <input  onChange ={(e)=>setUserName(e.target.value)} className = "edit" type="text" id = 'name' name = 'name' placeholder={userName} required/>
-            </ul>
-            <ul>
-            <label>Phone Number:</label>
-            <input  onChange ={(e)=>setNumber(e.target.value)}className = "edit" type="telephone" name = 'phone' pattern="[0-9]{10}" placeholder ={number}/>
-            </ul>
-            {/* <ul>
-            <label>Email Adress:</label>
-            <input className = "edit" placeholder = 'your email'type="email" name = 'email'/>
-            </ul> */}
-            <ul>
-                <input value = {true}  className='reg-field' type="checkbox" name = 'promo'></input>
-                <label className='reg-field'>Recieve Promotions?</label>
-                </ul>
-            <ul>
-            <label>Password:</label>
-            <input onChange ={(e)=>setPass(e.target.value)}className = "edit" placeholder = 'your password'type="password" name = 'pass'/>
-            </ul>
-            <ul>
-            <label>Confirm Password:</label>
-            <input className = "edit" placeholder = 'password again'type="password" name = 'pass-conf'/>
-            </ul>
-            <ul>
-            <button className = 'submit' type="subimt">Edit</button>
-            <a className='edit' href='#'>Add/Edit payment method</a>
-            <a className = "edit" href='#'>Add/Edit address</a>
-            </ul>
-        </form>
-    </div>
-    </div>
+     <div className='reg'>
+            <h1 className='form-heading'>Register an Account</h1>
+            <div className="add-window">    
+                <form onSubmit = {submitHandler} className="add" id = "registration-form">
+                    <div className="container">
+                    <div className="left">
+                        <ul>
+                        <input onChange = {(e)=>handleInputChange(e)}className = "reg-field" placeholder = {firstName} type="text" name = 'firstName' />
+                        </ul>
+                        <ul>
+                        <input onChange = {(e)=>handleInputChange(e)}className = "reg-field" placeholder = {lastName} type="text" name = 'lastName' />
+                        </ul>
+                        <ul>    
+                        <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = {phoneNumber} type="telephone" name = 'phone' pattern="[0-9]{10}" />
+                        </ul>
+                        <ul>
+                        <input className = "reg-field"  defaultValue = {email} type="email" name = 'email'  />
+                        </ul>
+                        </div>
+                    <div className="right">
+                    <ul>
+                    <label className='reg-field'>Recieve Promotions?</label>
+                    <input checked = {promo} onChange = {(e)=>{setPromo(!promo)
+                    console.log(promo)}}  className='reg-field' type="checkbox" name = 'promo'></input>
+                    </ul>
+                    <ul>
+                    <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder='Old Password' type="password" name = 'pass' />
+                    </ul>
+                    <ul>
+                    <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = "New Password" type="password" name = 'pass-conf'/>
+                    </ul>
+                    </div>
+                    <button className = 'submit ' type="subimt">Edit</button>
+                    </div>
+                    <Link to = "/add-payment" className='support frgt-pwrd reg-btn'>Add payment method</Link>
+                    <Link to = "/add-address"className='support frgt-pwrd reg-btn'>Add address</Link>
+                </form>
+            </div>
+        </div>
     )
 }
 
