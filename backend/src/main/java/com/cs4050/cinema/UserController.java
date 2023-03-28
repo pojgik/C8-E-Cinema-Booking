@@ -69,34 +69,38 @@ public class UserController {
     } // getUserById
 
     @PutMapping("/changePassword/{id}")
-    public HttpStatus changePassword(@PathVariable Long id, @RequestBody User newUser) {
-        User oldUser = userService.getUserById(id);
-        userService.changePassword(oldUser, newUser);
+    public HttpStatus changePassword(@PathVariable Long id, @RequestBody User updatedUser) {
+        User currentUser = userService.getUserById(id);
+        userService.changePassword(currentUser, updatedUser);
         return HttpStatus.OK;
     } // changePassword
 
     @PutMapping("/editProfile/{id}") 
     public HttpStatus updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
-        User oldUser = userService.getUserById(id);
-        User newUser = request.getUser();
+        User currentUser = userService.getUserById(id);
+        User updatedUser = request.getUser();
         PaymentInfo paymentInfo = request.getPaymentInfo();
         Address billingAddress = request.getAddress();
 
-        if (oldUser == null) {
+        if (currentUser == null) {
             return HttpStatus.NOT_FOUND;
-        } else if (newUser == null) {
+        } else if (updatedUser == null) {
             return HttpStatus.BAD_REQUEST;
         } else {
-            userService.updateUser(oldUser, newUser, paymentInfo, billingAddress);
-            emailService.sendEmail(oldUser.getEmail(), "Updated Profile", "Dear user, your profile has been updated.");
+            userService.updateUser(currentUser, updatedUser, paymentInfo, billingAddress);
+            emailService.sendEmail(currentUser.getEmail(), "Updated Profile", "Dear user, your profile has been updated.");
             return HttpStatus.OK;
         } // if
     } // updateUser
 
     @GetMapping("/delete/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.ok().build();
+    public HttpStatus deleteUser(@PathVariable Long id) {
+        if (userService.getUserById(id) != null) {
+            userService.deleteUser(id);
+            return HttpStatus.OK;
+        } else {
+            return HttpStatus.BAD_REQUEST;
+        } // if
     } // deleteUser
     
     @GetMapping("/getAllUsers")
