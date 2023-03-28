@@ -19,7 +19,8 @@ const Registration = (props) => {
 
     const navigate = useNavigate();
 
-    const [username,setUsername] = useState("");
+    const [firstName,setFirstName] = useState("");
+    const [lastName,setLastName] = useState("");
     const [email,setEmail] = useState("");
     const [phoneNumber,setPhoneNumber] = useState(null);
     const [password,setPassword] = useState("");
@@ -33,8 +34,11 @@ const Registration = (props) => {
     const handleInputChange = (event) => {
         event.preventDefault();
         const {name,value} = event.target; 
-        if (name === "name") {
-            setUsername(value);
+        if (name === "firstName") {
+            setFirstName(value);
+        }
+        if (name === "lastName") {
+            setLastName(value);
         }
         if (name === "phone") {
             setPhoneNumber(value);
@@ -60,18 +64,17 @@ const Registration = (props) => {
             alert("Passwords must match")
         }
         else {
-            const names = username.split(" ");
-            const firstname = names[0];
-            const lastname = names[names.length-1];
             const myUser = {
-                userType: 1,
-                customerStatus: 0,
-                firstName: firstname,
-                lastName:lastname,
+                firstName: firstName,
+                lastName: lastName,
                 email:email,
                 password:password,
+                userType: 1,
+                customerStatus: 0,
                 promotionStatus:promo,
-                phone:phoneNumber
+                phone:phoneNumber,
+                paymentCards: [],
+                billingAddress: null 
             };
             console.log(myUser)
             fetch("http://localhost:8080/users/register",{
@@ -94,25 +97,31 @@ const Registration = (props) => {
                console.log(data);});
             }
     }
-    
-
     return (       
          <div className='reg'>
             <h1 className='form-heading'>Register an Account</h1>
             <div className="add-window">    
-                <form onSubmit = {submitHandler} className="add" id = "registration-form" >
+                <form onSubmit = {submitHandler} className="add" id = "registration-form">
+                    <div className="container">
+                    <div className="left">
+                        <ul>
+                        <input onChange = {(e)=>handleInputChange(e)}className = "reg-field" placeholder = "First Name"type="text" name = 'firstName' required/>
+                        </ul>
+                        <ul>
+                        <input onChange = {(e)=>handleInputChange(e)}className = "reg-field" placeholder = "Last Name"type="text" name = 'lastName' required/>
+                        </ul>
+                        <ul>    
+                        <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = "Phone Number" type="telephone" name = 'phone' pattern="[0-9]{10}" required/>
+                        </ul>
+                        <ul>
+                        <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = "Email Adress" type="email" name = 'email'required />
+                        </ul>
+                        </div>
+                    <div className="right">
                     <ul>
-                    <input onChange = {(e)=>handleInputChange(e)}className = "reg-field" placeholder = "Name"type="text" name = 'name' required/>
-                    </ul>
-                    <ul>    
-                    <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = "Phone Number" type="telephone" name = 'phone' pattern="[0-9]{10}" required/>
-                    </ul>
-                    <ul>
-                    <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = "Email Adress" type="email" name = 'email'required />
-                    </ul>
-                    <ul>
-                    <input value = {true} onChange = {(e)=>setPromo(e.target.value)}  className='reg-field' type="checkbox" name = 'promo'></input>
                     <label className='reg-field'>Recieve Promotions?</label>
+                    <input checked = {promo} onChange = {(e)=>{setPromo(!promo)
+                    console.log(promo)}}  className='reg-field' type="checkbox" name = 'promo'></input>
                     </ul>
                     <ul>
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder='Password' type="password" name = 'pass'required />
@@ -120,13 +129,11 @@ const Registration = (props) => {
                     <ul>
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = "Confirm Password" type="password" name = 'pass-conf'required/>
                     </ul>
-                    <ul className='create-btn'>
-                    <button className = 'submit' type="subimt">Create</button>
-                    </ul>
-                    <ul className="frgt-pwrd reg-btn">
-                    <Link to = "/add-payment" className='support'>Add payment method</Link>
-                    <Link to = "/add-address"className='support'>Add address</Link>
-                    </ul>
+                    </div>
+                    <button className = 'submit ' type="subimt">Create</button>
+                    </div>
+                    <Link to = "/add-payment" className='support frgt-pwrd reg-btn'>Add payment method</Link>
+                    <Link to = "/add-address"className='support frgt-pwrd reg-btn'>Add address</Link>
                 </form>
             </div>
         </div>

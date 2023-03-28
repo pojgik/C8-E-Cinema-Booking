@@ -1,36 +1,29 @@
 import './Style/NavBar.css'
 import { Link } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useNavigate } from 'react';
 
 const NavBar = (props) => {
-    console.log(props)
-    const [isLoggedIn,setIsLoggedIn] = useState(false);
-    const [isAdmin,setIsAdmin] = useState(false);
-    const [isCustomer,setIsCustomer] = useState(false)
+    const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
+    const [isAdmin, setIsAdmin] = useState(sessionStorage.getItem('isAdmin'));
 
-    useEffect(()=> {
-        console.log(props)
-        if (props.currentUser) {
-            console.log("hello")
-            setIsLoggedIn(true)
-            if (props.currentUser.userType === "ADMIN") {
-                setIsAdmin(true)
-            }
-            if (props.currentUser.userType === "CUSTOMER") {
-                setIsCustomer(true)
-            }
-        }
-        
-    },[props.currentUser])
-    console.log("is logged in",isLoggedIn)
-    console.log("is admin",isAdmin)
-    console.log("is customer",isCustomer)
+    useEffect(() => {
+        setIsAdmin(sessionStorage.getItem("isAdmin"))
+        setUserId(sessionStorage.getItem('userId'))
+        console.log("user ID" , userId);
+        console.log("Admin" , isAdmin);
+      },[sessionStorage.getItem('isAdmin'),sessionStorage.getItem('userId')]);
 
     const logoutHandler = (event) => {
         event.preventDefault();
-        setIsLoggedIn(false);
-        sessionStorage.removeItem("userId",props.userId)
+        sessionStorage.removeItem("userId");
+        sessionStorage.removeItem("isAdmin");
+        // console.log(sessionStorage.getItem("userId"))
+        // console.log(sessionStorage.getItem("isAdmin"))
+        props.setIsLoggedIn(sessionStorage.getItem("userId"));
+        props.setIsAdmin(sessionStorage.getItem("isAdmin"));
+
     }
+
     return (
         <nav className="navbar">
             {/* <img className = "icon" src = '\images\icon-removebg-preview.png' ></img> */}
@@ -38,11 +31,12 @@ const NavBar = (props) => {
             <ul className='nav-list'>
                 <li><Link to = '/'> Home</Link></li>
                 <li><Link to = '/search'>Search</Link></li>
-                {!isLoggedIn ? (<li><Link to = '/login'> Login</Link></li>) :(<li onClick={logoutHandler}><Link to = '/'> Logout</Link></li>)}
-                {isAdmin ? (<li><Link to = '/manage-movies'> Manage Movies</Link></li>): (<div></div>)}
-                {isAdmin ? (<li><Link to = '/manage-promos'>Manage Promotions</Link></li>):(<div></div>)}
-                {isAdmin ? (<li><Link to = '/manage-users'>Manage Users</Link></li>) : (<div></div>)}
-                {isCustomer ? (<li><Link to = '/profile'> Edit Profile</Link></li>) :(<div></div>)}
+        {!props.isLoggedIn && <li><Link to='/login'> Login</Link></li>}
+        {props.isLoggedIn && <li onClick={logoutHandler}><Link to='/'> Logout</Link></li>}
+        {props.isAdmin && <li><Link to='/manage-movies'> Manage Movies</Link></li>}
+        {props.isAdmin && <li><Link to='/manage-promos'>Manage Promotions</Link></li>}
+        {props.isAdmin && <li><Link to='/manage-users'>Manage Users</Link></li>}
+        {props.isLoggedIn && <li><Link to='/profile'> Edit Profile</Link></li>}
             </ul>
         </nav>
     )
