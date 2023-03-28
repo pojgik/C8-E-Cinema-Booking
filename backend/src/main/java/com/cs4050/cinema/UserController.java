@@ -31,21 +31,21 @@ public class UserController {
     } // UserController
 
     @PostMapping("/register")
-    public HttpStatus createUser(@RequestBody User user) {
-        // User user = request.getUser();
-        // PaymentInfo paymentInfo = request.getPaymentInfo();
-        // Address address = request.getAddress();
+    public HttpStatus createUser(@RequestBody UserRequest request) {
+        User user = request.getUser();
+        PaymentInfo paymentInfo = request.getPaymentInfo();
+        Address address = request.getAddress();
 
         user.setVerificationCode(UserService.generateVerificationCode(8));
         User newUser = userService.createUser(user);
 
-        // if (paymentInfo != null) {
-        //     userService.addPaymentCard(newUser, paymentInfo);
-        // } // if
+        if (paymentInfo != null) {
+            userService.addPaymentCard(newUser, paymentInfo);
+        } // if
 
-        // if (address != null) {
-        //     userService.addBillingAddress(newUser, address);
-        // } // if
+        if (address != null) {
+            userService.addBillingAddress(newUser, address);
+        } // if
 
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
