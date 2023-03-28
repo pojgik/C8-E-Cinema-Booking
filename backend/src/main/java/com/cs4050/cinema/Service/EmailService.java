@@ -13,6 +13,13 @@ public class EmailService {
         this.emailSender = emailSender;
     } // public EmailService
 
+    /*
+     * Sends an email
+     * 
+     * @Param to the email address of the intended recipient
+     * @Param subject the subject of the email
+     * @Param text the body of the email
+     */
     public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
