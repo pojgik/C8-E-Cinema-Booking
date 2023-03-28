@@ -9,11 +9,9 @@ import com.cs4050.cinema.Repository.*;
 @Service
 public class PaymentService {
 
-    private final UserRepository userRepository;
     private final PaymentInfoRepository paymentInfoRepository;
 
-    public PaymentService(UserRepository userRepository, PaymentInfoRepository paymentInfoRepository) {
-        this.userRepository = userRepository;
+    public PaymentService(PaymentInfoRepository paymentInfoRepository) {
         this.paymentInfoRepository = paymentInfoRepository;
     } // paymentService
 
