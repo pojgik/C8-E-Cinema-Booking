@@ -1,4 +1,4 @@
-package com.cs4050.cinema.Entity;
+package com.cs4050.cinema.Model;
 
 import java.util.List;
 import java.util.ArrayList;

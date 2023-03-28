@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cs4050.cinema.Entity.Address;
-import com.cs4050.cinema.Entity.PaymentInfo;
-import com.cs4050.cinema.Entity.User;
+import com.cs4050.cinema.Model.Address;
+import com.cs4050.cinema.Model.PaymentInfo;
+import com.cs4050.cinema.Model.User;
 import com.cs4050.cinema.Request.LoginRequest;
 import com.cs4050.cinema.Request.UserRequest;
 import com.cs4050.cinema.Service.EmailService;

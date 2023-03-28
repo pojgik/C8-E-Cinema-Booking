@@ -6,10 +6,10 @@ import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import com.cs4050.cinema.Entity.Address;
-import com.cs4050.cinema.Entity.CustomerStatus;
-import com.cs4050.cinema.Entity.PaymentInfo;
-import com.cs4050.cinema.Entity.User;
+import com.cs4050.cinema.Model.Address;
+import com.cs4050.cinema.Model.CustomerStatus;
+import com.cs4050.cinema.Model.PaymentInfo;
+import com.cs4050.cinema.Model.User;
 import com.cs4050.cinema.Repository.AddressRepository;
 import com.cs4050.cinema.Repository.PaymentInfoRepository;
 import com.cs4050.cinema.Repository.UserRepository;
