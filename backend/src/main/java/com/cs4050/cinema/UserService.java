@@ -66,8 +66,10 @@ public class UserService {
             oldUser.setPhone(newUser.getPhone());
         } // if
 
-        if (paymentInfo != null && !oldUser.getPaymentCards().get(0).equals(encryptPaymentInfo(paymentInfo))) {
-            oldUser.getPaymentCards().remove(0);
+        if (paymentInfo != null && !oldUser.getPaymentCards().isEmpty() && !oldUser.getPaymentCards().get(0).equals(encryptPaymentInfo(paymentInfo))) {
+            if (!oldUser.getPaymentCards().isEmpty()) {
+                oldUser.getPaymentCards().remove(0);
+            }
             addPaymentCard(newUser, paymentInfo);
         } // if
         
@@ -132,7 +134,7 @@ public class UserService {
 
     public Address addBillingAddress(User user, Address billingAddress) {
         user.setBillingAddress(billingAddress);
-        userRepository.save(user);
+        // userRepository.save(user);
         return billingAddressRepository.save(billingAddress);
     } // addBillingAddress
 

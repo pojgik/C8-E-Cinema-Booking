@@ -48,22 +48,24 @@ const EditProfile = (props) => {
     const submitHandler = (event) => {
         event.preventDefault();
 
-            const myUser = {
-                firstName: firstName,
-                lastName: lastName,
-                promotionStatus:promo,
-                phone:phoneNumber,
-            };
-            console.log(myUser)
+       const user  =  {
+            user : {
+            firstName : firstName,
+            lastName : lastName,
+            phone : phoneNumber,
+            promotionStatus : promo
+            }
+        }
+            console.log(user)
             
     
         fetch("http://localhost:8080/users/editProfile/" + thisUser.userId, {
             method:"PUT",
             cors:"cors",
             headers: {
-                "Content-Type" : "application.json",
+                "Content-Type" : "application/json",
                 "Accept" : "application/json",
-                body: JSON.stringify(myUser)
+                body: JSON.stringify(user)
             }
         })
         .then(res=>res.json())
