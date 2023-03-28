@@ -3,7 +3,7 @@ import './App.css';
 import NavBar from './Components/NavBar';
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import CardPane from './Components/CardPane';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef } from 'react';
 import ManageMovies from './Components/ManageMovies';
 import ManagePromotions from './Components/ManagePromotions';
 import AddMovie from './Components/Forms/AddMovie'
@@ -79,37 +79,23 @@ function App() {
         link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
   ]);
-  const currentUser = null;
-  const [user,setUser] = useState();
+  const [user,setUser] = useState(null);
   const [address,setAddress] = useState([]);
+  const [isAdmin,setIsAdmin] = useState(sessionStorage.isAdmin);
+  const [isLoggedIn,setIsLoggedIn] = useState(sessionStorage.userId !== undefined);
+
+  console.log(isLoggedIn)
+
   
-  useEffect(() => {
-    console.log(sessionStorage.userId)
-    if (sessionStorage.userId !== undefined) {
-    fetch("http://localhost:8080/users/getUser/" + sessionStorage.userId,{
-    })
-    .then(res=>res.json())
-    .then(data => {setUser(data)})
-    }
-    },[])
-    
-
-  useEffect(() => {
-    if (sessionStorage.userId !== undefined) {
-
-    // console.log(user);
-    }
-  }, [user]);
-
-  console.log(user)
+  
   return (
    
         <Router>
         <div className="App"> 
-        <NavBar currentUser = {user}/> 
+        <NavBar setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} isAdmin = {isAdmin} isLoggedIn = {isLoggedIn}/> 
         <Routes>
         <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
-            <Route path = '/login' element = {<Login/>}></Route>
+            <Route path = '/login'  element = {<Login setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} setCurrentUser = {setUser}/>}></Route>
             <Route path = '/search' element = {<Search/>}></Route>
             <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} addresses = {address} users = {user}/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>

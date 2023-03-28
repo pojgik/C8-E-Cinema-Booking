@@ -1,25 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Form-Style/Login.css'
 
 
 
-const Login = () => {
+const Login = (props) => {
 
+    
     const nav = useNavigate();
     const [loginEmail,setLoginEmail] = useState();
     const [loginPass,setLoginPass] = useState();
 
-
     const submitHandler =(event)=> {
         event.preventDefault();
-        console.log(loginEmail)
-        console.log(loginPass)
         const loginUser = {
             email: loginEmail,
             password: loginPass
         }
-        
         fetch("http://localhost:8080/users/login",{
                 method: "POST",
                 mode:"cors",
@@ -36,10 +33,15 @@ const Login = () => {
                     return res.json();
                 }})
             .then(data => {
-                // alert('Successfully Logged In!')
                 console.log(data)
-                sessionStorage.setItem("userId",data.userId)
-                // console.log(sessionStorage.userId)
+                sessionStorage.setItem('userId', data.userId);
+                props.setIsLoggedIn(sessionStorage.getItem('userId'))
+                // props.setIsLoggedIn(setI);
+                if (data.userType === "ADMIN")
+                    sessionStorage.setItem("isAdmin",true)
+                    props.setIsAdmin(sessionStorage.getItem("isAdmin"))
+                // console.log("admin",sessionStorage.isAdmin)
+                // console.log("userID",sessionStorage.userId)
                 nav('/')
             });
 
