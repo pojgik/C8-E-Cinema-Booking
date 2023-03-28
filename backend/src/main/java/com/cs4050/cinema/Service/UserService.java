@@ -48,7 +48,8 @@ public class UserService {
      * @Return User the user found from the database
      */
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
+        return userRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
     } // getUserById
 
     /*
@@ -118,9 +119,8 @@ public class UserService {
             currentUser.setPhone(newUser.getPhone());
         } // if
 
-        if (paymentInfo != null && !currentUser.getPaymentCards().get(0).equals(paymentService.encryptPaymentInfo(paymentInfo))) {
-            currentUser.getPaymentCards().remove(0);
-            paymentService.addPaymentCard(newUser, paymentInfo);
+        if (paymentInfo != null && !currentUser.getPaymentCards().contains(paymentInfo)) {
+            paymentService.addPaymentCard(currentUser, paymentInfo);
         } // if
         
         if (address != null && !address.equals(currentUser.getBillingAddress())) {
@@ -151,6 +151,15 @@ public class UserService {
      * @Param id the id of the user to be deleted
      */
     public void deleteUser(Long id) {
+        User user = getUserById(id);
+        if (user.getBillingAddress() != null) {
+            billingAddressRepository.deleteById(user.getBillingAddress().getAddressId());
+        } // if
+        if (!user.getPaymentCards().isEmpty()) {
+            for (PaymentInfo card : user.getPaymentCards()) {
+                paymentService.deleteCard(card.getPaymentId());
+            } // for
+        } // if
         userRepository.deleteById(id);
     } // deleteUser
 

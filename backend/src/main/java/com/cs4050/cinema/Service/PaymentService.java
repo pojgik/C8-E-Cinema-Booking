@@ -1,5 +1,7 @@
 package com.cs4050.cinema.Service;
 
+import java.util.NoSuchElementException;
+
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.stereotype.Service;
 
@@ -44,16 +46,41 @@ public class PaymentService {
         BasicTextEncryptor encryptor = new BasicTextEncryptor();
         encryptor.setPassword("MyKey");
 
-        String encryptedCardNumber = encryptor.encrypt(paymentInfo.getCardNumber());
-        String encryptedCvv = encryptor.encrypt(paymentInfo.getCvv());
+        if (paymentInfo.getCardNumber() != null) {
+            String encryptedCardNumber = encryptor.encrypt(paymentInfo.getCardNumber());
+            paymentInfo.setEncryptedCardNumber(encryptedCardNumber);
+            paymentInfo.setCardNumber(null);
+        } // if
 
-        paymentInfo.setEncryptedCardNumber(encryptedCardNumber);
-        paymentInfo.setEncryptedCvv(encryptedCvv);
-
-        paymentInfo.setCardNumber(null);
-        paymentInfo.setCvv(null);
+        if (paymentInfo.getCvv() != null) {
+            String encryptedCvv = encryptor.encrypt(paymentInfo.getCvv());
+            paymentInfo.setEncryptedCvv(encryptedCvv);
+            paymentInfo.setCvv(null);
+        } // if
 
         return paymentInfo;
     } // encryptPaymentInfo
+
+    /*
+     * Deletes a payment card from the database.
+     * 
+     */
+    public void deleteCard(Long id) {
+        paymentInfoRepository.deleteById(id);
+    } // deleteCard
+
+    /*
+     * Returns a specific payment card in the database whose paymentId matches the specified id.
+     * 
+     * @Throws NoSuchElementException when a payment card with the specified id cannot be found
+     * 
+     * @Param id The paymentId to look for
+     * 
+     * @Return PaymentInfo the payment card found from the database
+     */
+    public PaymentInfo getPaymentInfoById(Long id) {
+        return paymentInfoRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("Payment info not found with id: " + id));
+    } // getPaymentInfoById
     
 } // paymentService
