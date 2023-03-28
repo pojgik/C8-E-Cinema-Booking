@@ -3,15 +3,11 @@
     justify-content: center;
     margin: auto auto;
 }
-/* .add .support:hover {
-    background-color: #f8f9fb;
-    color: #aecbeb;
-    height: 3rem;
-} */
 .create {
     height: 100%;
 }
 .create-btn {
+    margin-top: rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,4 +33,13 @@
 .reg-btn {
     padding-bottom: 1rem;
     font-size: .75em;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.container .submit {
+    margin: 1rem;
 }

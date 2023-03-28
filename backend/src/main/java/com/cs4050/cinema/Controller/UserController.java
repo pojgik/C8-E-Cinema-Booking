@@ -1,4 +1,4 @@
-package com.cs4050.cinema;
+package com.cs4050.cinema.Controller;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -16,6 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cs4050.cinema.Model.Address;
+import com.cs4050.cinema.Model.PaymentInfo;
+import com.cs4050.cinema.Model.User;
+import com.cs4050.cinema.Request.LoginRequest;
+import com.cs4050.cinema.Request.UserRequest;
+import com.cs4050.cinema.Service.EmailService;
+import com.cs4050.cinema.Service.UserService;
+
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
@@ -31,21 +39,21 @@ public class UserController {
     } // UserController
 
     @PostMapping("/register")
-    public HttpStatus createUser(@RequestBody User user) {
-        // User user = request.getUser();
-        // PaymentInfo paymentInfo = request.getPaymentInfo();
-        // Address address = request.getAddress();
+    public HttpStatus createUser(@RequestBody UserRequest request) {
+        User user = request.getUser();
+        PaymentInfo paymentInfo = request.getPaymentInfo();
+        Address address = request.getAddress();
 
         user.setVerificationCode(UserService.generateVerificationCode(8));
         User newUser = userService.createUser(user);
 
-        // if (paymentInfo != null) {
-        //     userService.addPaymentCard(newUser, paymentInfo);
-        // } // if
+        if (paymentInfo != null) {
+            userService.addPaymentCard(newUser, paymentInfo);
+        } // if
 
-        // if (address != null) {
-        //     userService.addBillingAddress(newUser, address);
-        // } // if
+        if (address != null) {
+            userService.addBillingAddress(newUser, address);
+        } // if
 
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
@@ -75,34 +83,38 @@ public class UserController {
 
 
     @PutMapping("/changePassword/{id}")
-    public HttpStatus changePassword(@PathVariable Long id, @RequestBody User newUser) {
-        User oldUser = userService.getUserById(id);
-        userService.changePassword(oldUser, newUser);
+    public HttpStatus changePassword(@PathVariable Long id, @RequestBody User updatedUser) {
+        User currentUser = userService.getUserById(id);
+        userService.changePassword(currentUser, updatedUser);
         return HttpStatus.OK;
     } // changePassword
 
     @PutMapping("/editProfile/{id}") 
     public HttpStatus updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
-        User oldUser = userService.getUserById(id);
-        User newUser = request.getUser();
+        User currentUser = userService.getUserById(id);
+        User updatedUser = request.getUser();
         PaymentInfo paymentInfo = request.getPaymentInfo();
         Address billingAddress = request.getAddress();
 
-        if (oldUser == null) {
+        if (currentUser == null) {
             return HttpStatus.NOT_FOUND;
-        } else if (newUser == null) {
+        } else if (updatedUser == null) {
             return HttpStatus.BAD_REQUEST;
         } else {
-            userService.updateUser(oldUser, newUser, paymentInfo, billingAddress);
-            emailService.sendEmail(oldUser.getEmail(), "Updated Profile", "Dear user, your profile has been updated.");
+            userService.updateUser(currentUser, updatedUser, paymentInfo, billingAddress);
+            emailService.sendEmail(currentUser.getEmail(), "Updated Profile", "Dear user, your profile has been updated.");
             return HttpStatus.OK;
         } // if
     } // updateUser
 
     @GetMapping("/delete/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.ok().build();
+    public HttpStatus deleteUser(@PathVariable Long id) {
+        if (userService.getUserById(id) != null) {
+            userService.deleteUser(id);
+            return HttpStatus.OK;
+        } else {
+            return HttpStatus.BAD_REQUEST;
+        } // if
     } // deleteUser
     
     @GetMapping("/getAllUsers")

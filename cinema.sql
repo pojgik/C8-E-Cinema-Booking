@@ -30,7 +30,7 @@ CREATE TABLE `address` (
   `country` varchar(255) DEFAULT NULL,
   `zip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`addressId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +146,7 @@ CREATE TABLE `paymentinfo` (
   `userId` int NOT NULL COMMENT 'fk to user with whom payment info is associated',
   `cardNumber` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Credit Card number',
   `cardType` varchar(255) DEFAULT NULL,
-  `expDate` date DEFAULT NULL COMMENT 'CC expiration date',
+  `expDate` varchar(6) DEFAULT NULL,
   `cardName` varchar(255) DEFAULT NULL,
   `cvv` varchar(3) DEFAULT NULL,
   `encryptedCardNumber` varchar(255) DEFAULT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE `paymentinfo` (
   UNIQUE KEY `paymentId` (`paymentId`),
   KEY `userId` (`userId`),
   CONSTRAINT `paymentinfo_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,7 +164,6 @@ CREATE TABLE `paymentinfo` (
 
 LOCK TABLES `paymentinfo` WRITE;
 /*!40000 ALTER TABLE `paymentinfo` DISABLE KEYS */;
-INSERT INTO `paymentinfo` VALUES (76,76,NULL,'visa','2025-05-31','Luke Dinkla',NULL,'$2a$10$o30ood8K30GWExx4riJ5ee3b9ZLnEjsDbHevNV4ZLwPYd3tc1VXLK','$2a$10$F9W4kBoZkyNUXxNf9mX7leJockuFYV3nhb32Bbcn43vLLU1tL3H1.');
 /*!40000 ALTER TABLE `paymentinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,7 +328,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`userId`),
   KEY `address_fk` (`addressId`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`addressId`) REFERENCES `address` (`addressId`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -338,7 +337,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','CUSTOMER','ACTIVE',NULL,0,'6786305328',NULL),(77,'John','Doe','luked1214@gmail.com','$2a$10$nNmZKFTyL7iAY58P/WZynuxcYAEGuwGj2YDlfAYgH8u.SfzYj35UG','CUSTOMER','INACTIVE','3u8iQhjh',0,'1234567890',NULL),(78,'Luke','D','luke.dinkla@gmail.com','$2a$10$FBDMLNSuDrngspFdhduFw.6wfnsnnC1kmedgW.dTGH18NG.lRJPQi','CUSTOMER','INACTIVE','v0krBAcZ',0,'1231231231',NULL);
+INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','CUSTOMER','ACTIVE',NULL,0,'6786305328',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-23 16:53:16
+-- Dump completed on 2023-03-28 12:13:01

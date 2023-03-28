@@ -1,6 +1,10 @@
-package com.cs4050.cinema;
+package com.cs4050.cinema.Request;
 
 import org.springframework.stereotype.Component;
+
+import com.cs4050.cinema.Model.Address;
+import com.cs4050.cinema.Model.PaymentInfo;
+import com.cs4050.cinema.Model.User;
 
 @Component
 public class UserRequest {
