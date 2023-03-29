@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cs4050.cinema.Model.Address;
@@ -77,10 +78,14 @@ public class UserController {
     } // getUserById
 
     @PutMapping("/changePassword/{id}")
-    public HttpStatus changePassword(@PathVariable Long id, @RequestBody User updatedUser) {
-        User currentUser = userService.getUserById(id);
-        userService.changePassword(currentUser, updatedUser);
-        return HttpStatus.OK;
+    public HttpStatus changePassword(@PathVariable Long id, @RequestParam(required = false) String currentPassword, @RequestParam String newPassword) {
+        User user = userService.getUserById(id);
+        boolean update = userService.changePassword(user, currentPassword, newPassword);
+        if (!update) {
+            return HttpStatus.UNAUTHORIZED;
+        } else {
+            return HttpStatus.OK;
+        } // if
     } // changePassword
 
     @PutMapping("/editProfile/{id}") 

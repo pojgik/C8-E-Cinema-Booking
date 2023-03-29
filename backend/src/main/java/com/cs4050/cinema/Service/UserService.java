@@ -85,9 +85,14 @@ public class UserService {
         return userRepository.save(oldUser);
     } // updateUser
 
-    public User changePassword(User oldUser, User newUser) {
-        oldUser.setPassword(encodePassword(newUser.getPassword()));
-        return userRepository.save(oldUser);
+    
+    public boolean changePassword(User user, String currentPassword, String newPassword) {
+        if (currentPassword == null || BCrypt.checkpw(currentPassword, user.getPassword())) {
+            user.setPassword(encodePassword(newPassword));
+            return true;
+        } else {
+            return false;
+        } // if
     } // changePassword
 
     public void deleteUser(Long id) {
