@@ -78,7 +78,7 @@ public class UserController {
     } // getUserById
 
     @PutMapping("/changePassword/{id}")
-    public HttpStatus changePassword(@PathVariable Long id, @RequestParam(required = false) String currentPassword, @RequestParam String newPassword) {
+    public HttpStatus changePassword(@PathVariable Long id, @RequestParam String newPassword, @RequestParam(required = false) String currentPassword) {
         User user = userService.getUserById(id);
         boolean update = userService.changePassword(user, currentPassword, newPassword);
         if (!update) {

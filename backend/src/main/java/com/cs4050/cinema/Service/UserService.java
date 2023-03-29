@@ -89,6 +89,7 @@ public class UserService {
     public boolean changePassword(User user, String currentPassword, String newPassword) {
         if (currentPassword == null || BCrypt.checkpw(currentPassword, user.getPassword())) {
             user.setPassword(encodePassword(newPassword));
+            save(user);
             return true;
         } else {
             return false;
