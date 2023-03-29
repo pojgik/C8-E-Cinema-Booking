@@ -34,6 +34,7 @@ public class PaymentInfo {
     @Column(name = "cvv", nullable = true)
     private String cvv;
 
+    
     @Column(name = "encryptedCardNumber", nullable = false)
     private String encryptedCardNumber;
 
