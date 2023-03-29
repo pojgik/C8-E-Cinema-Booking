@@ -12,7 +12,6 @@ const NavBar = (props) => {
         props.setIsLoggedIn(sessionStorage.getItem("userId"));
         props.setIsAdmin(sessionStorage.getItem("isAdmin"));
         props.setUser(sessionStorage.getItem("user"));
-
     }
 
     return (

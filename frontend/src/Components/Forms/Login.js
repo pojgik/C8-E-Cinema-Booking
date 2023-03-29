@@ -33,9 +33,9 @@ const Login = (props) => {
                     return res.json();
                 }})
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 sessionStorage.setItem('user', JSON.stringify(data));
-                console.log(JSON.stringify(data))
+                // console.log(JSON.stringify(data))
                 sessionStorage.setItem('userId', data.userId);
                 props.setIsLoggedIn(sessionStorage.getItem('userId'))
                 props.setUser(data)

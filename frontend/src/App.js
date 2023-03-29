@@ -84,8 +84,8 @@ function App() {
   const [isAdmin,setIsAdmin] = useState(sessionStorage.isAdmin);
   const [isLoggedIn,setIsLoggedIn] = useState(sessionStorage.userId !== undefined);
 
-  console.log(user)
-  console.log(isLoggedIn)
+//   console.log(user)
+//   console.log(isLoggedIn)
 
   
   
@@ -93,7 +93,7 @@ function App() {
    
         <Router>
         <div className="App"> 
-        <NavBar setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} isAdmin = {isAdmin} isLoggedIn = {isLoggedIn}/> 
+        <NavBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} isAdmin = {isAdmin} isLoggedIn = {isLoggedIn}/> 
         <Routes>
         <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
             <Route path = '/login'  element = {<Login setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} setCurrentUser = {setUser}/>}></Route>
@@ -108,7 +108,7 @@ function App() {
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
             <Route path='/login/reset' element = {<ForgotPassword></ForgotPassword>}></Route>
-            <Route path='/profile' element = {<EditProfile user = {user}></EditProfile>}></Route>
+            <Route path='/profile' element = {<EditProfile setUser = {setUser} user = {user}></EditProfile>}></Route>
 
         </Routes>
         <Footer/>

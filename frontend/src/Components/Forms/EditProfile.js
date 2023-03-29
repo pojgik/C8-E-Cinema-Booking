@@ -4,15 +4,16 @@ import { Link } from 'react-router-dom';
 
 const EditProfile = (props) => {
 
-    var thisUser = null;
-    useEffect(()=>{
+    // var thisUser = null;
+    // useEffect(()=>{
 
-        console.log(props.user)
-        thisUser = props.user;
-    })
+    //     console.log(props.user)
+    //     thisUser = props.user;
+    // })
+    const thisUser = props.user;
 
     // const thisUser = props.currentUser
-    console.log(thisUser)
+    // console.log(thisUser)
     const [firstName,setFirstName] = useState(props.user.firstName);
     const [lastName,setLastName] = useState(props.user.lastName);
     const [email,setEmail] = useState(props.user.email);
@@ -64,7 +65,7 @@ const EditProfile = (props) => {
             // addressId:null
         }
 
-         console.log(updated)
+        //  console.log(updated)
             
     
         fetch("http://localhost:8080/users/editProfile/" + thisUser.userId, {
@@ -77,7 +78,24 @@ const EditProfile = (props) => {
             body: JSON.stringify(updated)
         })
         .then(res=>res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            // console.log(data)
+            fetch("http://localhost:8080/users/getUser/" + thisUser.userId, {
+                method:"GET",
+                cors:"cors",
+                headers:{
+                    "Content-Type" : "application/json",
+                    "Accept" : "application/json",
+                }
+            })
+            .then (res=>res.json())
+            .then(data=>{
+                // console.log(data)
+                props.setUser(data)
+            })
+        })
+
+        
     }
     return (
      <div className='reg'>
@@ -96,14 +114,14 @@ const EditProfile = (props) => {
                         <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder = {phoneNumber} type="telephone" name = 'phone' pattern="[0-9]{10}" />
                         </ul>
                         <ul>
-                        <input className = "reg-field"  defaultValue = {email} type="email" name = 'email'  />
+                        
+                        <input className = "reg-field"  readOnly defaultValue = {email} type="email" name = 'email'  />
                         </ul>
                         </div>
                     <div className="right">
                     <ul>
                     <label className='reg-field'>Recieve Promotions?</label>
-                    <input checked = {promo} onChange = {(e)=>{setPromo(!promo)
-                    console.log(promo)}}  className='reg-field' type="checkbox" name = 'promo'></input>
+                    <input checked = {promo} onChange = {(e)=>{setPromo(!promo)}}  className='reg-field' type="checkbox" name = 'promo'></input>
                     </ul>
                     <ul>
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder='Old Password' type="password" name = 'pass' />
