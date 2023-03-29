@@ -1,11 +1,15 @@
 import './Form-Style/EditProfile.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const EditProfile = (props) => {
 
-    console.log(props.user)
-    const thisUser = props.user;
+    var thisUser = null;
+    useEffect(()=>{
+
+        console.log(props.user)
+        thisUser = props.user;
+    })
 
     // const thisUser = props.currentUser
     console.log(thisUser)
@@ -48,15 +52,19 @@ const EditProfile = (props) => {
     const submitHandler = (event) => {
         event.preventDefault();
 
-       const user  =  {
+        
+       const updated  =  {
             user : {
-            firstName : firstName,
-            lastName : lastName,
-            phone : phoneNumber,
-            promotionStatus : promo
-            }
+                firstName : firstName,
+                lastName : lastName,
+                phone : phoneNumber,
+                promotionStatus : promo
+            },
+            // paymentCards: null,
+            // addressId:null
         }
-            console.log(user)
+
+         console.log(updated)
             
     
         fetch("http://localhost:8080/users/editProfile/" + thisUser.userId, {
@@ -65,8 +73,8 @@ const EditProfile = (props) => {
             headers: {
                 "Content-Type" : "application/json",
                 "Accept" : "application/json",
-                body: JSON.stringify(user)
-            }
+            },
+            body: JSON.stringify(updated)
         })
         .then(res=>res.json())
         .then(data => console.log(data))

@@ -93,6 +93,7 @@ public class UserController {
         if (currentUser == null) {
             return HttpStatus.NOT_FOUND;
         } else if (updatedUser == null) {
+            System.out.println("Here is the request: " + request);
             return HttpStatus.BAD_REQUEST;
         } else {
             userService.updateUser(currentUser, updatedUser, paymentInfo, billingAddress);
