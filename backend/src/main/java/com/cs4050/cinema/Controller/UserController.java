@@ -21,8 +21,7 @@ import com.cs4050.cinema.Model.PaymentInfo;
 import com.cs4050.cinema.Model.User;
 import com.cs4050.cinema.Request.LoginRequest;
 import com.cs4050.cinema.Request.UserRequest;
-import com.cs4050.cinema.Service.EmailService;
-import com.cs4050.cinema.Service.UserService;
+import com.cs4050.cinema.Service.*;
 
 @RestController
 @RequestMapping("/users")
@@ -30,12 +29,13 @@ import com.cs4050.cinema.Service.UserService;
 public class UserController {
 
     private final UserService userService;
-
+    private final PaymentService paymentService;
     private final EmailService emailService;
 
-    public UserController(UserService userService, EmailService emailService) {
+    public UserController(UserService userService, EmailService emailService, PaymentService paymentService) {
         this.userService = userService;
         this.emailService = emailService;
+        this.paymentService = paymentService;
     } // UserController
 
     @PostMapping("/register")
@@ -48,7 +48,7 @@ public class UserController {
         User newUser = userService.createUser(user);
 
         if (paymentInfo != null) {
-            userService.addPaymentCard(newUser, paymentInfo);
+            paymentService.addPaymentCard(newUser, paymentInfo);
         } // if
 
         if (address != null) {
