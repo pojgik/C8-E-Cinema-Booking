@@ -52,7 +52,7 @@ public class MovieService {
      */
     public Movie getMovieById(Long movieId) {
         return movieRepository.findById(movieId)
-            .orElseThrow(() -> new NoSuchElementException("Movie not found with id: " + id));
+            .orElseThrow(() -> new NoSuchElementException("Movie not found with id: " + movieId));
     } // getMovieById
 
     /*
@@ -77,7 +77,7 @@ public class MovieService {
      * 
      * @Return List<User> List of every user
      */
-    public List<User> getAllMovies() {
+    public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     } // getAllMovies
 

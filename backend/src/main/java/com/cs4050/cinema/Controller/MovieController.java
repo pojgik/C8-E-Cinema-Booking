@@ -17,7 +17,7 @@ import com.cs4050.cinema.Service.MovieService;
 //import com.cs4050.cinema.Service.ShowService;
 
 @RestController
-@RequestMapping("/movie")
+@RequestMapping("/movies")
 @CrossOrigin
 public class MovieController {
     private final MovieService movieService;
@@ -25,6 +25,11 @@ public class MovieController {
     public MovieController (MovieService movieService) {
         this.movieService = movieService;
     } //constructor
+
+    @GetMapping("/getTest")
+    public ResponseEntity<String> getTest() {
+        return ResponseEntity.ok("Hello");
+    } // getTest
 
     @PostMapping("/addMovie")
     public HttpStatus createMovie(@RequestBody Movie movie) {
