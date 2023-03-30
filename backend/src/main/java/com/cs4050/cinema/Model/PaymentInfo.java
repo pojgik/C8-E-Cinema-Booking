@@ -1,5 +1,7 @@
 package com.cs4050.cinema.Model;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +29,7 @@ public class PaymentInfo {
     private String cardNumber;
 
     @Column(name = "expDate", nullable = false)
-    private String expDate;
+    private Date expDate;
 
     @Column(name = "cvv", nullable = true)
     private String cvv;
