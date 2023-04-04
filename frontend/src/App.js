@@ -79,6 +79,7 @@ function App() {
     },
   ]);
   const [user,setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
+  const [paymentInfo,setPaymentInfo] = useState(null)
 //   fetch('http://localhost:8080/users/getUser/' + sessionStorage.userId)
   const [address,setAddress] = useState([]);
   const [isAdmin,setIsAdmin] = useState(sessionStorage.isAdmin);
