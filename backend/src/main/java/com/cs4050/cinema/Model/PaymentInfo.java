@@ -29,7 +29,7 @@ public class PaymentInfo {
     private String cardNumber;
 
     @Column(name = "expDate", nullable = false)
-    private Date expDate;
+    private String expDate;
 
     @Column(name = "cvv", nullable = true)
     private String cvv;

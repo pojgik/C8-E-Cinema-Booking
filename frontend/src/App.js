@@ -80,6 +80,7 @@ function App() {
     },
   ]);
   const [user,setUser] = useState(null);
+  const [paymentInfo,setPaymentInfo] = useState(null)
   const [address,setAddress] = useState([]);
   const [isAdmin,setIsAdmin] = useState(sessionStorage.isAdmin);
   const [isLoggedIn,setIsLoggedIn] = useState(sessionStorage.userId !== undefined);
@@ -97,10 +98,10 @@ function App() {
         <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
             <Route path = '/login'  element = {<Login setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} setCurrentUser = {setUser}/>}></Route>
             <Route path = '/search' element = {<Search/>}></Route>
-            <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} addresses = {address} users = {user}/>}></Route>
+            <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} payment = {paymentInfo} addresses = {address} users = {user}/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
             <Route path = "/update-movie" element = {<UpdateMovie/>}></Route>
-            <Route path = "/add-payment" element = {<AddPayment/>}></Route>
+            <Route path = "/add-payment" element = {<AddPayment setPaymentInfo = {setPaymentInfo}/>}></Route>
             <Route path = "/add-address" element = {<AddAdress setter = {setAddress}/>}></Route>
             <Route path = "/add-movie" element = {<AddMovie/>}></Route>
             <Route path='/reg-conf' element = {<RegConf/>}></Route>
