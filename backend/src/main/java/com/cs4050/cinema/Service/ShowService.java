@@ -37,17 +37,20 @@ public class ShowService {
         Room room = roomRepository.findById(show.getRoomId())
         .orElseThrow(() -> new NoSuchElementException("Room with ID " + show.getRoomId() + " not found"));
         List<Show> shows = room.getShows();
-        for (int i = 0; i < shows.size() && i < 5; i++){
-            if (shows.get(i).getShowTime().equals(show.getShowTime())) {
+        for (int i = 0; i < shows.size(); i++){
+            if (shows.get(i).getShowTime().toString().equals(show.getShowTime().toString())) {
+                System.out.println("RIP BOZO\n\n\n");
                 throw new DataIntegrityViolationException("Timeslot already full");
-                System.out.println("RIP\n\n\n");
             }
-                System.out.println("\n1: "+show.getShowTime() + "\n2: " + shows.get(i).getShowTime());
+                System.out.println("\n1: "+show.getShowTime() + "\n2: " + shows.get(i).getShowTime() +
+                "\nShows size: " + shows.size());
+                System.out.println("Are the two strings the same? " + shows.get(i).getShowTime().equals(show.getShowTime()));
                 //Checks if showTimes + movieDuration + cleanUp (say 10 mins), overlaps
         } // for
-        System.out.println("\n\n\n1GETS TO HERE1\n\n\n");
+        System.out.println("\n1 GETS TO HERE\n\n");
         movie.getShows().add(show);
         room.getShows().add(show);
+        roomRepository.save(room);
         return showRepository.save(show);
     } // createShow
 
