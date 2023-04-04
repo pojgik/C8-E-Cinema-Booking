@@ -64,7 +64,8 @@ const Registration = (props) => {
             alert("Passwords must match")
         }
         else {
-            const myUser = {
+            const myUser = { 
+                user : {
                 firstName: firstName,
                 lastName: lastName,
                 email:email,
@@ -75,7 +76,7 @@ const Registration = (props) => {
                 phone:phoneNumber,
                 paymentCards: [],
                 billingAddress: null 
-            };
+            }};
             console.log(myUser)
             fetch("http://localhost:8080/users/register",{
                 method: "POST",
