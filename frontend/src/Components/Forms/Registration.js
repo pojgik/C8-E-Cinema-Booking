@@ -91,6 +91,7 @@ const Registration = (props) => {
             })
             .then(res =>res.json())
             .then(data => {
+                console.log(data)
                 if(data.message === "User with that email already exists."){
                     alert("User with that email already exists.")
                 }
