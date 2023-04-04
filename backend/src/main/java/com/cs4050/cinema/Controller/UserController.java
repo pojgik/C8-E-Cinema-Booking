@@ -40,7 +40,7 @@ public class UserController {
     } // UserController
 
     @PostMapping("/register")
-    public HttpStatus createUser(@RequestBody UserRequest request) {
+    public ResponseEntity<Long> createUser(@RequestBody UserRequest request) {
         User user = request.getUser();
         PaymentInfo paymentInfo = request.getPaymentInfo();
         Address address = request.getAddress();
@@ -58,7 +58,7 @@ public class UserController {
 
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
-        return HttpStatus.CREATED;
+        return ResponseEntity.ok(newUser.getUserId());
     } // createUser
 
     // Currently the user is being found in the frontend, which should not be the case
