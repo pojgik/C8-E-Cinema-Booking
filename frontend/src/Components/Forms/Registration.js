@@ -16,7 +16,8 @@ class User {
 }
 
 const Registration = (props) => {
-
+    
+    console.log(props.paymentInfo)
     const navigate = useNavigate();
 
     const [firstName,setFirstName] = useState("");
@@ -26,7 +27,6 @@ const Registration = (props) => {
     const [password,setPassword] = useState("");
     const [passwordConf,setPasswordConf] = useState("");
     const [addresses,setAddresses] = useState(null);
-    const [payment,setPayment] = useState(null);
     const[promo,setPromo] = useState(false);
 
 
@@ -65,6 +65,7 @@ const Registration = (props) => {
         }
         else {
             const myUser = {
+                user: {
                 firstName: firstName,
                 lastName: lastName,
                 email:email,
@@ -75,6 +76,8 @@ const Registration = (props) => {
                 phone:phoneNumber,
                 paymentCards: [],
                 billingAddress: null 
+                },
+                paymentInfo: props.paymentInfo
             };
             console.log(myUser)
             fetch("http://localhost:8080/users/register",{

@@ -98,7 +98,7 @@ function App() {
         <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
             <Route path = '/login'  element = {<Login setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} setCurrentUser = {setUser}/>}></Route>
             <Route path = '/search' element = {<Search/>}></Route>
-            <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} payment = {paymentInfo} addresses = {address} users = {user}/>}></Route>
+            <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} paymentInfo = {paymentInfo} addresses = {address} users = {user}/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
             <Route path = "/update-movie" element = {<UpdateMovie/>}></Route>
             <Route path = "/add-payment" element = {<AddPayment setPaymentInfo = {setPaymentInfo}/>}></Route>

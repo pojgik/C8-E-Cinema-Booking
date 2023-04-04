@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Form-Style/AddPayment.css'
-const AddPayment = () => {
+const AddPayment = (props) => {
 
+
+    const nav = useNavigate();
     const [cardType,setCardType] = useState(null);
     const [cardName,setCardName] = useState(null);
     const [cardNumber,setCardNumber] = useState(null);
@@ -16,29 +19,21 @@ const AddPayment = () => {
         const {name,value} = event.target; 
         if (name === "cardType") {
             setCardType(value);
-            console.log(cardType)
         }
         if (name === "cardNumber") {
             setCardNumber(value);
-            console.log(cardNumber)
-
         }
         if (name === "expireMM") {
             setExpireMM(value);
-            console.log(expireMM)
-
         }
         if (name === "expireYY") {
             setExpireYY(value);
-            console.log(expireYY)
         }
         if (name === "cvv") {
             setCvv(value);
-            console.log(cvv)
         }
         if (name === "cardName") {
             setCardName(value);
-            console.log(cardName)
         }
     }
 
@@ -52,7 +47,8 @@ const AddPayment = () => {
             expDate : expireMM + "/" + expireYY
         }
         console.log(payment)
-
+        props.setPaymentInfo(payment)
+        nav("/login/register")
     }
 
 return ( 
