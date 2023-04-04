@@ -27,21 +27,7 @@ public class MovieService {
         return movieRepository.save(movie);
     } // createMovie
 
-    // /*
-    //  * Adds show to movie and creates the show
-    //  * 
-    //  * @Param movie the movie for which the show is added
-    //  * @Param show the show to be added
-    //  * 
-    //  * @Return show returns the new show on success
-    //  */
-    // public Show addShow(Movie movie, Show show) {
-    //     movie.getShows().add(show);
-    //     show.setMovie(movie);
-    //     return ShowRepository.save(show);
-    // } // addShow
-
-      /*
+     /*
      * Returns a Movie in the database whose movieId matches the specified id.
      * 
      * @Throws NoSuchElementException when a movie with the specified id cannot be found

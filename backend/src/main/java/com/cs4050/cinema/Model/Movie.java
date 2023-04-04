@@ -1,7 +1,6 @@
 package com.cs4050.cinema.Model;
 
 import java.util.ArrayList;
-//import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -54,11 +52,8 @@ public class Movie {
     @Column(name = "rating", nullable = false)
     private String rating;
 
+    //Movie's Shows
     @OneToMany(mappedBy = "showId", cascade = CascadeType.ALL)
     private List<Show> shows = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-// @Column(name = "movieTimes", nullable = false)
-//     private DateTime movieTime;
 
  } // Movie

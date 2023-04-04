@@ -1,10 +1,12 @@
 package com.cs4050.cinema.Model;
 
-import java.sql.Date;
-//import java.time.LocalDateTime;
+import java.sql.Timestamp;
+//This extends sql.Date and should be the one including time
+//I'm just going to test with Date for now though
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,18 +26,21 @@ public class Show {
     @Column(name = "showId")
     private Long showId;
 
-    @ManyToOne
-    @JoinColumn(name = "movieId")
-    private Movie movie;
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "movieId")
+    // private Movie movie;
 
-    // @ManyToOne
+    // @ManyToOne(fetch = FetchType.LAZY)
     // @JoinColumn(name = "roomId")
     // private Room room;
 
+    @Column(name = "movieId")
+    private Long movieId;
+
     @Column(name = "roomId")
-    private int roomId;
+    private Long roomId;
 
     @Column(name = "showTime")
-    private Date showTime;
+    private Timestamp showTime;
 
 } // Show

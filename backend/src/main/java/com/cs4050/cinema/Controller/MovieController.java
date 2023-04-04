@@ -12,18 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import com.cs4050.cinema.Model.Movie;
-//import com.cs4050.cinema.Model.Show;
+import com.cs4050.cinema.Model.Show;
 import com.cs4050.cinema.Service.MovieService;
-//import com.cs4050.cinema.Service.ShowService;
+import com.cs4050.cinema.Service.ShowService;
 
 @RestController
 @RequestMapping("/movies")
 @CrossOrigin
 public class MovieController {
     private final MovieService movieService;
+    private final ShowService showService;
 
-    public MovieController (MovieService movieService) {
+    public MovieController (MovieService movieService, ShowService showService) {
         this.movieService = movieService;
+        this.showService = showService;
     } //constructor
 
     @GetMapping("/getTest")
@@ -39,6 +41,21 @@ public class MovieController {
         movieService.createMovie(movie);
         return HttpStatus.CREATED;
     } // createMovie
+
+    @PostMapping("/addShow")
+    public HttpStatus createShow(@RequestBody Show show) {
+        if (show == null) {
+            return HttpStatus.NOT_FOUND;
+        } // if
+        showService.createShow(show);
+        return HttpStatus.CREATED;
+    } // createShow
+
+    @GetMapping("/getShow/{id}")
+    public ResponseEntity<Show> getShow(@PathVariable Long id) {
+        Show show = showService.getShowById(id);
+        return ResponseEntity.ok(show);
+    } // getShow
 
     @GetMapping("/getAllMovies")
     public ResponseEntity<List<Movie>> getAllMovies() {
