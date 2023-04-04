@@ -62,11 +62,16 @@ public class UserController {
 
     // Currently the user is being found in the frontend, which should not be the case
     @PutMapping("/verify-email/{id}")
-    public ResponseEntity<User> verifyEmail(@PathVariable Long id, @RequestBody User user) throws Exception {
+    public HttpStatus verifyEmail(@PathVariable Long id, @RequestBody String code) {
+        User user = userService.getUserById(id);
         if (user == null) {
-            throw new Exception("User not found");
+            return HttpStatus.NOT_FOUND;
         } else {
-            return ResponseEntity.ok(userService.verifyUser(user));
+            if (userService.verifyUser(user, code)) {
+                return HttpStatus.OK;
+            } else {
+                return HttpStatus.BAD_REQUEST;
+            } // if
         } // if
     } // ResponseEntity
 
