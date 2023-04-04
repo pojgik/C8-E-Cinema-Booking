@@ -222,10 +222,15 @@ public class UserService {
      * 
      * @Return user returns the user upon success
      */
-    public User verifyUser(User user) {
-        user.setCustomerStatus(CustomerStatus.ACTIVE);
-        user.setVerificationCode(null);
-        return userRepository.save(user);
+    public boolean verifyUser(User user, String code) {
+        if (code.equals(user.getVerificationCode())) {
+            user.setCustomerStatus(CustomerStatus.ACTIVE);
+            user.setVerificationCode(null);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        } // if
     } // verifyUser
 
     /*
