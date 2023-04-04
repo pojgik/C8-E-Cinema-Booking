@@ -64,8 +64,8 @@ const Registration = (props) => {
             alert("Passwords must match")
         }
         else {
-            const myUser = {
-                user: {
+            const myUser = { 
+                user : {
                 firstName: firstName,
                 lastName: lastName,
                 email:email,

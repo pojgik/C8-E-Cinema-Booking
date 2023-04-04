@@ -1,4 +1,3 @@
-
 import './App.css';
 import NavBar from './Components/NavBar';
 import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
@@ -79,13 +78,14 @@ function App() {
         link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
   ]);
-  const [user,setUser] = useState(null);
-  const [paymentInfo,setPaymentInfo] = useState(null)
+  const [user,setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
+//   fetch('http://localhost:8080/users/getUser/' + sessionStorage.userId)
   const [address,setAddress] = useState([]);
   const [isAdmin,setIsAdmin] = useState(sessionStorage.isAdmin);
   const [isLoggedIn,setIsLoggedIn] = useState(sessionStorage.userId !== undefined);
 
-  console.log(isLoggedIn)
+//   console.log(user)
+//   console.log(isLoggedIn)
 
   
   
@@ -93,10 +93,10 @@ function App() {
    
         <Router>
         <div className="App"> 
-        <NavBar setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} isAdmin = {isAdmin} isLoggedIn = {isLoggedIn}/> 
+        <NavBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} isAdmin = {isAdmin} isLoggedIn = {isLoggedIn}/> 
         <Routes>
         <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
-            <Route path = '/login'  element = {<Login setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} setCurrentUser = {setUser}/>}></Route>
+            <Route path = '/login'  element = {<Login setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} setCurrentUser = {setUser}/>}></Route>
             <Route path = '/search' element = {<Search/>}></Route>
             <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} paymentInfo = {paymentInfo} addresses = {address} users = {user}/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
@@ -108,7 +108,7 @@ function App() {
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
             <Route path='/login/reset' element = {<ForgotPassword></ForgotPassword>}></Route>
-            <Route path='/profile' element = {<EditProfile currentUser = {user}></EditProfile>}></Route>
+            <Route path='/profile' element = {<EditProfile setUser = {setUser} user = {user}></EditProfile>}></Route>
 
         </Routes>
         <Footer/>

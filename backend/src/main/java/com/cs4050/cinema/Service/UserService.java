@@ -140,9 +140,14 @@ public class UserService {
      * 
      * @Return returns the updated user upon success
      */
-    public User changePassword(User currentUser, User newUser) {
-        currentUser.setPassword(encodePassword(newUser.getPassword()));
-        return userRepository.save(currentUser);
+    public boolean changePassword(User user, String currentPassword, String newPassword) {
+        if (currentPassword == null || BCrypt.checkpw(currentPassword, user.getPassword())) {
+            user.setPassword(encodePassword(newPassword));
+            save(user);
+            return true;
+        } else {
+            return false;
+        } // if
     } // changePassword
 
     /*
