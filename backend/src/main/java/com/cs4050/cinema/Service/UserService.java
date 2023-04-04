@@ -228,9 +228,6 @@ public class UserService {
      * @Return user returns the user upon success
      */
     public boolean verifyUser(User user, String code) {
-        System.out.println(code);
-        System.out.println(user.getVerificationCode());
-        System.out.println(code.equals(user.getVerificationCode()));
         if (code.equals(user.getVerificationCode())) {
             user.setCustomerStatus(CustomerStatus.ACTIVE);
             user.setVerificationCode(null);

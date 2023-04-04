@@ -64,6 +64,7 @@ public class UserController {
     // Currently the user is being found in the frontend, which should not be the case
     @PutMapping("/verify-email/{id}")
     public HttpStatus verifyEmail(@PathVariable Long id, @RequestBody String code) {
+        System.out.println(code);
         User user = userService.getUserById(id);
         if (user == null) {
             return HttpStatus.NOT_FOUND;
