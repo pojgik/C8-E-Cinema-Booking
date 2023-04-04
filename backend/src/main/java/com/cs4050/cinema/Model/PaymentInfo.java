@@ -43,7 +43,7 @@ public class PaymentInfo {
     @Column(name = "cardName", nullable = false)
     private String cardName;
 
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(name = "userId")
     private User user;
 } // PaymentInfo
