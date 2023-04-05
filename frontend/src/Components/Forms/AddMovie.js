@@ -96,7 +96,23 @@ const AddMovie = () => {
                      <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Movie Title" type="text" name = 'title' required/>
                      </ul>
                      <ul>
-                     <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Category" type="text" name = 'category' required/>
+                     <select name = 'category' onChange = {(e)=>handleInputChange(e)} required type="select" className='search'> 
+                        <option selected disabled value = "" > Genre</option>
+                        <option value="action">Action</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="drama">Drama</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="horror">Horror</option>
+                        <option value="musical">Musical</option>
+                        <option value="mystery">Mystery</option>
+                        <option value="romance">Romance</option>
+                        <option value="scifi">Science Fiction</option>
+                        <option value="sports">Sports</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="western">Western</option>
+                    </select>
+                     {/* <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Category" type="text" name = 'category' required/> */}
                      </ul>
                      <ul>
                      <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Cast" type="text" name = 'cast'required/>
