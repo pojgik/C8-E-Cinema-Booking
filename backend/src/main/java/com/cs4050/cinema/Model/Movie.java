@@ -53,7 +53,7 @@ public class Movie {
     private String rating;
 
     //Movie's Shows
-    @OneToMany(mappedBy = "showId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movieId", cascade = CascadeType.ALL)
     private List<Show> shows = new ArrayList<>();
 
  } // Movie
