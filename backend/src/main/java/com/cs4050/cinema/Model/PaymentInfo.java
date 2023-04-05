@@ -13,11 +13,11 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="paymentInfo")
+@Table(name="paymentinfo")
 public class PaymentInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "paymentId", nullable = false)
+    @Column(name = "paymentId")
     private Long paymentId;
 
     @Column(name = "cardType", nullable = false)
