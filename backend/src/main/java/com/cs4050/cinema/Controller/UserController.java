@@ -83,6 +83,12 @@ public class UserController {
         return ResponseEntity.ok(user);
     } // getUserById
 
+    @GetMapping("/getTest")
+    public ResponseEntity<String> getTest() {
+        return ResponseEntity.ok("Hello");
+    } // getUserById
+
+
     @PutMapping("/changePassword/{id}")
     public HttpStatus changePassword(@PathVariable Long id, @RequestParam String newPassword, @RequestParam(required = false) String currentPassword) {
         User user = userService.getUserById(id);
