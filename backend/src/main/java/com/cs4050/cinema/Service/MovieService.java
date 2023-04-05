@@ -34,7 +34,7 @@ public class MovieService {
      * 
      * @Param movieId The movie id to look for
      * 
-     * @Return Movie the movie found from the database
+     * @Return movie The movie found from the database
      */
     public Movie getMovieById(Long movieId) {
         return movieRepository.findById(movieId)
@@ -42,26 +42,42 @@ public class MovieService {
     } // getMovieById
 
     /*
-     * Returns a movie whose title matches the specified title
+     * Returns a List of Movies whose category matches the specified category.
+     * 
+     * @Throws NoSuchElementException when no movies with the specified category are found
+     * 
+     * @Param category The movie category to look for
+     * 
+     * @Return movies List of movies found from the database
+     */
+    public List<Movie> getMoviesByCategory(String category) {
+        List<Movie> movies= movieRepository.findByCategory(category);
+        if (movies == null)
+            throw new NoSuchElementException("No movies found in category: " + category);
+            return movies;
+    } // getMovieByCategory
+
+    /*
+     * Returns a List of movie whose titles match the specified title
      * 
      * @Throws NoSuchElementException when a movie with the specified title cannot be found
      * 
      * @Param title The title to look for
      * 
-     * @Return Movie the movie found from the database
+     * @Return movies List of Movies found from the database
      */
-    public Movie getMovieByTitle(String title) throws NoSuchElementException {
-        Movie movie = movieRepository.findByTitle(title);
-        if (movie == null) {
-            throw new NoSuchElementException("Movie with title " + title + " not found");
+    public List<Movie> getMoviesByTitle(String title) throws NoSuchElementException {
+        List<Movie> movies = movieRepository.findByTitle(title);
+        if (movies == null) {
+            throw new NoSuchElementException("No movies found with title: " + title);
         } // if
-        return movie;
+        return movies;
     } // getMovieByTitle
 
      /*
-     * Returns a list of all users saved in the database.
+     * Returns a list of all movies saved in the database.
      * 
-     * @Return List<User> List of every user
+     * @Return List<Movie> List of every movie
      */
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();

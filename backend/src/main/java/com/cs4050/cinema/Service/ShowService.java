@@ -42,9 +42,7 @@ public class ShowService {
                 System.out.println("RIP BOZO\n\n\n");
                 throw new DataIntegrityViolationException("Timeslot already full");
             }
-                System.out.println("\n1: "+show.getShowTime() + "\n2: " + shows.get(i).getShowTime() +
-                "\nShows size: " + shows.size());
-                System.out.println("Are the two strings the same? " + shows.get(i).getShowTime().equals(show.getShowTime()));
+                test(show, shows);
                 //Checks if showTimes + movieDuration + cleanUp (say 10 mins), overlaps
         } // for
         System.out.println("\n1 GETS TO HERE\n\n");
@@ -54,6 +52,11 @@ public class ShowService {
         return showRepository.save(show);
     } // createShow
 
+    public void test(Show show, List<Show> shows) {
+        System.out.println("\n1: "+show.getShowTime() + "\n2: " + shows.get(i).getShowTime() +
+                "\nShows size: " + shows.size());
+        System.out.println("Are the two strings the same? " + shows.get(i).getShowTime().equals(show.getShowTime()));
+    }
     public Show getShowById(Long showId) {
         return showRepository.findById(showId)
             .orElseThrow(() -> new NoSuchElementException("Show not found with id: " + showId));
