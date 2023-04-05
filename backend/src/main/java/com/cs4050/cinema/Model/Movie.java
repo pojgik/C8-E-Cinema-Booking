@@ -40,7 +40,10 @@ public class Movie {
     private String producer; 
 
     @Column(name = "trailerURL", nullable = false)
-    private String trailerURL; 
+    private String trailerURL;
+    
+    @Column(name = "coverURL", nullable = false)
+    private String coverURL;
     
     @Column(name = "synopsis", nullable = false)
     private String synopsis; 
