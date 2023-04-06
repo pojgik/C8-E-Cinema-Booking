@@ -16,7 +16,8 @@ class User {
 }
 
 const Registration = (props) => {
-
+    
+    console.log(props.paymentInfo)
     const navigate = useNavigate();
 
     const [firstName,setFirstName] = useState("");
@@ -26,7 +27,6 @@ const Registration = (props) => {
     const [password,setPassword] = useState("");
     const [passwordConf,setPasswordConf] = useState("");
     const [addresses,setAddresses] = useState(null);
-    const [payment,setPayment] = useState(null);
     const[promo,setPromo] = useState(false);
 
 
@@ -64,7 +64,8 @@ const Registration = (props) => {
             alert("Passwords must match")
         }
         else {
-            const myUser = {
+            const myUser = { 
+                user : {
                 firstName: firstName,
                 lastName: lastName,
                 email:email,
@@ -75,6 +76,8 @@ const Registration = (props) => {
                 phone:phoneNumber,
                 paymentCards: [],
                 billingAddress: null 
+                },
+                paymentInfo: props.paymentInfo
             };
             console.log(myUser)
             fetch("http://localhost:8080/users/register",{
@@ -86,13 +89,14 @@ const Registration = (props) => {
                 },
                 body: JSON.stringify(myUser)
             })
-            .then(res =>res.json())
+            .then(res => res.json())
             .then(data => {
+                console.log(data)
                 if(data.message === "User with that email already exists."){
                     alert("User with that email already exists.")
                 }
                 else {
-                    navigate("/reg-conf");
+                    navigate("/reg-conf", {state: {userId: data}});
                 }
                console.log(data);});
             }

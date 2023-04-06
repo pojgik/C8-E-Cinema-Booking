@@ -30,9 +30,9 @@ public class PaymentService {
         if (paymentInfo.getCardNumber() != null || paymentInfo.getCvv() != null) {
                 paymentInfo = encryptPaymentInfo(paymentInfo);
         } // if
-        user.getPaymentCards().add(paymentInfo);
         paymentInfo.setUser(user);
-        return paymentInfoRepository.save(paymentInfo);
+        paymentInfoRepository.save(paymentInfo);
+        return paymentInfo;
     } // addPaymentCard
 
     /*

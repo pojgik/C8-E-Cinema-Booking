@@ -2,7 +2,6 @@ package com.cs4050.cinema.Service;
 
 import java.util.NoSuchElementException;
 import org.springframework.dao.DataIntegrityViolationException;
-import java.sql.Timestamp;
 import org.springframework.stereotype.Service;
 
 import com.cs4050.cinema.Model.*;

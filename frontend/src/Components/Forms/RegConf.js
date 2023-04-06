@@ -1,12 +1,15 @@
 import { NULL } from 'mysql/lib/protocol/constants/types';
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'
 import './Form-Style/RegConf.css'
 
 const RegConf = () => {
 
     const nav = useNavigate();
+    const location = useLocation();
     const [code,setCode] = useState();
+    const userId = location.state.userId;
 
     const handleInputChange = (event) => {
         event.preventDefault();
@@ -26,43 +29,38 @@ const RegConf = () => {
         */
         event.preventDefault();
         // console.log(code)
-        fetch("http://localhost:8080/users/getAllUsers",{
-                method: "GET",
-                mode:"cors",
-                headers: {
-                    "Content-Type":"application/json",
-                    "Accept":"application/json"
-                },
-                // body: JSON.stringify(myUser)
+        // const user = data.find(value=>value.verificationCode == code);
+        // console.log(user.userId);
+        // const updatedUser = user;
+        // updatedUser.verificationCode = undefined;
+        // updatedUser.customerStatus = 1;
+
+        console.log("User Found from code")
+        fetch("http://localhost:8080/users/verify-email/" + userId, {
+            method: "PUT",
+        mode:"cors",
+            headers: {
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            },
+                body: code
             })
-            .then(res =>res.json())
-            .then(data => {
-                const user = data.find(value=>value.verificationCode == code);
-                console.log(user.userId);
-                const updatedUser = user;
-                updatedUser.verificationCode = undefined;
-                updatedUser.customerStatus = 1;
-                if (user !== undefined) {
-                    console.log("User Found from code")
-                    fetch("http://localhost:8080/users/verify-email/" + user.userId, {
-                        method: "PUT",
-                        mode:"cors",
-                        headers: {
-                            "Content-Type":"application/json",
-                            "Accept":"application/json"
-                        },
-                        body: JSON.stringify(updatedUser)
-                    })
-                    .then(res => res.json())
-                    .then(data =>  {
-                        console.log(data)
-                        alert("Verification Code Accepted!")
-                        nav("/login")
-                })
+            .then(res => {
+                if (res.ok) {
+                    alert("Verification Code Accepted!")   
+                    nav("/login")
+                } else {
+                    alert("Invalid Verification Code")
                 }
-                else alert("Invalid Verification Code")
-               console.log(data);});
-            }
+            })
+            // .then(data =>  {
+            //     console.log(data)
+            //     alert("Verification Code Accepted!")
+            //     nav("/login")
+            // })
+                // else alert("Invalid Verification Code")
+                // console.log(data)
+            } // regSubmitHandler
     
     return (
         <div className='reg'>

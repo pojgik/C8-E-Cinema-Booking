@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cs4050.cinema.Model.Address;
@@ -39,7 +40,7 @@ public class UserController {
     } // UserController
 
     @PostMapping("/register")
-    public HttpStatus createUser(@RequestBody UserRequest request) {
+    public ResponseEntity<Long> createUser(@RequestBody UserRequest request) {
         User user = request.getUser();
         PaymentInfo paymentInfo = request.getPaymentInfo();
         Address address = request.getAddress();
@@ -57,16 +58,22 @@ public class UserController {
 
         emailService.sendEmail(newUser.getEmail(), "Verify Email Address", "Here is your" +
         " verification code: " + newUser.getVerificationCode());
-        return HttpStatus.CREATED;
+        return ResponseEntity.ok(newUser.getUserId());
     } // createUser
 
     // Currently the user is being found in the frontend, which should not be the case
     @PutMapping("/verify-email/{id}")
-    public ResponseEntity<User> verifyEmail(@PathVariable Long id, @RequestBody User user) throws Exception {
+    public HttpStatus verifyEmail(@PathVariable Long id, @RequestBody String code) {
+        System.out.println(code);
+        User user = userService.getUserById(id);
         if (user == null) {
-            throw new Exception("User not found");
+            return HttpStatus.NOT_FOUND;
         } else {
-            return ResponseEntity.ok(userService.verifyUser(user));
+            if (userService.verifyUser(user, code)) {
+                return HttpStatus.OK;
+            } else {
+                return HttpStatus.BAD_REQUEST;
+            } // if
         } // if
     } // ResponseEntity
 
@@ -83,10 +90,14 @@ public class UserController {
 
 
     @PutMapping("/changePassword/{id}")
-    public HttpStatus changePassword(@PathVariable Long id, @RequestBody User updatedUser) {
-        User currentUser = userService.getUserById(id);
-        userService.changePassword(currentUser, updatedUser);
-        return HttpStatus.OK;
+    public HttpStatus changePassword(@PathVariable Long id, @RequestParam String newPassword, @RequestParam(required = false) String currentPassword) {
+        User user = userService.getUserById(id);
+        boolean update = userService.changePassword(user, currentPassword, newPassword);
+        if (!update) {
+            return HttpStatus.UNAUTHORIZED;
+        } else {
+            return HttpStatus.OK;
+        } // if
     } // changePassword
 
     @PutMapping("/editProfile/{id}") 
@@ -99,6 +110,7 @@ public class UserController {
         if (currentUser == null) {
             return HttpStatus.NOT_FOUND;
         } else if (updatedUser == null) {
+            System.out.println("Here is the request: " + request);
             return HttpStatus.BAD_REQUEST;
         } else {
             userService.updateUser(currentUser, updatedUser, paymentInfo, billingAddress);

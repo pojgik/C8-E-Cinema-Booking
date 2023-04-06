@@ -6,17 +6,17 @@ import './Form-Style/Login.css'
 
 const Login = (props) => {
 
-    
     const nav = useNavigate();
     const [loginEmail,setLoginEmail] = useState();
     const [loginPass,setLoginPass] = useState();
-
     const submitHandler =(event)=> {
+
         event.preventDefault();
         const loginUser = {
             email: loginEmail,
             password: loginPass
         }
+
         fetch("http://localhost:8080/users/login",{
                 method: "POST",
                 mode:"cors",
@@ -33,18 +33,18 @@ const Login = (props) => {
                     return res.json();
                 }})
             .then(data => {
-                console.log(data)
+                // console.log(data)
+                sessionStorage.setItem('user', JSON.stringify(data));
+                // console.log(JSON.stringify(data))
                 sessionStorage.setItem('userId', data.userId);
                 props.setIsLoggedIn(sessionStorage.getItem('userId'))
-                // props.setIsLoggedIn(setI);
-                if (data.userType === "ADMIN")
+                props.setUser(data)
+                if (data.userType === "ADMIN") {
                     sessionStorage.setItem("isAdmin",true)
                     props.setIsAdmin(sessionStorage.getItem("isAdmin"))
-                // console.log("admin",sessionStorage.isAdmin)
-                // console.log("userID",sessionStorage.userId)
+                }
                 nav('/')
             });
-
     }
 
     return (
