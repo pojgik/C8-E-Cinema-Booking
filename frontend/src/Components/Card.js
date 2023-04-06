@@ -12,7 +12,7 @@ const Card = (props) => {
                 {props.isLoggedIn &&<button className='card-btn'><a href='#'> Book Now</a></button>}
                 <button className='card-btn'><a href='#'> More Info</a></button>
                 {props.isAdmin&& <button className="card-btn"><a href="#">Delete Movie</a></button>}
-                {props.isAdmin && <Link to = "/update-movie"><button className="card-btn"><a href="#">Edit Movie</a></button></Link>}
+                {props.isAdmin && <Link to = {`/update-movie/${props.title.toString()}`} ><button className="card-btn"><a href="#">Edit Movie</a></button></Link>}
             </div>
         </div>
         

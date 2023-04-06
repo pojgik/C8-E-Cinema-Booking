@@ -97,7 +97,7 @@ function App() {
             <Route path = '/search' element = {<Search setFilteredMovies = {setFilteredMovies}/>}></Route>
             <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} paymentInfo = {paymentInfo} addresses = {address} users = {user}/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies filteredMovies = {filteredMovies} setFilteredMovies = {setFilteredMovies}/>}></Route>
-            <Route path = "/update-movie" element = {<UpdateMovie/>}></Route>
+            <Route path = "/update-movie/:id" element = {<UpdateMovie/>}></Route>
             <Route path = "/add-payment" element = {<AddPayment setPaymentInfo = {setPaymentInfo}/>}></Route>
             <Route path = "/add-address" element = {<AddAdress setter = {setAddress}/>}></Route>
             <Route path = "/add-movie" element = {<AddMovie/>}></Route>
