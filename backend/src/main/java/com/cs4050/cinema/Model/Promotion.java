@@ -30,7 +30,6 @@ public class Promotion {
 
     @OneToOne
     @JoinColumn(name="movieId")
-    @Column(name="movieApplied", nullable = false)
     private Movie movieApplied;
 
     @Column(name="discountRate", nullable = false)
