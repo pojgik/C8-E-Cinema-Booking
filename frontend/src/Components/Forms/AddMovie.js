@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Form-Style/AddMovie.css'
 
 
 
 const AddMovie = () => {
 
+    const nav = useNavigate();
     const [title,setTitle] = useState(null);
     const [category,setCategory] = useState(null);
     const [cast,setCast] = useState(null);
@@ -84,6 +86,7 @@ const AddMovie = () => {
         })
         .then(res=> res.json())
         .then(data=>console.log(data))
+        nav("/manage-movies")
     }
 
     return (

@@ -101,7 +101,7 @@ function App() {
             <Route path = "/add-payment" element = {<AddPayment setPaymentInfo = {setPaymentInfo}/>}></Route>
             <Route path = "/add-address" element = {<AddAdress setter = {setAddress}/>}></Route>
             <Route path = "/add-movie" element = {<AddMovie/>}></Route>
-            <Route path = "/searched" element = {<CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Filtered Movies"} filteredMovies = {filteredMovies}/>}></Route>
+            <Route path = "/searched" element = {<CardPane setFilteredMovies = {setFilteredMovies} isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Filtered Movies"} filteredMovies = {filteredMovies}/>}></Route>
             <Route path='/reg-conf' element = {<RegConf/>}></Route>
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
