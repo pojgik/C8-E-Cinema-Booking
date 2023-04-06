@@ -46,7 +46,7 @@ const UpdateMovie = () => {
         }
         
     }
-    // const [movie,setMovie] = useState(null)
+    const [movie,setMovie] = useState(null)
     const [title,setTitle] = useState(useParams().id);
     const [cast,setCast] = useState(null);
     const [category,setCategory] = useState();
@@ -57,6 +57,7 @@ const UpdateMovie = () => {
     const [pic,setPic] = useState(null);
     const [video,setVideo] = useState(null);
     const [rating,setRating] = useState(null);
+    
     useEffect(() => {
         
         fetch("http://localhost:8080/movies/searchTitle/" + title,{
@@ -69,15 +70,16 @@ const UpdateMovie = () => {
         })
         .then (res=>res.json())
         .then(data => {
-            setCast(data[0].cast)
-            setCategory(data[0].category)
-            setDirector(data[0].director)
-            setProducer(data[0].producer)
-            setSynopsis(data[0].synopsis)
-            setReviews(data[0].reviews)
-            setPic(data[0].coverURL)
-            setVideo(data[0].trailerURL)
-            setRating(data[0].rating)
+            console.log(data.cast)
+            setCast(data.cast)
+            setCategory(data.category)
+            setDirector(data.director)
+            setProducer(data.producer)
+            setSynopsis(data.synopsis)
+            setReviews(data.reviews)
+            setPic(data.coverURL)
+            setVideo(data.trailerURL)
+            setRating(data.rating)
 
         })
     },[])
@@ -109,7 +111,7 @@ const UpdateMovie = () => {
                     </select>
                      </ul>
                      <ul>
-                     <input  value = {cast} onChange = {(e)=>handleInputChange(e)} placeholder = "Cast" type="text" name = 'cast'required/>
+                     <input  value = {cast} onChange = {(e)=>handleInputChange(e)} placeholder = {cast} type="text" name = 'cast'required/>
                      </ul>
                      <ul>
                      <input value = {director} onChange = {(e)=>handleInputChange(e)} placeholder = "Director" type="text" name = 'director'required/>
