@@ -1,15 +1,10 @@
 package com.cs4050.cinema.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -27,33 +22,36 @@ public class Movie {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "category", nullable = false)
+    @Column(name = "category", nullable = true)
     private String category;
 
-    @Column(name = "cast", nullable = false)
+    @Column(name = "cast", nullable = true)
     private String cast;
 
-    @Column(name = "director", nullable = false)
+    @Column(name = "director", nullable = true)
     private String director; 
 
-    @Column(name = "producer", nullable = false)
+    @Column(name = "producer", nullable = true)
     private String producer; 
 
-    @Column(name = "trailerURL", nullable = false)
-    private String trailerURL; 
+    @Column(name = "trailerURL", nullable = true)
+    private String trailerURL;
     
-    @Column(name = "synopsis", nullable = false)
+    @Column(name = "coverURL", nullable = true)
+    private String coverURL;
+    
+    @Column(name = "synopsis", nullable = true)
     private String synopsis; 
+
+    @Column(name = "duration", nullable = true)
+    private int duration = 240;
+    //duration in minutes
     
-    @Column(name = "reviews", nullable = false)
-    private String reviews;
+    // @Column(name = "reviews", nullable = true)
+    // private String reviews;
     //This can just be one big string including all reviews or an array
 
-    @Column(name = "rating", nullable = false)
+    @Column(name = "rating", nullable = true)
     private String rating;
-
-    //Movie's Shows
-    @OneToMany(mappedBy = "showId", cascade = CascadeType.ALL)
-    private List<Show> shows = new ArrayList<>();
 
  } // Movie

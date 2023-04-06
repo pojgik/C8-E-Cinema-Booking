@@ -33,78 +33,74 @@ function App() {
     },
     {
         title: "movie-2",
-        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+        trailerURL: 'https://www.youtube.com/embed/yjRHZEUamCc'
     },
     {
         title: "movie-3",
-        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+        trailerURL: 'https://www.youtube.com/embed/yjRHZEUamCc'
     },
     {
         title: "movie-4",
-        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+        trailerURL: 'https://www.youtube.com/embed/yjRHZEUamCc'
     },
     {
         title: "movie-5",
-        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+        trailerURL: 'https://www.youtube.com/embed/yjRHZEUamCc'
     },
     {
         title: "movie-6",
-        link: 'https://www.youtube.com/embed/yjRHZEUamCc'
+        trailerURL: 'https://www.youtube.com/embed/yjRHZEUamCc'
     },
   ])
   const [AntCards] = useState([
     {
         title: "movie-7",
-        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+        trailerURL: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
     {
         title: "movie-8",
-        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+        trailerURL: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
     {
         title: "movie-9",
-        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+        trailerURL: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
     {
         title: "movie-10",
-        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+        trailerURL: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
     {
         title: "movie-11",
-        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+        trailerURL: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
     {
         title: "movie-12",
-        link: 'https://www.youtube.com/embed/ZlNFpri-Y40'
+        trailerURL: 'https://www.youtube.com/embed/ZlNFpri-Y40'
     },
   ]);
+
+  const [filteredMovies,setFilteredMovies] = useState()
   const [user,setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
   const [paymentInfo,setPaymentInfo] = useState(null)
-//   fetch('http://localhost:8080/users/getUser/' + sessionStorage.userId)
   const [address,setAddress] = useState([]);
   const [isAdmin,setIsAdmin] = useState(sessionStorage.isAdmin);
   const [isLoggedIn,setIsLoggedIn] = useState(sessionStorage.userId !== undefined);
-
-//   console.log(user)
-//   console.log(isLoggedIn)
-
-  
-  
   return (
-   
+
         <Router>
-        <div className="App"> 
-        <NavBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} isAdmin = {isAdmin} isLoggedIn = {isLoggedIn}/> 
+        <div className="App">
+        <NavBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} isAdmin = {isAdmin} isLoggedIn = {isLoggedIn}/>
         <Routes>
-        <Route exact path = "/" element = {<> <CardPane type = {"New Movies"} movies = {WickCards}/> <CardPane type = {"Coming Soon"} movies = {AntCards}/></>}> </Route>
+        <Route exact path = "/" element = {<> <CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"New Movies"} filteredMovies = {WickCards}/> <CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Coming Soon"} filteredMovies = {AntCards}/></>}> </Route>
             <Route path = '/login'  element = {<Login setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} setCurrentUser = {setUser}/>}></Route>
-            <Route path = '/search' element = {<Search/>}></Route>
+            <Route path = '/search' element = {<Search setFilteredMovies = {setFilteredMovies}/>}></Route>
             <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} paymentInfo = {paymentInfo} addresses = {address} users = {user}/>}></Route>
-            <Route path = "/manage-movies" element = {<ManageMovies/>}></Route>
-            <Route path = "/update-movie" element = {<UpdateMovie/>}></Route>
+            <Route path = "/manage-movies" element = {<ManageMovies filteredMovies = {filteredMovies} setFilteredMovies = {setFilteredMovies}/>}></Route>
+            <Route path = "/update-movie/:id" element = {<UpdateMovie/>}></Route>
             <Route path = "/add-payment" element = {<AddPayment setPaymentInfo = {setPaymentInfo}/>}></Route>
             <Route path = "/add-address" element = {<AddAdress setter = {setAddress}/>}></Route>
             <Route path = "/add-movie" element = {<AddMovie/>}></Route>
+            <Route path = "/searched" element = {<CardPane setFilteredMovies = {setFilteredMovies} isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Filtered Movies"} filteredMovies = {filteredMovies}/>}></Route>
             <Route path='/reg-conf' element = {<RegConf/>}></Route>
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
@@ -120,7 +116,7 @@ function App() {
             // <Checkout/>
             // <BuyTicket/>
             // <OrderSummary/>
-            // <OrderConfirmation/>  
+            // <OrderConfirmation/>
   );
 }
 
