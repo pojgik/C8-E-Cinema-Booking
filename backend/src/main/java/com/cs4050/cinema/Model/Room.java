@@ -27,6 +27,6 @@ public class Room {
     private int numSeats;
 
     //Room's Shows
-    @OneToMany(mappedBy = "showId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "roomId", cascade = CascadeType.ALL)
     private List<Show> shows = new ArrayList<>();
 }

@@ -40,7 +40,10 @@ public class Movie {
     private String producer; 
 
     @Column(name = "trailerURL", nullable = false)
-    private String trailerURL; 
+    private String trailerURL;
+    
+    @Column(name = "coverURL", nullable = false)
+    private String coverURL;
     
     @Column(name = "synopsis", nullable = false)
     private String synopsis; 
@@ -53,7 +56,7 @@ public class Movie {
     private String rating;
 
     //Movie's Shows
-    @OneToMany(mappedBy = "showId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movieId", cascade = CascadeType.ALL)
     private List<Show> shows = new ArrayList<>();
 
  } // Movie

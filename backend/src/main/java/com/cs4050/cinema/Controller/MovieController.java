@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -51,6 +52,16 @@ public class MovieController {
         return HttpStatus.CREATED;
     } // createShow
 
+    @GetMapping("/deleteMovie/{id}")
+    public HttpStatus deleteMovie(@PathVariable Long id){
+        if (movieService.getMovieById(id) != null) {
+            movieService.deleteMovie(id);
+            return HttpStatus.OK;
+        } else {
+            return HttpStatus.BAD_REQUEST;
+        } // if
+    } // deleteMovie
+    
     @GetMapping("/getShow/{id}")
     public ResponseEntity<Show> getShow(@PathVariable Long id) {
         Show show = showService.getShowById(id);
@@ -68,5 +79,18 @@ public class MovieController {
         Movie movie = movieService.getMovieById(id);
         return ResponseEntity.ok(movie);
     } // getMovie
+
+    @GetMapping("/searchCategory")
+    public ResponseEntity<List<Movie>> searchByCategory(@RequestBody String category) {
+        List<Movie> movies = movieService.getMoviesByCategory(category);
+        return ResponseEntity.ok(movies);
+    } // searchCategory
+
+    @GetMapping("/searchTitle/{title}")
+    public ResponseEntity<List<Movie>> searchByTitle(@PathVariable String title) {
+        System.out.println(title);
+        List<Movie> movies = movieService.getMoviesByTitle(title);
+        return ResponseEntity.ok(movies);
+    } // searchCategory
 
 } // MovieController

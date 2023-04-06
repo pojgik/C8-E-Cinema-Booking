@@ -1,20 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Style/CardPane.css'
 import Card from './Card';
 const CardPane = (props) => {
-   
-    
     return (
         
         <div className="view">
             <h1 className='header'>{props.type}</h1>
             <div className = "cards">
                 {
-                    props.movies.map((card,i) => (
+                  props.filteredMovies.length === 0 ? (<div className='notFound'>No Movies Found...</div>) : (props.filteredMovies.map((card,i) => (
                         <div className="card">
-                            <Card title = {card.title} link  = {card.link} />
+                            <Card setFilteredMovies = {props.setFilteredMovies} filteredMovies = {props.filteredMovies} isLoggedIn = {props.isLoggedIn} isAdmin = {props.isAdmin} title = {card.title} link = {card.trailerURL} />
                         </div>
-                        ))  
+                        )))  
+                    
                 }
             </div>
         </div>
