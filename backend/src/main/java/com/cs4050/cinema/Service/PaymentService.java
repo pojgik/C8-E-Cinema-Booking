@@ -31,6 +31,7 @@ public class PaymentService {
                 paymentInfo = encryptPaymentInfo(paymentInfo);
         } // if
         paymentInfo.setUser(user);
+        user.getPaymentCards().add(paymentInfo);
         paymentInfoRepository.save(paymentInfo);
         return paymentInfo;
     } // addPaymentCard

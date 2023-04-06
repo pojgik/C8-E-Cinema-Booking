@@ -37,18 +37,34 @@ const ScheduleMovies =(props) => {
         }
     }
 
-    
+
 
     const submitHandler = (event) => {
         event.preventDefault()
-       const showing = {
+        const showing = {
             title:title,
             showroom:showroom,
             date:date,
             time:time
        }
-       console.log(showing)
 
+        const url = ("http://localhost:8080/movies/addShow/?roomId=" + showroom + "&movieTitle=" + title).replace(" ","%20")
+        console.log(url)
+        const showDate = {
+            showTime: date+"T"+time+":00.00Z"
+        }
+        console.log(JSON.stringify(showDate))
+        fetch(url,{
+                method: "POST",
+                mode:"cors",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Accept":"application/json"
+                },
+                body: JSON.stringify(showDate)
+            })
+        .then(res=>res.json())
+        .then(data=>console.log(data))
     }
 
     return (
@@ -68,12 +84,12 @@ const ScheduleMovies =(props) => {
             </ul>
 
             <ul>
-            <select required name = "showroom" onChange = {(e)=>handleInputChange(e)} type="select" className='search'> 
+            <select required name = "showroom" onChange = {(e)=>handleInputChange(e)} type="select" className='search'>
                         <option  selected disabled value = "" >Show Rooms</option>
-                        <option value = "royal" >Royal (100)</option>
-                        <option value = "boyd" >Boyd (50)</option>
-                        <option value = "sg" >SG (10)</option>
-                        
+                        <option value = "1" >Royal (100)</option>
+                        <option value = "2" >Boyd (50)</option>
+                        <option value = "3" >SG (10)</option>
+
             </select>
             </ul>
 
@@ -82,7 +98,7 @@ const ScheduleMovies =(props) => {
             </ul>
 
             <ul>
-            <input required name = "time" onChange = {(e)=>handleInputChange(e)} type="time" className='search'/> 
+            <input required name = "time" onChange = {(e)=>handleInputChange(e)} type="time" className='search'/>
             </ul>
 
             <ul>
@@ -90,7 +106,7 @@ const ScheduleMovies =(props) => {
             </ul>
 
             <ul>
-                <input required name = "date" onChange = {(e)=>handleInputChange(e)} className = "search" type= 'date'/> 
+                <input required name = "date" onChange = {(e)=>handleInputChange(e)} className = "search" type= 'date'/>
             </ul>
 
             <ul className="form-btn">

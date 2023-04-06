@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: cinemaebooking
+-- Host: localhost    Database: cinemaebooking
 -- ------------------------------------------------------
 -- Server version	8.0.32
 
@@ -156,7 +156,7 @@ CREATE TABLE `paymentinfo` (
   UNIQUE KEY `paymentId` (`paymentId`),
   KEY `userId` (`userId`),
   CONSTRAINT `paymentinfo_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +165,6 @@ CREATE TABLE `paymentinfo` (
 
 LOCK TABLES `paymentinfo` WRITE;
 /*!40000 ALTER TABLE `paymentinfo` DISABLE KEYS */;
-INSERT INTO `paymentinfo` VALUES (76,76,NULL,'string','2020-02-12','string',NULL,'string','string'),(85,85,NULL,'string','2020-02-12','string',NULL,'string','string');
 /*!40000 ALTER TABLE `paymentinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,7 +213,7 @@ CREATE TABLE `showing` (
   KEY `roomId` (`roomId`),
   CONSTRAINT `showing_ibfk_1` FOREIGN KEY (`movieId`) REFERENCES `movie` (`movieId`),
   CONSTRAINT `showing_ibfk_2` FOREIGN KEY (`roomId`) REFERENCES `showroom` (`roomId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,4 +375,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-29 15:43:03
+-- Dump completed on 2023-04-06 15:29:36
