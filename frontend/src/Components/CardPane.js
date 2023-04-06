@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './Style/CardPane.css'
 import Card from './Card';
 const CardPane = (props) => {
+    console.log(props)
     return (
         
         <div className="view">
@@ -10,7 +11,7 @@ const CardPane = (props) => {
                 {
                   props.filteredMovies.length === 0 ? (<div className='notFound'>No Movies Found...</div>) : (props.filteredMovies.map((card,i) => (
                         <div className="card">
-                            <Card setCurrentMovie = {props.setCurrentMovie} setFilteredMovies = {props.setFilteredMovies} filteredMovies = {props.filteredMovies} isLoggedIn = {props.isLoggedIn} isAdmin = {props.isAdmin} rating = {card.rating} title = {card.title} link = {card.trailerURL} />
+                            <Card  currentMovie = {props.currentMovie}setCurrentMovie = {props.setCurrentMovie} setFilteredMovies = {props.setFilteredMovies} filteredMovies = {props.filteredMovies} isLoggedIn = {props.isLoggedIn} isAdmin = {props.isAdmin} rating = {card.rating} title = {card.title} link = {card.trailerURL} />
                         </div>
                         )))  
                     

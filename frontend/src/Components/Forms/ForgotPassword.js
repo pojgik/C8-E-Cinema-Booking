@@ -21,7 +21,6 @@ const ForgotPassword = () => {
                 "Accept": "application/json",
                 "Content-Type": "aaplication/json"
             }
-
         })
             .then(res => res.json())
             .then(data => {

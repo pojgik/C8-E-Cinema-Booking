@@ -17,7 +17,7 @@ const AddMovie = () => {
     const [pic,setPic] = useState(null);
     const [video,setVideo] = useState(null);
     const [rating,setRating] = useState(null);
-    const [when,setWhen] = useState(null);
+    const [out,setOut] = useState(false);
 
 
 
@@ -54,9 +54,9 @@ const AddMovie = () => {
         if (name === "rating") {
             setRating(value);
         }
-        if (name === "when") {
-            setWhen(value);
-        }
+        // if (name === "out") {
+        //     setWhen(value);
+        // }
     }
 
     const submitHandler = (event) => {
@@ -71,7 +71,8 @@ const AddMovie = () => {
             reviews: reviews,
             coverURL: pic,
             trailerURL: video,
-            rating: rating
+            rating: rating,
+            nowPlaying: out
             // when: when
         }
         fetch("http://localhost:8080/movies/addMovie",{
@@ -148,10 +149,13 @@ const AddMovie = () => {
                         <option value="r">R</option>
                         <option value="nc17">NC-17</option>
                     </select>
-                     {/* <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Rating Code" type="text" name = 'rating'required/> */}
                      </ul>
                      <ul>
-                     <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Show Dates and Times" type="text" name = 'when'/>
+                     <ul>
+                        <label className='reg-field'>Is the Movie Out Yet?</label>
+                        <input checked = {out} onChange = {(e)=>{setOut(!out)
+                        console.log(out)}}  className='reg-field' type="checkbox" name = 'out'></input>
+                        </ul>
                      </ul>
         </div>
     </form>

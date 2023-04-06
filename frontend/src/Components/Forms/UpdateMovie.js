@@ -48,7 +48,7 @@ const UpdateMovie = (props) => {
         }
         
     }
-    // const [movie,setMovie] = useState(null)
+    const [movie,setMovie] = useState(null)
     const [title,setTitle] = useState(useParams().id);
     const [cast,setCast] = useState(props.currentMovie.cast);
     const [category,setCategory] = useState(props.currentMovie.category);
@@ -59,30 +59,30 @@ const UpdateMovie = (props) => {
     const [pic,setPic] = useState(props.currentMovie.coverURL);
     const [video,setVideo] = useState(props.currentMovie.trailerURL);
     const [rating,setRating] = useState(props.currentMovie.rating);
-    // useEffect(() => {
+    useEffect(() => {
         
-    //     fetch("http://localhost:8080/movies/searchTitle/" + title,{
-    //         method: "GET",
-    //         mode: "cors",
-    //         headers: {
-    //             "Content-Type":"application/json",
-    //             "Accept":"application/json"
-    //         }
-    //     })
-    //     .then (res=>res.json())
-    //     .then(data => {
-    //         setCast(data[0].cast)
-    //         setCategory(data[0].category)
-    //         setDirector(data[0].director)
-    //         setProducer(data[0].producer)
-    //         setSynopsis(data[0].synopsis)
-    //         setReviews(data[0].reviews)
-    //         setPic(data[0].coverURL)
-    //         setVideo(data[0].trailerURL)
-    //         setRating(data[0].rating)
+        fetch("http://localhost:8080/movies/searchTitle/" + title,{
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            }
+        })
+        .then (res=>res.json())
+        .then(data => {
+            setCast(data[0].cast)
+            setCategory(data[0].category)
+            setDirector(data[0].director)
+            setProducer(data[0].producer)
+            setSynopsis(data[0].synopsis)
+            setReviews(data[0].reviews)
+            setPic(data[0].coverURL)
+            setVideo(data[0].trailerURL)
+            setRating(data[0].rating)
 
-    //     })
-    // })
+        })
+    })
 
     return (
         <div className='reg '>
