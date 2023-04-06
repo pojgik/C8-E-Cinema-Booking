@@ -32,7 +32,8 @@ public class PaymentService {
         } // if
         paymentInfo.setUser(user);
         user.getPaymentCards().add(paymentInfo);
-        return paymentInfoRepository.save(paymentInfo);
+        paymentInfoRepository.save(paymentInfo);
+        return paymentInfo;
     } // addPaymentCard
 
     /*
