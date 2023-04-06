@@ -122,6 +122,7 @@ CREATE TABLE `movie` (
   `rating` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Rating',
   `reviews` varchar(500) DEFAULT NULL,
   `duration` int NOT NULL DEFAULT '240',
+  `nowPlaying` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`movieId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -132,7 +133,7 @@ CREATE TABLE `movie` (
 
 LOCK TABLES `movie` WRITE;
 /*!40000 ALTER TABLE `movie` DISABLE KEYS */;
-INSERT INTO `movie` VALUES (1,'John Wick',NULL,NULL,NULL,NULL,NULL,'youtube.com','JohnWick.JPEG','PG-13',NULL,240),(2,'John Wick 2','1','2','3','4','yes','youtube.com',NULL,'PG-13',NULL,240),(4,'John Wick 3','1','2','3','4','yes','youtube.com',NULL,'PG-13','good',240);
+INSERT INTO `movie` VALUES (1,'John Wick',NULL,NULL,NULL,NULL,NULL,'youtube.com','JohnWick.JPEG','PG-13',NULL,240,0),(2,'John Wick 2','1','2','3','4','yes','youtube.com',NULL,'PG-13',NULL,240,0),(4,'John Wick 3','1','2','3','4','yes','youtube.com',NULL,'PG-13','good',240,0);
 /*!40000 ALTER TABLE `movie` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +186,7 @@ CREATE TABLE `promotion` (
   PRIMARY KEY (`promoId`),
   KEY `movieApplied` (`movieApplied`),
   CONSTRAINT `promotion_ibfk_1` FOREIGN KEY (`movieApplied`) REFERENCES `movie` (`movieId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,6 +195,7 @@ CREATE TABLE `promotion` (
 
 LOCK TABLES `promotion` WRITE;
 /*!40000 ALTER TABLE `promotion` DISABLE KEYS */;
+INSERT INTO `promotion` VALUES (1,'wick50','2023-07-04 00:00:00',2,50);
 /*!40000 ALTER TABLE `promotion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,7 +333,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`userId`),
   KEY `address_fk` (`addressId`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`addressId`) REFERENCES `address` (`addressId`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,7 +342,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','CUSTOMER','ACTIVE',NULL,0,'6786305328',NULL);
+INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','ADMIN','ACTIVE',NULL,0,'6786305328',NULL),(84,'Luke','Dinkla','luke.dinkla@gmail.com','$2a$10$dWq.pcX3Lslmi5EwrvA0Q.LcwLWkcyjNA4Vcpw6j7OZ.24h1vkcly','CUSTOMER','ACTIVE',NULL,1,'1234567890',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -377,4 +379,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-06 15:29:36
+-- Dump completed on 2023-04-06 17:55:06
