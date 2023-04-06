@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.cs4050.cinema.Model.*;
 import com.cs4050.cinema.Repository.*;
 
+import java.security.Timestamp;
 import java.util.List;
 
 @Service

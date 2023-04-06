@@ -21,6 +21,7 @@ import OrderConfirmation from './Components/Forms/OrderConfirmation';
 import Footer from './Components/Footer';
 import Search from './Components/Forms/Search';
 import ForgotPassword from './Components/Forms/ForgotPassword';
+import ScheduleMovies from './Components/Forms/ScheduleMovies';
 
 
 function App() {
@@ -104,6 +105,7 @@ function App() {
             <Route path='/reg-conf' element = {<RegConf/>}></Route>
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
+            <Route path='/schedule-movies' element = {<ScheduleMovies/>}></Route>
             <Route path='/login/reset' element = {<ForgotPassword></ForgotPassword>}></Route>
             <Route path='/profile' element = {<EditProfile setUser = {setUser} user = {user}></EditProfile>}></Route>
 

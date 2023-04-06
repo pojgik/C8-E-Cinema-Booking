@@ -9,7 +9,12 @@ const ManageMovies = (props) => {
         <div className="window">
             <ul className='manage-header'>
             <h1 className="form-heading">Manage Movies</h1> 
+            <li>
+            <div className="add-movie"><Link className='add-movie-btn' to='/schedule-movies'> Schedule a movie </Link></div>
+            </li>
+            <li>
             <div className="add-movie"><Link className='add-movie-btn' to='/add-movie'> Add a movie </Link></div>
+            </li>
             </ul>
             <Search filteredMovies = {props.filteredMovies} setFilteredMovies = {props.setFilteredMovies} ></Search>
         </div>
