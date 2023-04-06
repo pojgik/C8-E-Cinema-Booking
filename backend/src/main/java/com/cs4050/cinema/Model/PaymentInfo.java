@@ -1,7 +1,5 @@
 package com.cs4050.cinema.Model;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +13,11 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="paymentInfo")
+@Table(name="paymentinfo")
 public class PaymentInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "paymentId", nullable = false)
+    @Column(name = "paymentId")
     private Long paymentId;
 
     @Column(name = "cardType", nullable = false)
@@ -29,7 +27,7 @@ public class PaymentInfo {
     private String cardNumber;
 
     @Column(name = "expDate", nullable = false)
-    private Date expDate;
+    private String expDate;
 
     @Column(name = "cvv", nullable = true)
     private String cvv;
@@ -43,7 +41,7 @@ public class PaymentInfo {
     @Column(name = "cardName", nullable = false)
     private String cardName;
 
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(name = "userId")
     private User user;
 } // PaymentInfo

@@ -1,25 +1,76 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Form-Style/AddPayment.css'
-const AddPayment = () => {
-   return ( 
+const AddPayment = (props) => {
+
+
+    const nav = useNavigate();
+    const [cardType,setCardType] = useState(null);
+    const [cardName,setCardName] = useState(null);
+    const [cardNumber,setCardNumber] = useState(null);
+    const [expireMM,setExpireMM] = useState(null);
+    const [expireYY,setExpireYY] = useState(null);
+    const [cvv,setCvv] = useState(null);
+
+
+
+    const handleInputChange = (event) => {
+        event.preventDefault();
+        const {name,value} = event.target; 
+        if (name === "cardType") {
+            setCardType(value);
+        }
+        if (name === "cardNumber") {
+            setCardNumber(value);
+        }
+        if (name === "expireMM") {
+            setExpireMM(value);
+        }
+        if (name === "expireYY") {
+            setExpireYY(value);
+        }
+        if (name === "cvv") {
+            setCvv(value);
+        }
+        if (name === "cardName") {
+            setCardName(value);
+        }
+    }
+
+    const submitHandler  = (event) => {
+        event.preventDefault();
+        const payment = {
+            cardType : cardType,
+            cardNumber : cardNumber,
+            cvv : cvv,
+            cardName : cardName,
+            expDate : expireMM + "/" + expireYY
+        }
+        console.log(payment)
+        props.setPaymentInfo(payment)
+        nav("/login/register")
+    }
+
+return ( 
         <div className='reg '>
             <h1 className='form-heading'>Add a new payment method</h1>
             <div id = "payment" className="add-window">
-            <form id = "payment-form"className="add">
+            <form onSubmit = {submitHandler} id = "payment-form"className="add">
             <div className='card-info'>
             <ul>
-            <select className="search" type = "select" required >
+            <select onChange = {(e)=>handleInputChange(e)} name = "cardType" className="search" type = "select" required >
                 <option selected disabled value = "" > Card Type</option> 
-                <option value = "visa" >Visa</option>   
-                <option value = "amex" >American Express</option>   
-                <option value = "mc" >MasterCard</option>   
-                <option value = "discover" >Discover</option>   
+                <option value = "VISA" >Visa</option>   
+                <option value = "AMEX" >American Express</option>   
+                <option value = "MC" >MasterCard</option>   
+                <option value = "DISCOVER" >Discover</option>   
             </select>
             </ul>
             <ul>
-            <input placeholder='Card Number' type="text" name = "number"/>
+            <input required name = "cardNumber" onChange = {(e)=>handleInputChange(e)} placeholder='Card Number' type="text"/>
             </ul>
             <ul>
-            <select className='search' name='expireMM' id='expireMM'>
+            <select required onChange = {(e)=>handleInputChange(e)} className='search' name='expireMM' id='expireMM'>
                 <option value='' selected disabled>Month</option>
                 <option value='01'>January</option>
                 <option value='02'>February</option>
@@ -36,7 +87,7 @@ const AddPayment = () => {
             </select> 
             </ul>
             <ul>
-            <select className='search' name='expireYY' id='expireYY'>
+            <select required onChange = {(e)=>handleInputChange(e)} className='search' name='expireYY' id='expireYY'>
                 <option value='' selected disabled>Year</option>
                 <option value='23'>2023</option>
                 <option value='24'>2024</option>
@@ -47,16 +98,22 @@ const AddPayment = () => {
                 <option value='29'>2029</option>
             </select>
             </ul>
+            <ul>
+            <input required name = "cvv" onChange = {(e)=>handleInputChange(e)} placeholder='CVV' type="number" maxLength={3} minLength = {3}/>
+            </ul>
             </div>
             <div className="billing-info">
             <ul>
-            <input required placeholder='Street' type="text" name = 'street'/>
+            <input required name = "cardName" onChange = {(e)=>handleInputChange(e)} placeholder='Name on Card' type="text"/>
             </ul>
             <ul>
-            <input required placeholder = "City" type="text" name = 'city'/>
+            <input  placeholder='Street' type="text" name = 'street'/>
             </ul>
             <ul>
-            <select className = 'search' required>
+            <input  placeholder = "City" type="text" name = 'city'/>
+            </ul>
+            <ul>
+            <select className = 'search' >
                 <option selected disabled value = ''>State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -112,7 +169,7 @@ const AddPayment = () => {
             </select>
             </ul>
             <ul>
-            <input placeholder = "Zip Code"type="text" name = 'zip'required/>
+            <input placeholder = "Zip Code"type="text" name = 'zip'/>
             </ul>
             </div>
         </form>

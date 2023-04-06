@@ -71,4 +71,8 @@ public class User {
     public void setPromotionStatus(boolean status) {
         this.promotionStatus = status;
     } // setPromotionStatus
+
+    public Long getUserId() {
+        return userId;
+    }
 } // User

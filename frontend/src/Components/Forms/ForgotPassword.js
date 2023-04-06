@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Form-Style/Login.css'
 
 
 
 const ForgotPassword = () => {
 
+    const navigate = useNavigate();
     const [resetEmail, setResetEmail] = useState();
     const [resetPassword, setResetPassword] = useState();
     const [user, setUser] = useState(null);
@@ -49,7 +50,10 @@ const ForgotPassword = () => {
                 }
             })
                 .then(res => res.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data)
+                    navigate('/login')
+                })
         }
     }
 return (
