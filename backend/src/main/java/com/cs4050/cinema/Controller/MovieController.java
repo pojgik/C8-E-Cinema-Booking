@@ -42,6 +42,16 @@ public class MovieController {
         return HttpStatus.CREATED;
     } // createMovie
 
+    @GetMapping("/deleteMovie/{id}")
+    public HttpStatus deleteMovie(@PathVariable Long id){
+        if (movieService.getMovieById(id) != null) {
+            movieService.deleteMovie(id);
+            return HttpStatus.OK;
+        } else {
+            return HttpStatus.BAD_REQUEST;
+        } // if
+    } // deleteMovie
+
     @PostMapping("/addShow")
     public HttpStatus createShow(@RequestBody Show show) {
         if (show == null) {
@@ -69,14 +79,14 @@ public class MovieController {
         return ResponseEntity.ok(movie);
     } // getMovie
 
-    @GetMapping("/searchCategory")
-    public ResponseEntity<List<Movie>> searchByCategory(@RequestBody String category) {
+    @GetMapping("/searchCategory/{category}")
+    public ResponseEntity<List<Movie>> searchByCategory(@PathVariable String category) {
         List<Movie> movies = movieService.getMoviesByCategory(category);
         return ResponseEntity.ok(movies);
     } // searchCategory
 
-    @GetMapping("/searchTitle")
-    public ResponseEntity<List<Movie>> searchByTitle(@RequestBody String title) {
+    @GetMapping("/searchTitle/{title}")
+    public ResponseEntity<List<Movie>> searchByTitle(@PathVariable String title) {
         System.out.println(title);
         List<Movie> movies = movieService.getMoviesByTitle(title);
         return ResponseEntity.ok(movies);
