@@ -29,7 +29,7 @@ const Card = (props) => {
     
     return (
         <div  className = "card">
-            <h1> {props.title} </h1>  
+            <h1> {props.title} ({props.rating}) </h1>  
             <div className='frame'> 
                 <iframe src = {props.link}></iframe>
             </div>
