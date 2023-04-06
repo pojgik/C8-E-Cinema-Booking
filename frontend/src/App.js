@@ -85,7 +85,6 @@ function App() {
   const [address,setAddress] = useState([]);
   const [isAdmin,setIsAdmin] = useState(sessionStorage.isAdmin);
   const [isLoggedIn,setIsLoggedIn] = useState(sessionStorage.userId !== undefined);
-  console.log(isAdmin)
   return (
 
         <Router>

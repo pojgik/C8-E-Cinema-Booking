@@ -41,6 +41,9 @@ const UpdateMovie = () => {
         }
     }
     const submitHandler = (event) => {
+        const updatedMovie = {
+
+        }
         
     }
     // const [movie,setMovie] = useState(null)
@@ -78,8 +81,6 @@ const UpdateMovie = () => {
 
         })
     },[])
-    console.log(cast)
-    // console.log(movie)
     return (
         <div className='reg '>
         <h1 className='form-heading'>Edit movie</h1>

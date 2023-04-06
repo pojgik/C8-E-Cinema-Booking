@@ -74,7 +74,6 @@ const AddMovie = () => {
             rating: rating
             // when: when
         }
-        console.log(movie)
         fetch("http://localhost:8080/movies/addMovie",{
             method: "POST",
                 mode:"cors",

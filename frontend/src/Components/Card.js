@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 const Card = (props) => {
 
-    console.log(props)
     const deleteHandler = (event) => {
         event.preventDefault();
         fetch("http://localhost:8080/movies/searchTitle/" + props.title)
