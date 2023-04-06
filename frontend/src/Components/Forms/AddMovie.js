@@ -69,8 +69,8 @@ const AddMovie = () => {
             reviews: reviews,
             coverURL: pic,
             trailerURL: video,
-            rating: rating,
-            when: when
+            rating: rating
+            // when: when
         }
         console.log(movie)
         fetch("http://localhost:8080/movies/addMovie",{
@@ -138,10 +138,18 @@ const AddMovie = () => {
                      <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Trailer Video" type="text" name = 'video'required/>
                      </ul>
                      <ul>
-                     <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Rating Code" type="text" name = 'rating'required/>
+                     <select name = "rating" onChange = {(e)=>handleInputChange(e)} type="select" className='search' required> 
+                        <option selected disabled value = "" > Rating</option>
+                        <option value="g">G</option>
+                        <option value="pg">PG</option>
+                        <option value="pg13">PG-13</option>
+                        <option value="r">R</option>
+                        <option value="nc17">NC-17</option>
+                    </select>
+                     {/* <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Rating Code" type="text" name = 'rating'required/> */}
                      </ul>
                      <ul>
-                     <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Show Dates and Times" type="text" name = 'when'required/>
+                     <input  onChange = {(e)=>handleInputChange(e)} placeholder = "Show Dates and Times" type="text" name = 'when'/>
                      </ul>
         </div>
     </form>
