@@ -5,6 +5,45 @@ import './Form-Style/UpdateMovie.css'
 
 
 const FullMovie = (props) => {
+
+    const [title,setTitle] = useState(useParams().id);
+    const [cast,setCast] = useState(null);
+    const [category,setCategory] = useState();
+    const [director,setDirector] = useState(null);
+    const [producer,setProducer] = useState(null);
+    const [synopsis,setSynopsis] = useState(null);
+    const [reviews,setReviews] = useState("");
+    const [pic,setPic] = useState(null);
+    const [video,setVideo] = useState(null);
+    const [rating,setRating] = useState(null);
+    const [nowPlaying,setNowPlaying] = useState(null)
+    
+    useEffect(() => {
+        
+        fetch("http://localhost:8080/movies/searchTitle/" + title,{
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            }
+        })
+        .then (res=>res.json())
+        .then(data => {
+            console.log(data.cast)
+            setCast(data.cast)
+            setCategory(data.category)
+            setDirector(data.director)
+            setProducer(data.producer)
+            setSynopsis(data.synopsis)
+            setReviews(data.reviews)
+            setPic(data.coverURL)
+            setVideo(data.trailerURL)
+            setRating(data.rating)
+            setNowPlaying(data.nowPlaying)
+
+        })
+    })
     
     return (
         <div className='reg '>
@@ -14,46 +53,46 @@ const FullMovie = (props) => {
         <div className='card-info'>
             <ul>
                 <label >Title: </label>
-                {/* <label >{props.currentMovie.title}</label> */}
+                <label >{title}</label>
 
             </ul>
             <ul>
                 <label >Category: </label>
-                {/* <label >{props.currentMovie.category}</label> */}
+                <label >{category}</label>
             </ul>
              <ul>
                 <label >Cast: </label>
-                {/* <label >{props.currentMovie.cast}</label> */}
+                <label >{cast}</label>
             </ul>
             <ul>
                 <label >Director: </label>
-                {/* <label >{props.currentMovie.director}</label> */}
+                <label >{director}</label>
             </ul>
             <ul>
                 <label >Producer: </label>
-                {/* <label >{props.currentMovie.producer}</label> */}
+                <label >{producer}</label>
             </ul>
             </div>
         <div className="billing-info">
             <ul>
                 <label >Synopsis: </label>
-                {/* <label >{props.currentMovie.synopsis}</label> */}
+                <label >{synopsis}</label>
             </ul>
             <ul>
                 <label >Reviews: </label>
-                {/* <label >{props.currentMovie.reviews}</label> */}
+                <label >{reviews}</label>
             </ul>
             <ul>
                 
             </ul>
             <ul>
                 <label >Rating: </label>
-                {/* <label>{props.currentMovie.rating}</label> */}
+                <label>{rating}</label>
              </ul>
             <ul>
                 <label >Now Playing: </label>
-                {/* {props.currentMovie.nowPlaying === true && <label>True</label>} */}
-                {/* {props.currentMovie.nowPlaying === false && <label>False</label>} */}
+                {nowPlaying === true && <label>True</label>}
+                {nowPlaying === false && <label>False</label>}
 
              
             </ul>
@@ -61,7 +100,7 @@ const FullMovie = (props) => {
     </form>
     <div className='payment-btn'>
         <ul >
-            {/* <iframe src = {props.currentMovie.trailerURL}></iframe> */}
+            <iframe src = {video}></iframe>
         </ul>
     </div>
 </div>

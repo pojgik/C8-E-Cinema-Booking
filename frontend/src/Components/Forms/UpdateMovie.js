@@ -50,15 +50,16 @@ const UpdateMovie = (props) => {
     }
     const [movie,setMovie] = useState(null)
     const [title,setTitle] = useState(useParams().id);
-    const [cast,setCast] = useState(props.currentMovie.cast);
-    const [category,setCategory] = useState(props.currentMovie.category);
-    const [director,setDirector] = useState(props.currentMovie.director);
-    const [producer,setProducer] = useState(props.currentMovie.producer);
-    const [synopsis,setSynopsis] = useState(props.currentMovie.synopsis);
-    const [reviews,setReviews] = useState(props.currentMovie.reviews);
-    const [pic,setPic] = useState(props.currentMovie.coverURL);
-    const [video,setVideo] = useState(props.currentMovie.trailerURL);
-    const [rating,setRating] = useState(props.currentMovie.rating);
+    const [cast,setCast] = useState(null);
+    const [category,setCategory] = useState();
+    const [director,setDirector] = useState(null);
+    const [producer,setProducer] = useState(null);
+    const [synopsis,setSynopsis] = useState(null);
+    const [reviews,setReviews] = useState("");
+    const [pic,setPic] = useState(null);
+    const [video,setVideo] = useState(null);
+    const [rating,setRating] = useState(null);
+    
     useEffect(() => {
         
         fetch("http://localhost:8080/movies/searchTitle/" + title,{
@@ -71,15 +72,16 @@ const UpdateMovie = (props) => {
         })
         .then (res=>res.json())
         .then(data => {
-            setCast(data[0].cast)
-            setCategory(data[0].category)
-            setDirector(data[0].director)
-            setProducer(data[0].producer)
-            setSynopsis(data[0].synopsis)
-            setReviews(data[0].reviews)
-            setPic(data[0].coverURL)
-            setVideo(data[0].trailerURL)
-            setRating(data[0].rating)
+            console.log(data.cast)
+            setCast(data.cast)
+            setCategory(data.category)
+            setDirector(data.director)
+            setProducer(data.producer)
+            setSynopsis(data.synopsis)
+            setReviews(data.reviews)
+            setPic(data.coverURL)
+            setVideo(data.trailerURL)
+            setRating(data.rating)
 
         })
     })
@@ -112,7 +114,7 @@ const UpdateMovie = (props) => {
                     </select>
                      </ul>
                      <ul>
-                     <input  value = {cast} onChange = {(e)=>handleInputChange(e)} placeholder = "Cast" type="text" name = 'cast'required/>
+                     <input  value = {cast} onChange = {(e)=>handleInputChange(e)} placeholder = {cast} type="text" name = 'cast'required/>
                      </ul>
                      <ul>
                      <input value = {director} onChange = {(e)=>handleInputChange(e)} placeholder = "Director" type="text" name = 'director'required/>
