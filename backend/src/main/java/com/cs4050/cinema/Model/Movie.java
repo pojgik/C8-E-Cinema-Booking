@@ -44,7 +44,7 @@ public class Movie {
     private String synopsis; 
 
     @Column(name = "duration", nullable = true)
-    private int duration; 
+    private int duration = 240;
     //duration in minutes
     
     // @Column(name = "reviews", nullable = true)
