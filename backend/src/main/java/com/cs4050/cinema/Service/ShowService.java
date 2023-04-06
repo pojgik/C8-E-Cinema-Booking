@@ -32,7 +32,7 @@ public class ShowService {
      */
     public Show createShow(Show show) {
         Timestamp timestamp = show.getShowTime();
-        timestamp.setHours(timestamp.getHours() + 4);
+        // timestamp.setHours(timestamp.getHours() + 4);
         show.setShowTime(timestamp);
         Movie movie = movieRepository.findById(show.getMovieId())
         .orElseThrow(() -> new NoSuchElementException("Movie with ID " + show.getMovieId() + " not found"));
