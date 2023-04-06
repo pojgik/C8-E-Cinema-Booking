@@ -85,17 +85,14 @@ function App() {
   const [address,setAddress] = useState([]);
   const [isAdmin,setIsAdmin] = useState(sessionStorage.isAdmin);
   const [isLoggedIn,setIsLoggedIn] = useState(sessionStorage.userId !== undefined);
-
-      console.log(filteredMovies)
-//   useEffect(() => {
-//   })
+  console.log(isAdmin)
   return (
 
         <Router>
         <div className="App">
         <NavBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} isAdmin = {isAdmin} isLoggedIn = {isLoggedIn}/>
         <Routes>
-        <Route exact path = "/" element = {<> <CardPane userType = {user.userType}type = {"New Movies"} filteredMovies = {WickCards}/> <CardPane type = {"Coming Soon"} filteredMovies = {AntCards}/></>}> </Route>
+        <Route exact path = "/" element = {<> <CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"New Movies"} filteredMovies = {WickCards}/> <CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Coming Soon"} filteredMovies = {AntCards}/></>}> </Route>
             <Route path = '/login'  element = {<Login setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} setCurrentUser = {setUser}/>}></Route>
             <Route path = '/search' element = {<Search setFilteredMovies = {setFilteredMovies}/>}></Route>
             <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} paymentInfo = {paymentInfo} addresses = {address} users = {user}/>}></Route>
@@ -104,7 +101,7 @@ function App() {
             <Route path = "/add-payment" element = {<AddPayment setPaymentInfo = {setPaymentInfo}/>}></Route>
             <Route path = "/add-address" element = {<AddAdress setter = {setAddress}/>}></Route>
             <Route path = "/add-movie" element = {<AddMovie/>}></Route>
-            <Route path = "/searched" element = {<CardPane type = {"Filtered Movies"} filteredMovies = {filteredMovies}/>}></Route>
+            <Route path = "/searched" element = {<CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Filtered Movies"} filteredMovies = {filteredMovies}/>}></Route>
             <Route path='/reg-conf' element = {<RegConf/>}></Route>
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
