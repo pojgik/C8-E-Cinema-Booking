@@ -3,6 +3,7 @@ package com.cs4050.cinema.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,6 @@ public class Room {
     @Column(name = "numSeats")
     private int numSeats;
 
-    @OneToMany
-    @JoinColumn(name = "showId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "showId")
     private List<Show> shows = new ArrayList<>();
 }
