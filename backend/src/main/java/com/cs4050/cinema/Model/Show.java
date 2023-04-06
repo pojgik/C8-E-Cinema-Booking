@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
@@ -28,6 +28,7 @@ public class Show {
     @JoinColumn(name="movieId")
     private Movie movie;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="roomId")
     private Room room;
