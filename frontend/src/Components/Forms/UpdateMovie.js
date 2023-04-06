@@ -80,7 +80,8 @@ const UpdateMovie = () => {
             setRating(data[0].rating)
 
         })
-    },[])
+    })
+
     return (
         <div className='reg '>
         <h1 className='form-heading'>Edit movie</h1>

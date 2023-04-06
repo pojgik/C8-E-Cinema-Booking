@@ -43,8 +43,8 @@ public class Movie {
     @Column(name = "synopsis", nullable = true)
     private String synopsis; 
     
-    // @Column(name = "reviews", nullable = true)
-    // private String reviews;
+    @Column(name = "reviews", nullable = true)
+    private String reviews;
     //This can just be one big string including all reviews or an array
 
     @Column(name = "rating", nullable = true)

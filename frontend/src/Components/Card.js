@@ -35,7 +35,7 @@ const Card = (props) => {
             </div>
             <div className="card-btns">
                 {props.isLoggedIn &&<button className='card-btn'><a href='#'> Book Now</a></button>}
-                <button className='card-btn'><a href='#'> More Info</a></button>
+                <button className='card-btn'><Link to = { `/full-movie/${props.title.toString()}`}> More Info</Link></button>
                 {props.isAdmin&& <button onClick = {deleteHandler} className="card-btn"><a href="#">Delete Movie</a></button>}
                 {props.isAdmin && <Link to = {`/update-movie/${props.title.toString()}`} ><button className="card-btn"><a href="#">Edit Movie</a></button></Link>}
             </div>
