@@ -53,4 +53,7 @@ public class Movie {
     @Column(name = "rating", nullable = true)
     private String rating;
 
+    @Column(name = "nowPlaying", nullable = false) 
+    private boolean nowPlaying = false;
+
  } // Movie
