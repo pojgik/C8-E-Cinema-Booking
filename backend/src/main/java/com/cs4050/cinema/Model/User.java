@@ -3,6 +3,7 @@ package com.cs4050.cinema.Model;
 import java.util.List;
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -56,8 +57,7 @@ public class User {
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    @OneToMany
-    @JoinColumn(name="paymentId") 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentId")
     private List<PaymentInfo> paymentCards = new ArrayList<>();
 
     @OneToOne
