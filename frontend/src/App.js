@@ -82,6 +82,10 @@ function App() {
   ]);
 
   const [filteredMovies,setFilteredMovies] = useState()
+  const [currentMovie,setCurrentMovie] = useState(null)
+  useEffect(()=>{
+    console.log(currentMovie)
+  },[currentMovie])
   const [user,setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
   const [paymentInfo,setPaymentInfo] = useState(null)
   const [address,setAddress] = useState([]);
@@ -98,15 +102,15 @@ function App() {
             <Route path = '/search' element = {<Search setFilteredMovies = {setFilteredMovies}/>}></Route>
             <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} paymentInfo = {paymentInfo} addresses = {address} users = {user}/>}></Route>
             <Route path = "/manage-movies" element = {<ManageMovies filteredMovies = {filteredMovies} setFilteredMovies = {setFilteredMovies}/>}></Route>
-            <Route path = "/update-movie/:id" element = {<UpdateMovie/>}></Route>
+            <Route path = "/update-movie/:id" element = {<UpdateMovie currentMovie = {currentMovie}/>}></Route>
             <Route path = "/add-payment" element = {<AddPayment setPaymentInfo = {setPaymentInfo}/>}></Route>
             <Route path = "/add-address" element = {<AddAdress setter = {setAddress}/>}></Route>
             <Route path = "/add-movie" element = {<AddMovie/>}></Route>
-            <Route path = "/searched" element = {<CardPane setFilteredMovies = {setFilteredMovies} isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Filtered Movies"} filteredMovies = {filteredMovies}/>}></Route>
+            <Route path = "/searched" element = {<CardPane setCurrentMovie = {setCurrentMovie} setFilteredMovies = {setFilteredMovies} isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Filtered Movies"} filteredMovies = {filteredMovies}/>}></Route>
             <Route path='/reg-conf' element = {<RegConf/>}></Route>
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
-            <Route path='/full-movie/:id' element = {<FullMovie></FullMovie>}></Route>
+            <Route path='/full-movie/:id' element = {<FullMovie currentMovie = {currentMovie}></FullMovie>}></Route>
             <Route path='/schedule-movies' element = {<ScheduleMovies/>}></Route>
             <Route path='/login/reset' element = {<ForgotPassword></ForgotPassword>}></Route>
             <Route path='/profile' element = {<EditProfile setUser = {setUser} user = {user}></EditProfile>}></Route>

@@ -4,93 +4,49 @@ import './Form-Style/AddMovie.css'
 import './Form-Style/UpdateMovie.css'
 
 
-const FullMovie = () => {
-    
-    const submitHandler = (event) => {
-        const updatedMovie = {
-        }
-        
-    }
-    const [currentMovie,setCurrentMovie] = useState()
-    const [title,setTitle] = useState(useParams().id);
-    // const [cast,setCast] = useState(null);
-    // const [category,setCategory] = useState();
-    // const [director,setDirector] = useState(null);
-    // const [producer,setProducer] = useState(null);
-    // const [synopsis,setSynopsis] = useState(null);
-    // const [reviews,setReviews] = useState("");
-    // const [pic,setPic] = useState(null);
-    // const [video,setVideo] = useState(null);
-    // const [rating,setRating] = useState(null);
-    useEffect(()=>{
-        fetch("http://localhost:8080/movies/searchTitle/" + title,{
-            method: "GET",
-            mode: "cors",
-            headers: {
-                "Content-Type":"application/json",
-                "Accept":"application/json"
-            }
-        })
-        .then (res=>res.json())
-        .then(data => {
-            setCurrentMovie(data)
-        })
-        console.log(currentMovie)
-            // setCast(data[0].cast)
-            // console.log(data[0].cast)
-            // setCategory(data[0].category)
-            // setDirector(data[0].director)
-            // setProducer(data[0].producer)
-            // setSynopsis(data[0].synopsis)
-            // setReviews(data[0].reviews)
-            // setPic(data[0].coverURL)
-            // setVideo(data[0].trailerURL)
-            // setRating(data[0].rating)
-        // console.log(movie)
-
-    },[])
+const FullMovie = (props) => {
     return (
         <div className='reg '>
         <h1 className='form-heading'>Edit movie</h1>
         <div id = "payment" className="add-window">
-        <form onSubmit = {submitHandler} id = "payment-form"className="add">
+        <form  id = "payment-form"className="add">
         <div className='card-info'>
             <ul>
                 <label >Title: </label>
-                {/* <label >{movie.title}</label> */}
+                <label >{props.currentMovie.title}</label>
             </ul>
             <ul>
                 <label >Category: </label>
-                {/* <label >{movie.category}</label> */}
+                <label >{props.currentMovie.category}</label>
             </ul>
              <ul>
                 <label >Cast: </label>
-                {/* <label >{movie.cast}</label> */}
+                <label >{props.currentMovie.cast}</label>
             </ul>
             <ul>
                 <label >Director: </label>
-                {/* <label >{movie.director}</label> */}
+                <label >{props.currentMovie.director}</label>
             </ul>
             <ul>
                 <label >Producer: </label>
-                {/* <label >{movie.producer}</label> */}
+                <label >{props.currentMovie.producer}</label>
             </ul>
             </div>
         <div className="billing-info">
             <ul>
                 <label >Synopsis: </label>
-                {/* <label >{movie.synopsis}</label> */}
+                <label >{props.currentMovie.synopsis}</label>
             </ul>
             <ul>
                 <label >Reviews: </label>
-                {/* <label >{movie.reviews}</label> */}
+                <label >{props.currentMovie.reviews}</label>
             </ul>
             <ul>
                 
             </ul>
             <ul>
                 <label >Rating: </label>
-                {/* <label>{currentMovie.rating}</label> */}
+                <label>{props.currentMovie.rating}</label>
              </ul>
             <ul>
             </ul>
@@ -98,7 +54,7 @@ const FullMovie = () => {
     </form>
     <div className='payment-btn'>
         <ul >
-            {/* <iframe src = {movie.trailerURL}></iframe> */}
+            <iframe src = {props.currentMovie.trailerURL}></iframe>
         </ul>
     </div>
 </div>

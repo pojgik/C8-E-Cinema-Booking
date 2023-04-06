@@ -4,8 +4,10 @@ import './Form-Style/AddMovie.css'
 import './Form-Style/UpdateMovie.css'
 
 
-const UpdateMovie = () => {
-    
+const UpdateMovie = (props) => {
+
+
+    console.log(props)
     const handleInputChange = (event) => {
         event.preventDefault();
         const {name,value} = event.target; 
@@ -48,39 +50,39 @@ const UpdateMovie = () => {
     }
     // const [movie,setMovie] = useState(null)
     const [title,setTitle] = useState(useParams().id);
-    const [cast,setCast] = useState(null);
-    const [category,setCategory] = useState();
-    const [director,setDirector] = useState(null);
-    const [producer,setProducer] = useState(null);
-    const [synopsis,setSynopsis] = useState(null);
-    const [reviews,setReviews] = useState("");
-    const [pic,setPic] = useState(null);
-    const [video,setVideo] = useState(null);
-    const [rating,setRating] = useState(null);
-    useEffect(() => {
+    const [cast,setCast] = useState(props.currentMovie.cast);
+    const [category,setCategory] = useState(props.currentMovie.category);
+    const [director,setDirector] = useState(props.currentMovie.director);
+    const [producer,setProducer] = useState(props.currentMovie.producer);
+    const [synopsis,setSynopsis] = useState(props.currentMovie.synopsis);
+    const [reviews,setReviews] = useState(props.currentMovie.reviews);
+    const [pic,setPic] = useState(props.currentMovie.coverURL);
+    const [video,setVideo] = useState(props.currentMovie.trailerURL);
+    const [rating,setRating] = useState(props.currentMovie.rating);
+    // useEffect(() => {
         
-        fetch("http://localhost:8080/movies/searchTitle/" + title,{
-            method: "GET",
-            mode: "cors",
-            headers: {
-                "Content-Type":"application/json",
-                "Accept":"application/json"
-            }
-        })
-        .then (res=>res.json())
-        .then(data => {
-            setCast(data[0].cast)
-            setCategory(data[0].category)
-            setDirector(data[0].director)
-            setProducer(data[0].producer)
-            setSynopsis(data[0].synopsis)
-            setReviews(data[0].reviews)
-            setPic(data[0].coverURL)
-            setVideo(data[0].trailerURL)
-            setRating(data[0].rating)
+    //     fetch("http://localhost:8080/movies/searchTitle/" + title,{
+    //         method: "GET",
+    //         mode: "cors",
+    //         headers: {
+    //             "Content-Type":"application/json",
+    //             "Accept":"application/json"
+    //         }
+    //     })
+    //     .then (res=>res.json())
+    //     .then(data => {
+    //         setCast(data[0].cast)
+    //         setCategory(data[0].category)
+    //         setDirector(data[0].director)
+    //         setProducer(data[0].producer)
+    //         setSynopsis(data[0].synopsis)
+    //         setReviews(data[0].reviews)
+    //         setPic(data[0].coverURL)
+    //         setVideo(data[0].trailerURL)
+    //         setRating(data[0].rating)
 
-        })
-    })
+    //     })
+    // })
 
     return (
         <div className='reg '>

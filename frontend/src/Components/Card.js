@@ -3,6 +3,17 @@ import { Link } from 'react-router-dom'
 
 const Card = (props) => {
 
+    const clickHandler = (event) => {
+        event.preventDefault()
+        fetch("http://localhost:8080/movies/searchTitle/" + props.title)
+        .then(res=> res.json())
+        .then(data=>{
+            console.log(data)
+
+            props.setCurrentMovie(data)
+        })
+    }
+
     const deleteHandler = (event) => {
         event.preventDefault();
         fetch("http://localhost:8080/movies/searchTitle/" + props.title)
@@ -35,7 +46,7 @@ const Card = (props) => {
             </div>
             <div className="card-btns">
                 {props.isLoggedIn &&<button className='card-btn'><a href='#'> Book Now</a></button>}
-                <button className='card-btn'><Link to = { `/full-movie/${props.title.toString()}`}> More Info</Link></button>
+                <button onClick = {clickHandler} className='card-btn'><Link  to = { `/full-movie/${props.title.toString()}`}> More Info</Link></button>
                 {props.isAdmin&& <button onClick = {deleteHandler} className="card-btn"><a href="#">Delete Movie</a></button>}
                 {props.isAdmin && <Link to = {`/update-movie/${props.title.toString()}`} ><button className="card-btn"><a href="#">Edit Movie</a></button></Link>}
             </div>

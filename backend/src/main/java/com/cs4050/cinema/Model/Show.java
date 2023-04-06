@@ -1,8 +1,6 @@
 package com.cs4050.cinema.Model;
 
 import java.sql.Timestamp;
-//This extends sql.Date and should be the one including time
-//I'm just going to test with Date for now though
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

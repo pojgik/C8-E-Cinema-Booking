@@ -42,6 +42,9 @@ public class Movie {
     
     @Column(name = "synopsis", nullable = true)
     private String synopsis; 
+
+    @Column(name = "duration", nullable = true)
+    private int duration = 240; // duration in minutes
     
     @Column(name = "reviews", nullable = true)
     private String reviews;

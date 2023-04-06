@@ -29,7 +29,7 @@ public class Promotion {
     private Date promoExp;
 
     @OneToOne
-    @JoinColumn(name="movieId")
+    @JoinColumn(name="movieApplied")
     private Movie movieApplied;
 
     @Column(name="discountRate", nullable = false)
