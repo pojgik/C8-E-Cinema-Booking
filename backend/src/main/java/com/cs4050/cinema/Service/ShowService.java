@@ -30,23 +30,20 @@ public class ShowService {
      * 
      * @Return show returns the new show on success
      */
-    public Show createShow(Show show) {
+    public Show createShow(Show show, Movie movie, Room room) {
         Timestamp timestamp = show.getShowTime();
         // timestamp.setHours(timestamp.getHours() + 4);
         show.setShowTime(timestamp);
-        Movie movie = movieRepository.findById(show.getMovieId())
-        .orElseThrow(() -> new NoSuchElementException("Movie with ID " + show.getMovieId() + " not found"));
-        Room room = roomRepository.findById(show.getRoomId())
-        .orElseThrow(() -> new NoSuchElementException("Room with ID " + show.getRoomId() + " not found"));
+        show.setMovie(movie);
+        show.setRoom(room);
+        // Potential bug if shows is not populated when app starts
         List<Show> shows = room.getShows();
-        for (int i = 0; i < shows.size(); i++){
-            if (shows.get(i).getShowTime().toString().equals(show.getShowTime().toString())) {
-                throw new DataIntegrityViolationException("Timeslot already full");
-            }
+        for (Show s : shows) {
+            if (s.getShowTime().equals(timestamp)) {
+                throw new DataIntegrityViolationException("Timeslot is full");
+            } // if
         } // for
-        movie.getShows().add(show);
         room.getShows().add(show);
-        roomRepository.save(room);
         return showRepository.save(show);
     } // createShow
 
@@ -63,5 +60,10 @@ public class ShowService {
         return showRepository.findById(showId)
             .orElseThrow(() -> new NoSuchElementException("Show not found with id: " + showId));
     } // getShowById
+
+    public Room getRoomById(Long roomId) {
+        return roomRepository.findById(roomId)
+            .orElseThrow(() -> new NoSuchElementException("Room not found with id: " + roomId));
+    } // getRoomById
 
 } // ShowService

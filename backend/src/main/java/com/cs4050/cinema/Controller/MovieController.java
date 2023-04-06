@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
-import com.cs4050.cinema.Model.Movie;
-import com.cs4050.cinema.Model.Show;
+import com.cs4050.cinema.Model.*;
 import com.cs4050.cinema.Service.MovieService;
 import com.cs4050.cinema.Service.ShowService;
 
@@ -43,11 +43,17 @@ public class MovieController {
     } // createMovie
 
     @PostMapping("/addShow")
-    public HttpStatus createShow(@RequestBody Show show) {
-        if (show == null) {
+    public HttpStatus createShow(@RequestBody Show show, @RequestParam String movieTitle, @RequestParam Long roomId) {
+        Movie movie = movieService.getMovieByTitle(movieTitle);
+        Room room = showService.getRoomById(roomId);
+        if (show == null || show.getShowTime() == null) {
+            return HttpStatus.BAD_REQUEST;
+        } else if (movieTitle == null) {
             return HttpStatus.NOT_FOUND;
+        } else if (roomId == null || roomId < 1 || roomId > 6) {
+            return HttpStatus.CONFLICT;
         } // if
-        showService.createShow(show);
+        showService.createShow(show, movie, room);
         return HttpStatus.CREATED;
     } // createShow
 
@@ -86,10 +92,10 @@ public class MovieController {
     } // searchCategory
 
     @GetMapping("/searchTitle/{title}")
-    public ResponseEntity<List<Movie>> searchByTitle(@PathVariable String title) {
+    public ResponseEntity<Movie> searchByTitle(@PathVariable String title) {
         System.out.println(title);
-        List<Movie> movies = movieService.getMoviesByTitle(title);
-        return ResponseEntity.ok(movies);
+        Movie movie = movieService.getMovieByTitle(title);
+        return ResponseEntity.ok(movie);
     } // searchCategory
 
 } // MovieController
