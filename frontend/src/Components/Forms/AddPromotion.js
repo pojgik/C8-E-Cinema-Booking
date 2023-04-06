@@ -27,7 +27,7 @@ const AddPromotion = () => {
             setTitle(value);
         }
         if (name === "rate") {
-            setRate(value);
+            setRate(parseInt(value));
         }
         if (name === "end") {
             setEnd(value);
@@ -38,15 +38,29 @@ const AddPromotion = () => {
     }
     const submitHandler = (event) => {
         event.preventDefault()
-        const promo = {
-            movieApplied: title,
-            promoExp: end,
-            discountRate: rate,
-            promoCode:code
+        fetch("http://localhost:8080/movies/searchTitle/" + title)
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data.movieId)
+            const promo = {
+                promoCode:code,
+                promoExp: end,
+                discountRate: rate
+            }
+                fetch("http://localhost:8080/promotions/addPromotion/" + data.movieId, {
+                    method: "POST",
+                    mode:"cors",
+                    headers: {
+                        "Content-Type":"application/json",
+                        "Accept":"application/json"
+                    },
+                    body: JSON.stringify(promo)
+                })
+                .then(res=>res.json())
+                .then(data=>console.log(data))
+        })
         }
-        fetch
-        console.log(promo)
-    }
+    
     return (
         <div className='reg'>
             <h1 className="form-heading">Add a promotion</h1>
@@ -80,6 +94,7 @@ const AddPromotion = () => {
             </div>
             </div>
     )
+                    
 }
 
 export default AddPromotion;
