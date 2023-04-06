@@ -30,7 +30,9 @@ public class ShowService {
      * @Return show returns the new show on success
      */
     public Show createShow(Show show) {
-        
+        Timestamp timestamp = show.getShowTime();
+        timestamp.setHours(timestamp.getHours() + 4);
+        show.setShowTime(timestamp);
         Movie movie = movieRepository.findById(show.getMovieId())
         .orElseThrow(() -> new NoSuchElementException("Movie with ID " + show.getMovieId() + " not found"));
         Room room = roomRepository.findById(show.getRoomId())
@@ -38,21 +40,24 @@ public class ShowService {
         List<Show> shows = room.getShows();
         for (int i = 0; i < shows.size(); i++){
             if (shows.get(i).getShowTime().toString().equals(show.getShowTime().toString())) {
-                System.out.println("RIP BOZO\n\n\n");
                 throw new DataIntegrityViolationException("Timeslot already full");
             }
-                System.out.println("\n1: "+show.getShowTime() + "\n2: " + shows.get(i).getShowTime() +
-                "\nShows size: " + shows.size());
-                System.out.println("Are the two strings the same? " + shows.get(i).getShowTime().equals(show.getShowTime()));
-                //Checks if showTimes + movieDuration + cleanUp (say 10 mins), overlaps
         } // for
-        System.out.println("\n1 GETS TO HERE\n\n");
         movie.getShows().add(show);
         room.getShows().add(show);
         roomRepository.save(room);
         return showRepository.save(show);
     } // createShow
 
+    // public void test(Show show, List<Show> shows, int i) {
+    //     System.out.println("\n1: "+show.getShowTime() + "\n2: " + shows.get(i).getShowTime() +
+    //             "\nShows size: " + shows.size());
+    //     System.out.println("Are the two strings the same? " + shows.get(i).getShowTime().equals(show.getShowTime()));
+    // }
+
+    /*
+     * Probably not needed.
+     */
     public Show getShowById(Long showId) {
         return showRepository.findById(showId)
             .orElseThrow(() -> new NoSuchElementException("Show not found with id: " + showId));

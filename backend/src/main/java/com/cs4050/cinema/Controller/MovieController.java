@@ -69,4 +69,17 @@ public class MovieController {
         return ResponseEntity.ok(movie);
     } // getMovie
 
+    @GetMapping("/searchCategory")
+    public ResponseEntity<List<Movie>> searchByCategory(@RequestBody String category) {
+        List<Movie> movies = movieService.getMoviesByCategory(category);
+        return ResponseEntity.ok(movies);
+    } // searchCategory
+
+    @GetMapping("/searchTitle")
+    public ResponseEntity<List<Movie>> searchByTitle(@RequestBody String title) {
+        System.out.println(title);
+        List<Movie> movies = movieService.getMoviesByTitle(title);
+        return ResponseEntity.ok(movies);
+    } // searchCategory
+
 } // MovieController
