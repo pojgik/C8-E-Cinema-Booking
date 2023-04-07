@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import com.cs4050.cinema.Model.*;
 import com.cs4050.cinema.Repository.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -33,9 +34,16 @@ public class ShowService {
      * @Return show returns the new show on success
      */
     public Show createShow(Show show, Movie movie, Room room) {
-        Timestamp timestamp = show.getShowTime();
-        // timestamp.setHours(timestamp.getHours() + 4);
-        //This is for if it changes input time for time zones
+        Timestamp timestamp = show.getShowTime(); // Set timestamp
+
+        // Adjust timezone
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(timestamp);
+        System.out.println(cal);
+        System.out.println(cal.getTime());
+        cal.add(Calendar.HOUR, 4);
+        timestamp = new Timestamp(cal.getTimeInMillis());
+        
         show.setShowTime(timestamp);
         show.setMovie(movie);
         show.setRoom(room);
