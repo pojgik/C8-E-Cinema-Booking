@@ -23,6 +23,8 @@ import FullMovie from './Components/Forms/FullMovie';
 import Search from './Components/Forms/Search';
 import ForgotPassword from './Components/Forms/ForgotPassword';
 import ScheduleMovies from './Components/Forms/ScheduleMovies';
+import ManageUsers from './Components/ManageUsers';
+import Booking from './Components/Forms/Booking';
 
 
 function App() {
@@ -126,6 +128,9 @@ function App() {
             <Route path='/schedule-movies' element = {<ScheduleMovies/>}></Route>
             <Route path='/login/reset' element = {<ForgotPassword></ForgotPassword>}></Route>
             <Route path='/profile' element = {<EditProfile setUser = {setUser} user = {user}></EditProfile>}></Route>
+            <Route path='/manage-users' element = {<ManageUsers/>}></Route>
+            <Route path = "/booking/:id" element = {<Booking/>}></Route>
+            
 
         </Routes>
         <Footer/>

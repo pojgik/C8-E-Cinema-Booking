@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import './Style/CardPane.css'
 import Card from './Card';
 const CardPane = (props) => {
-    console.log(props)
     return (
         
         <div className="view">
