@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cs4050.cinema.Model.Address;
+import com.cs4050.cinema.Model.CustomerStatus;
 import com.cs4050.cinema.Model.PaymentInfo;
 import com.cs4050.cinema.Model.User;
 import com.cs4050.cinema.Request.LoginRequest;
@@ -147,6 +148,8 @@ public class UserController {
         } // try
         if (user == null) {
             throw new AuthenticationException("User with email " + email + " not found");
+        } else if (user.getCustomerStatus() == CustomerStatus.SUSPENDED) {
+            throw new AuthenticationException("User is suspended");
         } // if
 
         if (userService.authenticate(email, password)) {
