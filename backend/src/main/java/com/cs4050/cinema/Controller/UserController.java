@@ -153,7 +153,7 @@ public class UserController {
         if (userService.authenticate(email, password)) {
             if (user.getCustomerStatus() == CustomerStatus.SUSPENDED) {
                 throw new AuthenticationException("User is suspended");
-            }
+            } // if
             return ResponseEntity.ok(user);
         } else {
             throw new AuthenticationException("Incorrect password.");
