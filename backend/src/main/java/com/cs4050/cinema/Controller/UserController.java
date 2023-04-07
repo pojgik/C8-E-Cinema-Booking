@@ -149,7 +149,7 @@ public class UserController {
         if (user == null) {
             throw new AuthenticationException("User with email " + email + " not found");
         } else if (user.getCustomerStatus() == CustomerStatus.SUSPENDED) {
-            throw new AuthenticationException("User is suspended");
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } // if
 
         if (userService.authenticate(email, password)) {
