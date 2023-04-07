@@ -9,7 +9,7 @@ const Search = (props) => {
     const nav = useNavigate();
     const [title,setTitle] = useState(null);
     const [category,setCategory] = useState(null);
-    const [rating,setRating] = useState(null);
+    const [comingSoon,setComingSoon] = useState(true);
     const [showDate,setShowDate] = useState(null);
 
     const handleInputChange = (event) => {
@@ -21,8 +21,8 @@ const Search = (props) => {
         if (name === "category") {
             setCategory(value);
         }
-        if (name === "rating") {
-            setRating(value);
+        if (name === "comingSoon") {
+            setComingSoon(value);
         }
         if (name === "show-date") {
             setShowDate(value);
@@ -48,8 +48,8 @@ const Search = (props) => {
                     return false; // Skip this movie if the title filter does not match
                   }
                 }
-                if (rating !== null) {
-                  if (movie.rating === rating) {
+                if (comingSoon !== null) {
+                  if (movie.nowPlaying === comingSoon) {
                     isFilterApplied = true;
                   } else {
                     return false; // Skip this movie if the age rating filter does not match
@@ -99,21 +99,26 @@ const Search = (props) => {
             </select>
             </ul>
             <ul>
-            <select name = "rating" onChange = {(e)=>handleInputChange(e)} type="select" className='search'> 
+              <ul>
+              <label>Out Now?</label>
+              </ul>
+            <input checked = {comingSoon} onChange = {(e)=>{setComingSoon(!comingSoon)}}  className='reg-field' type="checkbox" name = 'comingSoon'></input>
+
+            {/* <select name = "rating" onChange = {(e)=>handleInputChange(e)} type="select" className='search'> 
                     <option  value = {null} > Rating</option>
                     <option value="g">G</option>
                     <option value="pg">PG</option>
                     <option value="pg13">PG-13</option>
                     <option value="r">R</option>
                     <option value="nc17">NC-17</option>
-                </select>
+                </select> */}
             </ul>
-            <ul>
+            {/* <ul>
                 <label> Show Date </label>
             </ul>
             <ul>
                 <input name = "show-date" onChange = {(e)=>handleInputChange(e)} className = "search" type= 'date'/>
-            </ul>
+            </ul> */}
             <ul className="form-btn">
             <button className = "submit" type='submit'> Search</button>
             </ul>
