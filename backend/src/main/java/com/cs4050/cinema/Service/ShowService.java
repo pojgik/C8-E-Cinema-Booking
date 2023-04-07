@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import com.cs4050.cinema.Model.*;
 import com.cs4050.cinema.Repository.*;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class ShowService {
         System.out.println(cal.getTime());
         cal.add(Calendar.HOUR, 4);
         timestamp = new Timestamp(cal.getTimeInMillis());
-        
+
         show.setShowTime(timestamp);
         show.setMovie(movie);
         show.setRoom(room);
@@ -90,5 +91,16 @@ public class ShowService {
         return roomRepository.findById(roomId)
             .orElseThrow(() -> new NoSuchElementException("Room not found with id: " + roomId));
     } // getRoomById
+
+    public List<Show> getShowingsForMovie(Long movieId) {
+        List<Show> shows = showRepository.findAll();
+        List<Show> showsByMovie = new ArrayList<Show>();
+        for (Show show : shows) {
+            if (show.getMovie().getMovieId() == movieId) {
+                showsByMovie.add(show);
+            } // if
+        } // for
+        return showsByMovie;
+    } // getShowingsForMovie
 
 } // ShowService

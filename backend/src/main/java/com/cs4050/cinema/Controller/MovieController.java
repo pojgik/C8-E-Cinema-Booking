@@ -98,4 +98,14 @@ public class MovieController {
         return ResponseEntity.ok(movie);
     } // searchCategory
 
+    @GetMapping("/getShowsForMovie/{title}")
+    public ResponseEntity<List<Show>> findShows(@PathVariable String title) {
+        if (movieService.getMovieByTitle(title) == null) {
+            return ResponseEntity.badRequest().build();
+        } // if
+        Long movieId = movieService.getMovieByTitle(title).getMovieId();
+        List<Show> shows = showService.getShowingsForMovie(movieId);
+        return ResponseEntity.ok(shows);
+    } // findShows
+
 } // MovieController
