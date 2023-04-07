@@ -4,7 +4,8 @@ import './Form-Style/AddMovie.css'
 
 
 
-const AddMovie = () => {
+const AddMovie = (props) => {
+    console.log(props)
 
     const nav = useNavigate();
     const [title,setTitle] = useState(null);
@@ -85,7 +86,18 @@ const AddMovie = () => {
                 body: JSON.stringify(movie)
         })
         .then(res=> res.json())
-        .then(data=>console.log(data))
+        .then(data=>{
+            console.log(data)
+            const newMovie = data;
+            if (movie.nowPlaying) {
+                props.setMoviesOut(props.moviesOut.push(newMovie))
+                console.log(props)
+            }
+            if (!movie.nowPlaying) {
+                props.setMoviesComing(props.moviesComing.push(newMovie))
+                console.log(props)
+            }
+        })
         nav("/manage-movies")
     }
 
