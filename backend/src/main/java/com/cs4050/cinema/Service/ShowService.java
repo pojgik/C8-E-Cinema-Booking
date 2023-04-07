@@ -24,7 +24,8 @@ public class ShowService {
         this.showRepository = showRepository;
         this.roomRepository = roomRepository;
         this.movieRepository = movieRepository;
-    }
+    } // showService
+
     /*
      * Adds a showTime to the cooresponding movie and room 
      * and checks if timeslot is taken for the room.
@@ -36,36 +37,35 @@ public class ShowService {
      */
     public Show createShow(Show show, Movie movie, Room room) {
         Timestamp timestamp = show.getShowTime(); // Set timestamp
-
         // Adjust timezone
         Calendar cal = Calendar.getInstance();
         cal.setTime(timestamp);
-        System.out.println(cal);
-        System.out.println(cal.getTime());
-        cal.add(Calendar.HOUR, 4);
+        cal.add(Calendar.HOUR, 5);
         timestamp = new Timestamp(cal.getTimeInMillis());
 
         show.setShowTime(timestamp);
         show.setMovie(movie);
         show.setRoom(room);
-        // Potential bug if shows is not populated when app starts
-        List<Show> shows = room.getShows();
-       long timeDif = 0;
-       int duration;
-       for (Show s : shows) {
-        duration = movie.getDuration();
-        Date date1 = new Date(s.getShowTime().getTime());
-        Date date2 = new Date(timestamp.getTime()); 
-        if (date1.equals(date2)) { 
-          //  if (s.getShowTime().toString().substring(0, 10).equals(timestamp.toString().substring(0, 10))) { this works too
-            timeDif = show.getShowTime().getTime() - s.getShowTime().getTime();
-                if (show.getMovie().getDuration() < s.getMovie().getDuration())
-                duration = s.getMovie().getDuration();
-            if (Math.abs(timeDif) < (duration * 60 * 1000)){
-                //checks if the two times fall within the movie duration time window.
-                throw new DataIntegrityViolationException("Timeslot is full");
+
+        List<Show> shows = showRepository.findAll();
+        for (Show s : shows) {
+            Date showDate = new Date(s.getShowTime().getTime());
+            Date newDate = new Date(timestamp.getTime());
+            System.out.println(showDate);
+            System.out.println(newDate);
+            if (showDate.equals(newDate)) {
+                Calendar start = Calendar.getInstance();
+                Calendar end = Calendar.getInstance();
+                start.setTime(s.getShowTime());
+                end.setTime(s.getShowTime());
+                end.add(Calendar.MINUTE, movie.getDuration());
+                if (cal.getTimeInMillis() >= start.getTimeInMillis() && cal.getTimeInMillis() <= end.getTimeInMillis()) {
+                    throw new DataIntegrityViolationException("Timeslot already full");
+                } // if
+                if ((cal.getTimeInMillis() + (movie.getDuration()*60000))>= start.getTimeInMillis() && (cal.getTimeInMillis() + (movie.getDuration()*60000)) <= end.getTimeInMillis()) {
+                    throw new DataIntegrityViolationException("Timeslot already full");
+                } // if
             } // if
-        } // if
         } // for
         room.getShows().add(show);
         return showRepository.save(show);
