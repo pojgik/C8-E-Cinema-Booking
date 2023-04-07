@@ -27,6 +27,21 @@ import ScheduleMovies from './Components/Forms/ScheduleMovies';
 
 function App() {
 
+    const [moviesOut,setMoviesOut] = useState();
+    const [moviesComming,setMoviesComming] = useState();
+
+    useEffect(()=>{
+        fetch("http://localhost:8080/movies/getAllMovies")
+        .then(res=>res.json())
+        .then(data=>{
+            const nowPlayingMovies = data.filter(movie => movie.nowPlaying === true);
+            console.log(nowPlayingMovies)
+            setMoviesOut(nowPlayingMovies);
+        })
+        
+        console.log(moviesOut)
+    },[])
+
 
   const [WickCards] = useState([
     {
@@ -94,7 +109,7 @@ function App() {
         <div className="App">
         <NavBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} isAdmin = {isAdmin} isLoggedIn = {isLoggedIn}/>
         <Routes>
-        <Route exact path = "/" element = {<> <CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"New Movies"} filteredMovies = {WickCards}/> <CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Coming Soon"} filteredMovies = {AntCards}/></>}> </Route>
+        <Route exact path = "/" element = {<> <CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"New Movies"} filteredMovies = {moviesOut}/> <CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Coming Soon"} filteredMovies = {AntCards}/></>}> </Route>
             <Route path = '/login'  element = {<Login setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} setCurrentUser = {setUser}/>}></Route>
             <Route path = '/search' element = {<Search setFilteredMovies = {setFilteredMovies}/>}></Route>
             <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} paymentInfo = {paymentInfo} addresses = {address} users = {user}/>}></Route>

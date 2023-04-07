@@ -28,8 +28,8 @@ const Card = (props) => {
         .then(res=> res.json())
         .then(data=>{
             console.log(data)
-            console.log(data[0].movieId)
-            fetch("http://localhost:8080/movies/deleteMovie/" + data[0].movieId,{
+            console.log(data.movieId)
+            fetch("http://localhost:8080/movies/deleteMovie/" + data.movieId,{
                 method: "GET",
                 mode: "cors",
                 headers: {
@@ -38,8 +38,8 @@ const Card = (props) => {
                 }
             })
             .then(res=>res.json())
-            .then(data=>{
-                console.log(data)
+            .then(newData=>{
+                console.log(newData)
                 props.setFilteredMovies(props.filteredMovies.filter(movie => movie.title !== props.title ))
                 console.log(props)
             })

@@ -9,7 +9,7 @@ const CardPane = (props) => {
             <h1 className='header'>{props.type}</h1>
             <div className = "cards">
                 {
-                  props.filteredMovies.length === 0 ? (<div className='notFound'>No Movies Found...</div>) : (props.filteredMovies.map((card,i) => (
+                  props.filteredMovies === undefined ? (<div className='notFound'>No Movies Found...</div>) : (props.filteredMovies.map((card,i) => (
                         <div className="card">
                             <Card  currentMovie = {props.currentMovie}setCurrentMovie = {props.setCurrentMovie} setFilteredMovies = {props.setFilteredMovies} filteredMovies = {props.filteredMovies} isLoggedIn = {props.isLoggedIn} isAdmin = {props.isAdmin} rating = {card.rating} title = {card.title} link = {card.trailerURL} />
                         </div>
