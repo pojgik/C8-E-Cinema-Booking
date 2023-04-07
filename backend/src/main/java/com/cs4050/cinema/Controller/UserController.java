@@ -148,11 +148,12 @@ public class UserController {
         } // try
         if (user == null) {
             throw new AuthenticationException("User with email " + email + " not found");
-        } else if (user.getCustomerStatus() == CustomerStatus.SUSPENDED) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        } // if
+        }
 
         if (userService.authenticate(email, password)) {
+            if (user.getCustomerStatus() == CustomerStatus.SUSPENDED) {
+                throw new AuthenticationException("User is suspended");
+            }
             return ResponseEntity.ok(user);
         } else {
             throw new AuthenticationException("Incorrect password.");
