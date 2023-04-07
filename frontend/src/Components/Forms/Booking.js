@@ -4,7 +4,7 @@ import './Form-Style/AddMovie.css'
 import './Form-Style/UpdateMovie.css'
 
 
-const FullMovie = (props) => {
+const Booking = (props) => {
 
     const [showings,setShowings] = useState(null)
     const [title,setTitle] = useState(useParams().id);
@@ -56,11 +56,11 @@ const FullMovie = (props) => {
     
     return (
         <div className='reg '>
-        <h1 className='form-heading'>Full Movie Description</h1>
+        <h1 className='form-heading'>Book {title} Now</h1>
         <div id = "payment" className="add-window">
         <form  id = "payment-form"className="add">
         <div className='card-info'>
-            <ul>
+            {/* <ul>
                 <label >Title: </label>
                 <label >{title}</label>
 
@@ -80,10 +80,10 @@ const FullMovie = (props) => {
             <ul>
                 <label >Producer: </label>
                 <label >{producer}</label>
-            </ul>
+            </ul> */}
             </div>
         <div className="billing-info">
-            <ul>
+            {/* <ul>
                 <label >Synopsis: </label>
                 <label >{synopsis}</label>
             </ul>
@@ -102,7 +102,7 @@ const FullMovie = (props) => {
                 <label >Now Playing: </label>
                 {nowPlaying === true && <label>True</label>}
                 {nowPlaying === false && <label>False</label>}
-            </ul>
+            </ul> */}
             <ul>
                 <label >Showings:</label>
                     <select className="search">
@@ -124,7 +124,7 @@ const FullMovie = (props) => {
     </form>
     <div className='payment-btn'>
         <ul >
-            <iframe src = {video}></iframe>
+            <button className='submit '>Book</button>
         </ul>
     </div>
 </div>
@@ -132,4 +132,4 @@ const FullMovie = (props) => {
     )
 }
 
-export default FullMovie
+export default Booking

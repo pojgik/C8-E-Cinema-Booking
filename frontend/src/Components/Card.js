@@ -5,8 +5,6 @@ import { useEffect } from 'react'
 const Card = (props) => {
 
 
-    console.log(props)
-
     const clickHandler = (event) => {
         event.preventDefault()
        
@@ -14,11 +12,7 @@ const Card = (props) => {
             fetch("http://localhost:8080/movies/searchTitle/" + props.title)
             .then(res=> res.json())
             .then(data=>{
-                console.log(data)
-                console.log(data.movieId,data.title,data.cast)
-                // props.currentMovie = data;
                 props.setCurrentMovie(data)
-                console.log(props)
             })
     }
 
@@ -53,7 +47,7 @@ const Card = (props) => {
                 <iframe src = {props.link}></iframe>
             </div>
             <div className="card-btns">
-                {props.isLoggedIn &&<button className='card-btn'><Link>Book Now</Link></button>}
+                {props.isLoggedIn &&<button className='card-btn'><Link to = {`/booking/${props.title.toString()}`}>Book Now</Link></button>}
                 <button onClick = {clickHandler} className='card-btn'><Link  to = { `/full-movie/${props.title.toString()}`}> More Info</Link></button>
                 {props.isAdmin&& <button onClick = {deleteHandler} className="card-btn"><Link>Delete Movie</Link></button>}
                 {props.isAdmin && <button onClick={clickHandler} className="card-btn"> <Link to = {`/update-movie/${props.title.toString()}`}>Edit Movie</Link></button>}
