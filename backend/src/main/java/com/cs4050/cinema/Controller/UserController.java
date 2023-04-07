@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cs4050.cinema.Model.Address;
+import com.cs4050.cinema.Model.CustomerStatus;
 import com.cs4050.cinema.Model.PaymentInfo;
 import com.cs4050.cinema.Model.User;
 import com.cs4050.cinema.Request.LoginRequest;
@@ -147,6 +148,8 @@ public class UserController {
         } // try
         if (user == null) {
             throw new AuthenticationException("User with email " + email + " not found");
+        } else if (user.getCustomerStatus() == CustomerStatus.SUSPENDED) {
+            throw new AuthenticationException("User is suspended");
         } // if
 
         if (userService.authenticate(email, password)) {
@@ -155,4 +158,18 @@ public class UserController {
             throw new AuthenticationException("Incorrect password.");
         } // if
     } // login
+
+    @PutMapping("/suspend/{id}") 
+    public HttpStatus suspendUser(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+        if (user == null) {
+            return HttpStatus.NOT_FOUND;
+        } // if
+        try {
+            userService.suspendUser(user);
+        } catch (IllegalAccessException IAE) {
+            return HttpStatus.BAD_REQUEST;
+        } // catch
+        return HttpStatus.OK;
+    } // suspendUser
 } // UserController

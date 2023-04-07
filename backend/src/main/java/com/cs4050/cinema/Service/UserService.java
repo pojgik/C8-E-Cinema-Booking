@@ -251,6 +251,18 @@ public class UserService {
         return billingAddressRepository.save(billingAddress);
     } // addBillingAddress
 
+    public User suspendUser(User user) throws IllegalAccessException{
+        if (user.getCustomerStatus() == CustomerStatus.ACTIVE) {
+            user.setCustomerStatus(CustomerStatus.SUSPENDED);
+        } else if (user.getCustomerStatus() == CustomerStatus.SUSPENDED) {
+            user.setCustomerStatus(CustomerStatus.ACTIVE);
+        } else {
+            throw new IllegalAccessException("Customer is not currently active or suspended");
+        } // if
+        save(user);
+        return user;
+    } // suspendUser
+
     /*
      * Saves a user to the database.
      * 
