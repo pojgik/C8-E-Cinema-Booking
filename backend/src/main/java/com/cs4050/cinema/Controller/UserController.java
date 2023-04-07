@@ -155,4 +155,18 @@ public class UserController {
             throw new AuthenticationException("Incorrect password.");
         } // if
     } // login
+
+    @PutMapping("/suspend/{id}") 
+    public HttpStatus suspendUser(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+        if (user == null) {
+            return HttpStatus.NOT_FOUND;
+        } // if
+        try {
+            userService.suspendUser(user);
+        } catch (IllegalAccessException IAE) {
+            return HttpStatus.BAD_REQUEST;
+        } // catch
+        return HttpStatus.OK;
+    } // suspendUser
 } // UserController
