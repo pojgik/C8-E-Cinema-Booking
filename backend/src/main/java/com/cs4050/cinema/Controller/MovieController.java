@@ -1,5 +1,6 @@
 package com.cs4050.cinema.Controller;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,14 +47,16 @@ public class MovieController {
     public HttpStatus createShow(@RequestBody Show show, @RequestParam String movieTitle, @RequestParam Long roomId) {
         Movie movie = movieService.getMovieByTitle(movieTitle);
         Room room = showService.getRoomById(roomId);
-        if (show == null || show.getShowTime() == null) {
+        if (show == null || show.getShowTime() == null || roomId == null || roomId < 1 || roomId > 6) {
             return HttpStatus.BAD_REQUEST;
         } else if (movieTitle == null) {
             return HttpStatus.NOT_FOUND;
-        } else if (roomId == null || roomId < 1 || roomId > 6) {
-            return HttpStatus.CONFLICT;
         } // if
-        showService.createShow(show, movie, room);
+        try {
+            showService.createShow(show, movie, room);
+        } catch (DataIntegrityViolationException DVE) {
+            return HttpStatus.CONFLICT;
+        } // try
         return HttpStatus.CREATED;
     } // createShow
 

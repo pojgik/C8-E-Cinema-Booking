@@ -124,8 +124,7 @@ const Registration = (props) => {
                     <div className="right">
                     <ul>
                     <label className='reg-field'>Recieve Promotions?</label>
-                    <input checked = {promo} onChange = {(e)=>{setPromo(!promo)
-                    console.log(promo)}}  className='reg-field' type="checkbox" name = 'promo'></input>
+                    <input checked = {promo} onChange = {(e)=>{setPromo(!promo)}}  className='reg-field' type="checkbox" name = 'promo'></input>
                     </ul>
                     <ul>
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder='Password' type="password" name = 'pass'required />
