@@ -51,16 +51,19 @@ public class ShowService {
         for (Show s : shows) {
             Date showDate = new Date(s.getShowTime().getTime());
             Date newDate = new Date(timestamp.getTime());
-            if (showDate.equals(newDate)) {
+            
+            if (room.equals(s.getRoom()) && showDate.toString().equals(newDate.toString())) {
+               // System.out.printf("GetRoom is same %b:\n", room.equals(s.getRoom()) );
                 Calendar start = Calendar.getInstance();
                 Calendar end = Calendar.getInstance();
                 start.setTime(s.getShowTime());
                 end.setTime(s.getShowTime());
                 end.add(Calendar.MINUTE, movie.getDuration());
+                //System.out.printf("CAL START: %d\ns Show start: %d\n\n",cal.getTimeInMillis(), start.getTimeInMillis());
                 if (cal.getTimeInMillis() >= start.getTimeInMillis() && cal.getTimeInMillis() <= end.getTimeInMillis()) {
                     throw new DataIntegrityViolationException("Timeslot already full");
                 } // if
-                if ((cal.getTimeInMillis() + (movie.getDuration()*60000))>= start.getTimeInMillis() && (cal.getTimeInMillis() + (movie.getDuration()*60000)) <= end.getTimeInMillis()) {
+                if ((cal.getTimeInMillis() + (movie.getDuration() * 60000))>= start.getTimeInMillis() && (cal.getTimeInMillis() + (movie.getDuration() * 60000)) <= end.getTimeInMillis()) {
                     throw new DataIntegrityViolationException("Timeslot already full");
                 } // if
             } // if
