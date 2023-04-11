@@ -16,8 +16,15 @@ const Login = (props) => {
             email: loginEmail,
             password: loginPass
         }
-
-        fetch("http://localhost:8080/users/login",{
+        fetch("http://localhost:8080/users/getAllUsers")
+        .then(res=>res.json())
+        .then(data=>{
+            const user = (data.find(user=> user.email === loginEmail))
+            if (user.customerStatus === "SUSPENDED") {
+                alert("This user is currently suspended. Contant a site admin to be unsuspended.")
+            } 
+            else {
+                fetch("http://localhost:8080/users/login",{
                 method: "POST",
                 mode:"cors",
                 headers: {
@@ -28,12 +35,12 @@ const Login = (props) => {
             })
             .then(res=> {
                 if (!res.ok) {
+                    console.log(res)
                     alert('Login failed, please try again') // Replace with better message
                 } else {
                     return res.json();
                 }})
             .then(data => {
-                // console.log(data)
                 sessionStorage.setItem('user', JSON.stringify(data));
                 // console.log(JSON.stringify(data))
                 sessionStorage.setItem('userId', data.userId);
@@ -43,8 +50,22 @@ const Login = (props) => {
                     sessionStorage.setItem("isAdmin",true)
                     props.setIsAdmin(sessionStorage.getItem("isAdmin"))
                 }
+                
                 nav('/')
+            })
+            .catch(error => {
+                console.log(error)
+                if (error.message === 'User is suspended') {
+                    console.log('User is suspended');
+                } else {
+                    console.error(error);
+                }
             });
+
+            }
+        })
+
+        
     }
 
     return (

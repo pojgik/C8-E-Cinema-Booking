@@ -5,7 +5,6 @@ import './Form-Style/AddMovie.css'
 
 
 const AddMovie = (props) => {
-    console.log(props)
 
     const nav = useNavigate();
     const [title,setTitle] = useState(null);
@@ -87,15 +86,12 @@ const AddMovie = (props) => {
         })
         .then(res=> res.json())
         .then(data=>{
-            console.log(data)
             const newMovie = data;
             if (movie.nowPlaying) {
                 props.setMoviesOut(props.moviesOut.push(newMovie))
-                console.log(props)
             }
             if (!movie.nowPlaying) {
                 props.setMoviesComing(props.moviesComing.push(newMovie))
-                console.log(props)
             }
         })
         nav("/manage-movies")
@@ -165,8 +161,7 @@ const AddMovie = (props) => {
                      <ul>
                      <ul>
                         <label className='reg-field'>Is the Movie Out Yet?</label>
-                        <input checked = {out} onChange = {(e)=>{setOut(!out)
-                        console.log(out)}}  className='reg-field' type="checkbox" name = 'out'></input>
+                        <input checked = {out} onChange = {(e)=>{setOut(!out) }}  className='reg-field' type="checkbox" name = 'out'></input>
                         </ul>
                      </ul>
         </div>

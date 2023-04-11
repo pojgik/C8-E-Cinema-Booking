@@ -3,7 +3,6 @@ import './Style/CardPane.css'
 import Card from './Card';
 const CardPane = (props) => {
 
-    console.log(props.filteredMovies)
     return (
         
         <div className="view">

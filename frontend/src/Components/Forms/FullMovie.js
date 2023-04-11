@@ -51,7 +51,6 @@ const FullMovie = (props) => {
             })
 
         })
-        console.log(showings)
     },[])
     
     return (
