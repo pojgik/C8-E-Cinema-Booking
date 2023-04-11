@@ -51,8 +51,6 @@ public class ShowService {
         for (Show s : shows) {
             Date showDate = new Date(s.getShowTime().getTime());
             Date newDate = new Date(timestamp.getTime());
-            System.out.println(showDate);
-            System.out.println(newDate);
             if (showDate.equals(newDate)) {
                 Calendar start = Calendar.getInstance();
                 Calendar end = Calendar.getInstance();
