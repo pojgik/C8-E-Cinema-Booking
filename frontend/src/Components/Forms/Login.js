@@ -35,14 +35,12 @@ const Login = (props) => {
             })
             .then(res=> {
                 if (!res.ok) {
-                    console.log(res)
                     alert('Login failed, please try again') // Replace with better message
                 } else {
                     return res.json();
                 }})
             .then(data => {
                 sessionStorage.setItem('user', JSON.stringify(data));
-                // console.log(JSON.stringify(data))
                 sessionStorage.setItem('userId', data.userId);
                 props.setIsLoggedIn(sessionStorage.getItem('userId'))
                 props.setUser(data)
@@ -54,7 +52,6 @@ const Login = (props) => {
                 nav('/')
             })
             .catch(error => {
-                console.log(error)
                 if (error.message === 'User is suspended') {
                     console.log('User is suspended');
                 } else {

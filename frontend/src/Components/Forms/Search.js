@@ -34,11 +34,7 @@ const Search = (props) => {
         fetch("http://localhost:8080/movies/getAllMovies")
         .then(res=>res.json())
         .then(data=>{
-            // console.log(data)
-            // console.log(title);
-            // console.log(category);
-            // console.log(rating);
-            // console.log(showDate)
+         
             const filteredMovies = data.filter(movie => {
                 let isFilterApplied = false;
                 if (title !== null) {

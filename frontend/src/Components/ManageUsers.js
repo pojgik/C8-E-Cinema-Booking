@@ -15,17 +15,14 @@ const ManageUsers = ({placeholder,data}) => {
             const users = data;
             setAllUsers(users)
         })
-        console.log(allUsers)
     },[thisUser])
 
     const clickHandler = (event) => {
         event.preventDefault();
         const userId = event.target.id
-        console.log(userId)
         fetch("http://localhost:8080/users/getUser/" + userId)
         .then(res=> res.json())
         .then(data=> {
-            console.log(data)
             const user = data;
             setThisUser(user)
         })
