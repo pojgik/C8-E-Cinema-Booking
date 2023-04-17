@@ -31,9 +31,9 @@ const Card = (props) => {
             })
             .then(res=>res.json())
             .then(newData=>{
-                e.log(newData)
+                console.log(newData)
                 props.setFilteredMovies(props.filteredMovies.filter(movie => movie.title !== props.title ))
-                e.log(props)
+                console.log(props)
             })
         })
     }
