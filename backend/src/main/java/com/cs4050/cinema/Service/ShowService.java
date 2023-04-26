@@ -73,12 +73,12 @@ public class ShowService {
     } // createShow
 
 
-    public void test(Show show, List<Show> shows, int i) {
-        for (Show s : shows) {
-            System.out.println(s);
-        }
-        System.out.println("Done testing\n\n");
-    }
+    // public void test(Show show, List<Show> shows, int i) {
+    //     for (Show s : shows) {
+    //         System.out.println(s);
+    //     }
+    //     System.out.println("Done testing\n\n");
+    // }
 
     /*
      * Probably not needed.
