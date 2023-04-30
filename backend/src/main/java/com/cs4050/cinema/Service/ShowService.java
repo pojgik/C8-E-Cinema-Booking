@@ -73,6 +73,30 @@ public class ShowService {
     } // createShow
 
 
+    /*
+     * Returns a List of Movies whose show date matches the specified date.   
+     * 
+     * @throws NoSuchElementException when no movies were found
+     * 
+     * @Param date The date of shows to look for formatted as sql.Date.toString()
+     * 
+     * @Return movies List of movies with shows database
+     */
+    public List<Movie> getMoviesByDate(String date){
+        //date will never be null because the submitted result will contain whatever 
+        //base format the toString has
+        List<Show> shows = showRepository.findAll();
+        List<Movie> movies = new ArrayList<Movie>(); 
+        for (Show s : shows) {
+            Date showDate = new Date(s.getShowTime().getTime());
+            if (showDate.toString().equals(date))
+                movies.add(s.getMovie());   
+        }
+        if (movies.size() == 0)
+            throw new NoSuchElementException("No showings on the date: " + date);
+        return movies;
+    } // getMovieByShow
+
     // public void test(Show show, List<Show> shows, int i) {
     //     for (Show s : shows) {
     //         System.out.println(s);

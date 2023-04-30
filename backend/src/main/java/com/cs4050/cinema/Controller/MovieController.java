@@ -99,7 +99,14 @@ public class MovieController {
         System.out.println(title);
         Movie movie = movieService.getMovieByTitle(title);
         return ResponseEntity.ok(movie);
-    } // searchCategory
+    } // searchTitle
+
+    @GetMapping("/searchDate/{date}")
+    public ResponseEntity<List<Movie>> searchByShow(@PathVariable String date) {
+        List<Movie> movies = showService.getMoviesByDate(date);
+        //It iterates through all shows and returns matching shows' movies
+        return ResponseEntity.ok(movies);
+    } // searchDate
 
     @GetMapping("/getShowsForMovie/{title}")
     public ResponseEntity<List<Show>> findShows(@PathVariable String title) {
