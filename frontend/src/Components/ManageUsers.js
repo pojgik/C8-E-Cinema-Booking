@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const ManageUsers = ({placeholder,data}) => {
+    const [thisUser,setThisUser] = useState(null);
     const [allUsers,setAllUsers] = useState(null);
 
     useEffect(()=> {
@@ -14,8 +15,28 @@ const ManageUsers = ({placeholder,data}) => {
             const users = data;
             setAllUsers(users)
         })
-        console.log(allUsers)
-    },[])
+    },[thisUser])
+
+    const clickHandler = (event) => {
+        event.preventDefault();
+        const userId = event.target.id
+        fetch("http://localhost:8080/users/getUser/" + userId)
+        .then(res=> res.json())
+        .then(data=> {
+            const user = data;
+            setThisUser(user)
+        })
+        fetch("http://localhost:8080/users/suspend/"+ userId,{
+            method: "PUT",
+            mode:"cors",
+            header: {
+                "Application-Type":"application/json",
+                "Accept" : "application/json"
+            }
+        })
+        .then(res=>res.json())
+        .then(data=>console.log(data))
+    }
     return (
         <div className="window">
             <ul className='manage-header'>
@@ -30,18 +51,20 @@ const ManageUsers = ({placeholder,data}) => {
                         <div className = "card"  key={user.id}>
                             <ul>
                                 <li id = "user">
+                                    <label>User Id:</label>
                             {user.userId}
                             </li>
                             <li id = "user">
-                            {user.firstName}
+                            {user.firstName + " " + user.lastName}
+
                             </li>
                             <li id = "user">
                             {user.email}
                             </li>
                             </ul>
                         </div>
-                        {user.customerStatus === "ACTIVE" && <button>Suspend</button>}
-                        {user.customerStatus === "INACTIVE" && <button>Activate</button>}
+                        {user.customerStatus === "ACTIVE" && <button id = {user.userId} onClick = {clickHandler}>Suspend</button>}
+                        {user.customerStatus === "SUSPENDED" && <button id = {user.userId} onClick={clickHandler}>Unsuspend</button>}
                         </ul>
                     </div>
                 ))

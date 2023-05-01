@@ -21,8 +21,6 @@ const Card = (props) => {
         fetch("http://localhost:8080/movies/searchTitle/" + props.title)
         .then(res=> res.json())
         .then(data=>{
-            console.log(data)
-            console.log(data.movieId)
             fetch("http://localhost:8080/movies/deleteMovie/" + data.movieId,{
                 method: "GET",
                 mode: "cors",

@@ -37,11 +37,12 @@ function App() {
         .then(res=>res.json())
         .then(data=>{
             const nowPlayingMovies = data.filter(movie => movie.nowPlaying === true);
-            console.log(nowPlayingMovies)
             setMoviesOut(nowPlayingMovies);
+            const moviesComingSoon = data.filter(movie=>movie.nowPlaying === false);
+            setMoviesComming(moviesComingSoon)
         })
         
-        console.log(moviesOut)
+
     },[])
 
 
@@ -111,7 +112,8 @@ function App() {
         <div className="App">
         <NavBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} isAdmin = {isAdmin} isLoggedIn = {isLoggedIn}/>
         <Routes>
-        <Route exact path = "/" element = {<> <CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"New Movies"} filteredMovies = {moviesOut}/> <CardPane isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Coming Soon"} filteredMovies = {AntCards}/></>}> </Route>
+        <Route exact path = "/" element = {<> <CardPane setFilteredMovies = {setFilteredMovies} isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"New Movies"} filteredMovies = {moviesOut}/> <CardPane setFilteredMovies = {setFilteredMovies} 
+        isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Coming Soon"} filteredMovies = {moviesComming}/></>}> </Route>
             <Route path = '/login'  element = {<Login setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} setIsAdmin = {setIsAdmin} setCurrentUser = {setUser}/>}></Route>
             <Route path = '/search' element = {<Search setFilteredMovies = {setFilteredMovies}/>}></Route>
             <Route path = '/login/register' element = {<Registration addressSetter = {setAddress} paymentInfo = {paymentInfo} addresses = {address} users = {user}/>}></Route>
@@ -119,8 +121,8 @@ function App() {
             <Route path = "/update-movie/:id" element = {<UpdateMovie currentMovie = {currentMovie}/>}></Route>
             <Route path = "/add-payment" element = {<AddPayment setPaymentInfo = {setPaymentInfo}/>}></Route>
             <Route path = "/add-address" element = {<AddAdress setter = {setAddress}/>}></Route>
-            <Route path = "/add-movie" element = {<AddMovie/>}></Route>
-            <Route path = "/searched" element = {<CardPane   currentMovie = {currentMovie} setCurrentMovie = {setCurrentMovie} setFilteredMovies = {setFilteredMovies} isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Filtered Movies"} filteredMovies = {filteredMovies}/>}></Route>
+            <Route path = "/add-movie" element = {<AddMovie moviesComming = {moviesComming}moviesOut = {moviesOut} setMoviesOut = {setMoviesOut} setMoviesComming = {setMoviesComming} />}></Route>
+            <Route path = "/searched" element = {<CardPane   currentMovie = {currentMovie}  setCurrentMovie = {setCurrentMovie} setFilteredMovies = {setFilteredMovies} isLoggedIn = {isLoggedIn} isAdmin = {isAdmin} type = {"Filtered Movies"} filteredMovies = {filteredMovies}/>}></Route>
             <Route path='/reg-conf' element = {<RegConf/>}></Route>
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>

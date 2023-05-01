@@ -51,7 +51,6 @@ const Booking = (props) => {
             })
 
         })
-        console.log(showings)
     },[])
     
     return (
