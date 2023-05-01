@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams,Link } from 'react-router-dom'
 import './Form-Style/AddMovie.css'
 import './Form-Style/UpdateMovie.css'
 
 
 const FullMovie = (props) => {
+
+    console.log(props)
 
     const [showings,setShowings] = useState(null)
     const [title,setTitle] = useState(useParams().id);
@@ -118,6 +120,7 @@ const FullMovie = (props) => {
                         }) 
                     }
                 </select>
+                {props.isLoggedIn && <button className='card-btn'><Link to = {`/booking/${title.toString()}`}>Book Now</Link></button>}
             </ul>
         </div>
     </form>

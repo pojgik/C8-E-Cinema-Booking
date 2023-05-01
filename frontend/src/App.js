@@ -83,7 +83,7 @@ function App() {
             <Route path='/reg-conf' element = {<RegConf/>}></Route>
             <Route path='/manage-promos' element = {<ManagePromotions/>}></Route>
             <Route path='/add-promo' element = {<AddPromotion></AddPromotion>}></Route>
-            <Route path='/full-movie/:id' element = {<FullMovie currentMovie = {currentMovie}></FullMovie>}></Route>
+            <Route path='/full-movie/:id' element = {<FullMovie isLoggedIn = {isLoggedIn} currentMovie = {currentMovie}></FullMovie>}></Route>
             <Route path='/schedule-movies' element = {<ScheduleMovies/>}></Route>
             <Route path='/login/reset' element = {<ForgotPassword></ForgotPassword>}></Route>
             <Route path='/profile' element = {<EditProfile setUser = {setUser} user = {user}></EditProfile>}></Route>
