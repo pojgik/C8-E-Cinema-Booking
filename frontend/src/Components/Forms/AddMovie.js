@@ -86,13 +86,18 @@ const AddMovie = (props) => {
         })
         .then(res=> res.json())
         .then(data=>{
-            const newMovie = data;
-            if (movie.nowPlaying) {
-                props.setMoviesOut(props.moviesOut.push(newMovie))
-            }
-            if (!movie.nowPlaying) {
-                props.setMoviesComing(props.moviesComing.push(newMovie))
-            }
+            
+            props.setCounter(props.counter + 1)
+            alert("New Movie Added!")
+            // const newMovie = data;
+            // props.setFilteredMovies(props.filteredMovies.push(newMovie))
+            // console.log(props.filteredMovies)
+            // if (movie.nowPlaying) {
+            //     props.setMoviesOut(props.moviesOut.push(newMovie))
+            // }
+            // if (!movie.nowPlaying) {
+            //     props.setMoviesComing(props.moviesComing.push(newMovie))
+            // }
         })
         nav("/manage-movies")
     }
