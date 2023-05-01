@@ -51,15 +51,19 @@ public class ShowService {
         for (Show s : shows) {
             Date showDate = new Date(s.getShowTime().getTime());
             Date newDate = new Date(timestamp.getTime());
-            System.out.println(showDate);
-            System.out.println(newDate);
-            if (showDate.equals(newDate)) {
+            
+            if (room.equals(s.getRoom()) && showDate.toString().equals(newDate.toString())) {
+               // System.out.printf("GetRoom is same %b:\n", room.equals(s.getRoom()) );
                 Calendar start = Calendar.getInstance();
                 Calendar end = Calendar.getInstance();
                 start.setTime(s.getShowTime());
                 end.setTime(s.getShowTime());
                 end.add(Calendar.MINUTE, movie.getDuration());
+                //System.out.printf("CAL START: %d\ns Show start: %d\n\n",cal.getTimeInMillis(), start.getTimeInMillis());
                 if (cal.getTimeInMillis() >= start.getTimeInMillis() && cal.getTimeInMillis() <= end.getTimeInMillis()) {
+                    throw new DataIntegrityViolationException("Timeslot already full");
+                } // if
+                if ((cal.getTimeInMillis() + (movie.getDuration() * 60000))>= start.getTimeInMillis() && (cal.getTimeInMillis() + (movie.getDuration() * 60000)) <= end.getTimeInMillis()) {
                     throw new DataIntegrityViolationException("Timeslot already full");
                 } // if
             } // if
@@ -69,12 +73,36 @@ public class ShowService {
     } // createShow
 
 
-    public void test(Show show, List<Show> shows, int i) {
+    /*
+     * Returns a List of Movies whose show date matches the specified date.   
+     * 
+     * @throws NoSuchElementException when no movies were found
+     * 
+     * @Param date The date of shows to look for formatted as sql.Date.toString()
+     * 
+     * @Return movies List of movies with shows database
+     */
+    public List<Movie> getMoviesByDate(String date){
+        //date will never be null because the submitted result will contain whatever 
+        //base format the toString has
+        List<Show> shows = showRepository.findAll();
+        List<Movie> movies = new ArrayList<Movie>(); 
         for (Show s : shows) {
-            System.out.println(s);
+            Date showDate = new Date(s.getShowTime().getTime());
+            if (showDate.toString().equals(date))
+                movies.add(s.getMovie());   
         }
-        System.out.println("Done testing\n\n");
-    }
+        if (movies.size() == 0)
+            throw new NoSuchElementException("No showings on the date: " + date);
+        return movies;
+    } // getMovieByShow
+
+    // public void test(Show show, List<Show> shows, int i) {
+    //     for (Show s : shows) {
+    //         System.out.println(s);
+    //     }
+    //     System.out.println("Done testing\n\n");
+    // }
 
     /*
      * Probably not needed.
