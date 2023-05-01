@@ -20,7 +20,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="user")
+@Table(name = "user")
 public class User {
 
     @Id
@@ -41,11 +41,11 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="userType", nullable = false)
+    @Column(name = "userType", nullable = false)
     private UserType userType = UserType.CUSTOMER;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="customerStatus", nullable = false)
+    @Column(name = "customerStatus", nullable = false)
     private CustomerStatus customerStatus = CustomerStatus.INACTIVE;
 
     @Column(name = "verificationCode", nullable = true)
@@ -60,8 +60,11 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentId")
     private List<PaymentInfo> paymentCards = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
+    private List<Order> orders = new ArrayList<>();
+
     @OneToOne
-    @JoinColumn(name="addressId")
+    @JoinColumn(name = "addressId")
     private Address billingAddress;
 
     public boolean getPromotionStatus() {
