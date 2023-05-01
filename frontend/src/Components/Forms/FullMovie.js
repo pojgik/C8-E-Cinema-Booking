@@ -6,8 +6,6 @@ import './Form-Style/UpdateMovie.css'
 
 const FullMovie = (props) => {
 
-    console.log(props)
-
     const [showings,setShowings] = useState(null)
     const [title,setTitle] = useState(useParams().id);
     const [cast,setCast] = useState(null);
