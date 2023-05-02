@@ -75,6 +75,8 @@ const Search = (props) => {
                   }
                   );
                 props.setFilteredMovies(filteredMovies);
+                const string = JSON.stringify(filteredMovies)
+                sessionStorage.setItem("filteredMovies", string)
                 nav('/searched')
             }})
             
@@ -108,6 +110,8 @@ const Search = (props) => {
               }
               );
             props.setFilteredMovies(filteredMovies);
+            const string = JSON.stringify(filteredMovies)
+            sessionStorage.setItem("filteredMovies", string)
             nav('/searched')
         }})
     }

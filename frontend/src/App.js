@@ -32,7 +32,7 @@ function App() {
     const [counter,setCounter] = useState(0)
     const [moviesOut,setMoviesOut] = useState();
     const [moviesComming,setMoviesComming] = useState();
-    const [filteredMovies,setFilteredMovies] = useState()
+    const [filteredMovies,setFilteredMovies] = useState(JSON.parse(sessionStorage.getItem("filteredMovies")))
     const [allMovies,setAllMovies] = useState()
 
     useEffect(() => {
@@ -44,19 +44,20 @@ function App() {
               setAllMovies(movies)
             }
           })
-      }, [counter]);
+    }, [counter]);
+
     useEffect(() => {
-        if (allMovies !== undefined && allMovies !== null) {
-          const nowPlayingMovies = allMovies.filter(movie => movie.nowPlaying === true);
-          setMoviesOut(nowPlayingMovies);
-          const moviesComingSoon = allMovies.filter(movie => movie.nowPlaying === false);
-          setMoviesComming(moviesComingSoon);
-        if (filteredMovies !== null && filteredMovies !== undefined) {
-          const filteredMoviesUpdated = filteredMovies.filter(movie => allMovies.find(m => m.movieId === movie.movieId));
-          setFilteredMovies(filteredMoviesUpdated);
+         if (allMovies !== undefined && allMovies !== null) {
+                const nowPlayingMovies = allMovies.filter(movie => movie.nowPlaying === true);
+                setMoviesOut(nowPlayingMovies);
+                const moviesComingSoon = allMovies.filter(movie => movie.nowPlaying === false);
+                setMoviesComming(moviesComingSoon);
+                if (filteredMovies !== null && filteredMovies !== undefined) {
+                const filteredMoviesUpdated = filteredMovies.filter(movie => allMovies.find(m => m.movieId === movie.movieId));
+                setFilteredMovies(filteredMoviesUpdated);
+         }
         }
-        }
-      }, [allMovies]);
+    }, [allMovies]);
 
   const [currentMovie,setCurrentMovie] = useState(null)
   const [user,setUser] = useState(JSON.parse(sessionStorage.getItem("user")));

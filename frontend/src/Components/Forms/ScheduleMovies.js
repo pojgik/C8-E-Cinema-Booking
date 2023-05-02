@@ -61,7 +61,6 @@ const ScheduleMovies =(props) => {
             })
         .then(res=>res.json())
         .then(data=>{
-            console.log(data)
             if (data === "CREATED") alert("Showing Created!")
             if (data === "CONFLICT") alert("Couldn't Create Showing Due to Scheduling Conflict")
         })
