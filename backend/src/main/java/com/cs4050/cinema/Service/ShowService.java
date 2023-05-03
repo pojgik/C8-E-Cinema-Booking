@@ -38,7 +38,7 @@ public class ShowService {
      */
     public Show createShow(Show show, Movie movie, Room room) {
         Timestamp timestamp = show.getShowTime(); // Set timestamp
-        // Adjust timezone
+        // Adjust timezone  
         Calendar cal = Calendar.getInstance();
         cal.setTime(timestamp);
         cal.add(Calendar.HOUR, 5);
@@ -69,18 +69,21 @@ public class ShowService {
                 } // if
             } // if
         } // for
-        
-        show.setShowSeats(createShowSeats(show, room));
+        showRepository.save(show);
+        //This gives show a showId to be used in createShowSeats
+        //Causes errors without
+       show.setShowSeats(createShowSeats(show, room));
         room.getShows().add(show);
         return showRepository.save(show);
     } // createShow
 
     /*
      * Returns a List of newly created ShowSeats for the specified show  
+     * The row is denoted by letters A, B, ... and seat number 1, 2, ...
      * 
      * @Param show The Show which the seats are added to
      * @Param room The Room which the seats are modeled after
-     * 
+     *  
      * @Return showSeats A list of showSeats which is saved to the DB
      */
     public List<ShowSeat> createShowSeats(Show show, Room room) {
@@ -103,7 +106,8 @@ public class ShowService {
         }
          System.out.println("Success");
         return showSeats;
-        }
+        } // createShowSeats
+        
      /*
      * Returns a List of Movies whose show date matches the specified date.   
      * 
