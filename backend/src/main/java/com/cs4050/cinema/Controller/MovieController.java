@@ -31,6 +31,7 @@ public class MovieController {
 
     @GetMapping("/getTest")
     public ResponseEntity<String> getTest() {
+     //   showService.createShowSeats();
         return ResponseEntity.ok("Hello");
     } // getTest
 
@@ -59,6 +60,12 @@ public class MovieController {
         } // try
         return HttpStatus.CREATED;
     } // createShow
+
+    @GetMapping("/getShowSeats/{id}")
+    public ResponseEntity<List<ShowSeat>> getShowSeats(@PathVariable Long id){
+        List<ShowSeat> showSeats = showService.getShowSeats(id);
+        return ResponseEntity.ok(showSeats);
+    }
 
     @GetMapping("/deleteMovie/{id}")
     public HttpStatus deleteMovie(@PathVariable Long id){

@@ -138,10 +138,10 @@ public class ShowService {
      * 
      * returns showSeats A list of showSeats for the show
      */
-    public List<ShowSeats> getShowSeats(Long showId) {
+    public List<ShowSeat> getShowSeats(Long showId) {
         Show show = showRepository.findById(showId)
         .orElseThrow(() -> new NoSuchElementException("Show not found with id: " + showId));
-        return show.getShowSeats;
+        return show.getShowSeats();
     }
     // public void test(Show show, List<Show> shows, int i) {
     //     for (Show s : shows) {

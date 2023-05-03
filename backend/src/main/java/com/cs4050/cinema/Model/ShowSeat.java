@@ -20,6 +20,9 @@ import lombok.Data;
 @Table(name = "showSeat")
 public class ShowSeat {
  
+    public ShowSeat() {}
+    //Needed for JSON for some reason
+    
     public ShowSeat(Show show, String seatNum) {
         this.show = show;
         this.seatNum = seatNum;
