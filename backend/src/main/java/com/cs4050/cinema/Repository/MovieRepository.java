@@ -8,5 +8,5 @@ import com.cs4050.cinema.Model.Movie;
 public interface MovieRepository extends JpaRepository<Movie, Long>{
     //returns a List of all movies with that category
     List<Movie> findByCategory(String category);
-    List<Movie> findByTitle(String title);
+    Movie findByTitle(String title);
 } // MovieRepository
