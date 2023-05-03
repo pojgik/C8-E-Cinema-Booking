@@ -79,8 +79,8 @@ public class PaymentController {
         } else if (user.getPaymentCards().isEmpty()) {
             return null;
         } // if
-
-        return ResponseEntity.ok(user.getPaymentCards());
+        List<PaymentInfo> cards = paymentService.getAllCardsByUser(user);
+        return ResponseEntity.ok(cards);
         
     } // getAllCards
 } // PaymentController
