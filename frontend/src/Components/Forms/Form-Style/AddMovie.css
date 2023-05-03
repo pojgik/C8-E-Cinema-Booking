@@ -13,6 +13,9 @@
     display: flex;
     padding-top: 3rem;
 }
+.video-full{
+    width: 100%;
+}
 ul + ul {
     margin-top: 1rem;
 }
