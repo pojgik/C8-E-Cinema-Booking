@@ -16,16 +16,16 @@ const NavBar = (props) => {
 
     return (
         <nav className="navbar">
-            <h1 className = "title">Cinema E-booking System</h1>
+            <h1 className = "title"> <Link to ="/">Cinema E-booking System</Link></h1>
             <ul className='nav-list'>
-                <li><Link to = '/'> Home</Link></li>
-                <li><Link to = '/search'>Search</Link></li>
-                    {!props.isLoggedIn && <li><Link to='/login'> Login</Link></li>}
-                    {props.isLoggedIn && <li onClick={logoutHandler}><Link to='/'> Logout</Link></li>}
-                    {props.isAdmin && <li><Link to='/manage-movies'> Manage Movies</Link></li>}
-                    {props.isAdmin && <li><Link to='/manage-promos'>Manage Promotions</Link></li>}
-                    {props.isAdmin && <li><Link to='/manage-users'>Manage Users</Link></li>}
-                    {props.isLoggedIn && <li><Link to='/profile'> Edit Profile</Link></li>}
+            <Link to = '/'> <li>Home</li></Link>
+            <Link to = '/search'><li>Search</li></Link>
+                    {!props.isLoggedIn && <Link to='/login'><li> Login</li></Link>}
+                    {props.isLoggedIn && <Link to='/'><li onClick={logoutHandler}> Logout</li></Link>}
+                    {props.isAdmin && <Link to='/manage-movies'><li> Manage Movies</li></Link>}
+                    {props.isAdmin && <Link to='/manage-promos'><li>Manage Promotions</li></Link>}
+                    {props.isAdmin && <Link to='/manage-users'><li>Manage Users</li></Link>}
+                    {props.isLoggedIn && <Link to='/profile'><li> Edit Profile</li></Link>}
             </ul>
         </nav>
     )

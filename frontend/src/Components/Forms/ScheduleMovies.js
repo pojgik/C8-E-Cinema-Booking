@@ -12,13 +12,11 @@ const ScheduleMovies =(props) => {
         fetch("http://localhost:8080/movies/getAllMovies")
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 const movieTitles = data.map(movie => movie.title);
                 setTitles(movieTitles);
             });
 
         },[])
-        console.log(titles)
 
     const handleInputChange = (event) => {
         event.preventDefault()
@@ -49,11 +47,9 @@ const ScheduleMovies =(props) => {
        }
 
         const url = ("http://localhost:8080/movies/addShow/?roomId=" + showroom + "&movieTitle=" + title).replace(" ","%20")
-        console.log(url)
         const showDate = {
             showTime: date+"T"+time+":00.00Z"
         }
-        console.log(JSON.stringify(showDate))
         fetch(url,{
                 method: "POST",
                 mode:"cors",
@@ -64,7 +60,10 @@ const ScheduleMovies =(props) => {
                 body: JSON.stringify(showDate)
             })
         .then(res=>res.json())
-        .then(data=>console.log(data))
+        .then(data=>{
+            if (data === "CREATED") alert("Showing Created!")
+            if (data === "CONFLICT") alert("Couldn't Create Showing Due to Scheduling Conflict")
+        })
     }
 
     return (
