@@ -63,9 +63,7 @@ const Booking = (props) => {
         <div id = "payment" className="add-window">
         <form  id = "payment-form"className="add" onSubmit={submitHandler} >
         <div className='card-info'>
-        </div>
-        <div className="billing-info">
-            <ul>
+        <ul>
                 <label >Showings:</label>
                     <select name = 'booking' onChange = {(e)=>handleInputChange(e)} required type="select" className='search'> 
                     { showings !== null && <option selected disabled value = "">Available Showings</option>}
@@ -88,6 +86,9 @@ const Booking = (props) => {
                     }
                 </select>
             </ul>
+        </div>
+        <div className="billing-info">
+            
             <ul>
                 <label>Adults ($12.95): </label>
                 <input min = "0" name = "adults" onChange = {(e)=>handleInputChange(e)} className = "reg-field"type = "number"></input>

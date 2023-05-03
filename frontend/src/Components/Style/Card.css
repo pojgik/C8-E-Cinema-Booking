@@ -20,6 +20,7 @@ iframe {
     border: none;
     padding: 1rem;
     margin: 1rem;
+    color: #f8f9fb;
 }
 a {
     text-decoration: none;
@@ -28,5 +29,9 @@ a {
 
 button:hover {
     background-color: #aecbeb;
+}
+
+.book-btn {
+    color: #f8f9fb;
 }
 
