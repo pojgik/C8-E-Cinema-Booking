@@ -90,6 +90,7 @@ function App() {
             <Route path='/profile' element = {<EditProfile setUser = {setUser} user = {user}></EditProfile>}></Route>
             <Route path='/manage-users' element = {<ManageUsers/>}></Route>
             <Route path = "/booking/:id" element = {<Booking/>}></Route>
+            {/* <Route path = "/checkout/:id" element = {<Checkout/>}></Route> */}
             
 
         </Routes>
@@ -98,7 +99,6 @@ function App() {
         </Router>
             // <AddPromotion/>
             // <EditProfile/>
-            // <Checkout/>
             // <BuyTicket/>
             // <OrderSummary/>
             // <OrderConfirmation/>

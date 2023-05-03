@@ -36,18 +36,19 @@ const Card = (props) => {
     }
     
     return (
+        <Link to = { `/full-movie/${props.title.toString()}`}>
         <div  className = "card">
             <h1> {props.title} ({props.rating}) </h1>  
             <div className='frame'> 
                 <iframe src = {props.link}></iframe>
             </div>
             <div className="card-btns">
-                {props.isLoggedIn &&<button className='card-btn'><Link to = {`/booking/${props.title.toString()}`}>Book Now</Link></button>}
-                <button onClick = {clickHandler} className='card-btn'><Link  to = { `/full-movie/${props.title.toString()}`}> More Info</Link></button>
                 {props.isAdmin&& <button onClick = {deleteHandler} className="card-btn"><Link>Delete Movie</Link></button>}
                 {props.isAdmin && <button onClick={clickHandler} className="card-btn"> <Link to = {`/update-movie/${props.title.toString()}`}>Edit Movie</Link></button>}
+                {props.isLoggedIn &&<button className='card-btn'><Link to = {`/booking/${props.title.toString()}`}>Book Now</Link></button>}
             </div>
         </div>
+        </Link>
         
     )
 }

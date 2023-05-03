@@ -89,15 +89,6 @@ const AddMovie = (props) => {
             
             props.setCounter(props.counter + 1)
             alert("New Movie Added!")
-            // const newMovie = data;
-            // props.setFilteredMovies(props.filteredMovies.push(newMovie))
-            // console.log(props.filteredMovies)
-            // if (movie.nowPlaying) {
-            //     props.setMoviesOut(props.moviesOut.push(newMovie))
-            // }
-            // if (!movie.nowPlaying) {
-            //     props.setMoviesComing(props.moviesComing.push(newMovie))
-            // }
         })
         nav("/manage-movies")
     }
@@ -178,24 +169,7 @@ const AddMovie = (props) => {
     </div>
 </div>
 </div>
-        // <div className='reg'>
-        // 
-        // <div id = "add-movie" className="add-window">
-        //     <form className="add">
-        //         <div className="left">
-        //            
-        //         </div>
-        //         <div className="right">
-        //            
-        //         </div>
-        //     </form>
-        //     <div className='payment-btn'>
-        //     <ul >
-        //     <button form = "payment-form" className = 'submit' type="subimt">Add</button>
-        //     </ul>
-        //     </div>
-        // </div>
-        // </div>
+      
     )
 }
 
