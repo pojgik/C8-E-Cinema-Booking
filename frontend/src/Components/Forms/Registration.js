@@ -81,9 +81,9 @@ const Registration = (props) => {
                 customerStatus: 0,
                 promotionStatus:promo,
                 phone:phoneNumber,
-                paymentCards: [],
+                billingAddress: billingAddress 
+            
             },
-                adress: billingAddress, 
                 paymentInfo: paymentInfo
             };
             fetch("http://localhost:8080/users/register",{

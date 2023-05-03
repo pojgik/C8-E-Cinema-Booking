@@ -47,8 +47,6 @@ const AddPayment = (props) => {
             expDate : expireMM + "/" + expireYY
         }
         sessionStorage.setItem("card", JSON.stringify(payment))
-        console.log(sessionStorage)
-        console.log(payment)
         if (sessionStorage.getItem("userId") !== null) {
         fetch("http://localhost:8080/payment/addCard/" + sessionStorage.getItem("userId"), {
             method: "POST",
