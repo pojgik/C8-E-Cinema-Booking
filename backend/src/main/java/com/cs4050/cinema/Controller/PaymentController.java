@@ -80,7 +80,7 @@ public class PaymentController {
             return null;
         } // if
 
-        return ResponseEntity.ok().body(user.getPaymentCards());
+        return ResponseEntity.ok(user.getPaymentCards());
         
     } // getAllCards
 } // PaymentController
