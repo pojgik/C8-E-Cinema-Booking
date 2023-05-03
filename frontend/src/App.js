@@ -97,11 +97,11 @@ function App() {
         <Footer/>
         </div>
         </Router>
+            // <OrderConfirmation/>
             // <AddPromotion/>
             // <EditProfile/>
             // <BuyTicket/>
             // <OrderSummary/>
-            // <OrderConfirmation/>
   );
 }
 

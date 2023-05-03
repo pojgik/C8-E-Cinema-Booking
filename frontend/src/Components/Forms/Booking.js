@@ -71,6 +71,7 @@ const Booking = (props) => {
                         showings !== null && showings.map((show) => {
                             const timeString = show.showTime
                             const date = timeString.substring(0,10)
+                            console.log(date)
                             const time = (timeString.substring(11,16))
                             if (parseInt(time.substring(0,2)) - 5 >= 12) {
                                 const dateTime = date + " at " + (parseInt(time.substring(0,2)) - 5) + ":" + time.substring(3,5) + "PM"
