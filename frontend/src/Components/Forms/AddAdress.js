@@ -40,9 +40,11 @@ const AddAdress = (props) => {
     const submitHandler = (event) => {
         event.preventDefault();
         const newAddress = new Address(street,city,state,zip)
-        props.setter(newAddress)
-        console.log(props)
-        navigate('/login/register')
+        console.log(JSON.stringify(newAddress))
+        sessionStorage.setItem("address",JSON.stringify(newAddress))
+        // props.setter(newAddress)
+        // console.log(props)
+        navigate(-1)
     }
 
     return (
