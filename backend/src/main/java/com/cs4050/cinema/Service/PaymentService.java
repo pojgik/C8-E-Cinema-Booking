@@ -1,5 +1,6 @@
 package com.cs4050.cinema.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.jasypt.util.text.BasicTextEncryptor;
@@ -83,5 +84,15 @@ public class PaymentService {
         return paymentInfoRepository.findById(id)
             .orElseThrow(() -> new NoSuchElementException("Payment info not found with id: " + id));
     } // getPaymentInfoById
+
+    public List<PaymentInfo> getAllCardsByUser(User user) {
+        List<PaymentInfo> cards = paymentInfoRepository.findAll();
+        for (PaymentInfo card : cards) {
+            if (card.getUser().getUserId() != user.getUserId()) {
+                cards.remove(card);
+            } // if
+        } // for
+        return cards;
+    } // getALlCardsByUser
     
 } // paymentService
