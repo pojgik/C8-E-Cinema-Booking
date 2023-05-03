@@ -76,11 +76,8 @@ public class PaymentController {
         User user = userService.getUserById(userId);
         if (user == null) {
             return ResponseEntity.notFound().build();
-        } else if (user.getPaymentCards().isEmpty()) {
-            return null;
         } // if
         List<PaymentInfo> cards = paymentService.getAllCardsByUser(user);
         return ResponseEntity.ok(cards);
-        
     } // getAllCards
 } // PaymentController
