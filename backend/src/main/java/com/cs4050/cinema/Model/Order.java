@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="order")
+@Table(name="orders")
 public class Order {
     
     @Id
@@ -47,7 +47,7 @@ public class Order {
     @JoinColumn(name = "userId")
     private User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "movieId")
     private Movie movie;
 } // Order
