@@ -248,6 +248,7 @@ public class UserService {
      */
     public Address addBillingAddress(User user, Address billingAddress) {
         user.setBillingAddress(billingAddress);
+        userRepository.save(user);
         return billingAddressRepository.save(billingAddress);
     } // addBillingAddress
 
