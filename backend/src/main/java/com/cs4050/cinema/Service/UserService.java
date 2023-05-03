@@ -248,8 +248,9 @@ public class UserService {
      */
     public Address addBillingAddress(User user, Address billingAddress) {
         user.setBillingAddress(billingAddress);
+        billingAddressRepository.save(billingAddress);
         userRepository.save(user);
-        return billingAddressRepository.save(billingAddress);
+        return billingAddress;
     } // addBillingAddress
 
     public User suspendUser(User user) throws IllegalAccessException{

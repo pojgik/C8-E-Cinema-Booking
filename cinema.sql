@@ -30,7 +30,7 @@ CREATE TABLE `address` (
   `country` varchar(255) DEFAULT NULL,
   `zip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`addressId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` VALUES (2,'123 Baxter St','Athens','Georgia','United States','30609');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,9 +154,13 @@ CREATE TABLE `orders` (
   `promoApplied` tinyint(1) NOT NULL DEFAULT '0',
   `promoAmount` int DEFAULT NULL,
   `userId` int DEFAULT NULL,
+  `orderTotal` decimal(6,2) DEFAULT NULL,
+  `movieId` int DEFAULT NULL,
   PRIMARY KEY (`orderId`),
   KEY `userId` (`userId`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
+  KEY `movie_fk` (`movieId`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`movieId`) REFERENCES `movie` (`movieId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -295,14 +300,12 @@ DROP TABLE IF EXISTS `ticket`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ticket` (
   `ticketId` int NOT NULL AUTO_INCREMENT,
-  `typeId` int NOT NULL COMMENT '1 - adult 2 - senior 3 - child',
-  `bookingId` int NOT NULL COMMENT 'fk to booking associated with ticket',
-  `seatNumber` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'seat number',
+  `ticketType` enum('CHILD','ADULT','SENIOR') DEFAULT NULL,
+  `seatNumber` varchar(3) DEFAULT NULL,
+  `userId` int DEFAULT NULL,
   PRIMARY KEY (`ticketId`),
-  KEY `typeId` (`typeId`),
-  KEY `bookingId` (`bookingId`),
-  CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`typeId`) REFERENCES `tickettype` (`typeId`),
-  CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`bookingId`) REFERENCES `booking` (`bookingId`)
+  KEY `userId` (`userId`),
+  CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -372,7 +375,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','ADMIN','ACTIVE',NULL,0,'6786305328',NULL),(84,'Luke','Dinkla','luke.dinkla@gmail.com','$2a$10$dWq.pcX3Lslmi5EwrvA0Q.LcwLWkcyjNA4Vcpw6j7OZ.24h1vkcly','CUSTOMER','ACTIVE',NULL,1,'1234567890',NULL),(85,'Tristan','Dominy','tristandominy413@gmail.com','$2a$10$ZSHuq41EV9wkOfxdkaEUn.naMWnUdUeguHyzr5uNR1hXLpp8REo3u','ADMIN','ACTIVE',NULL,0,'7708648980',NULL),(86,'Tristan','Dominy','tristandminy413@gmail.com','$2a$10$yP6AxdDNpkTeLJ0mJx1BReGbTsXshWnOYcSCMr2XlVtqraRIvb/2.','CUSTOMER','INACTIVE','UmAsez7l',0,'7708648980',NULL);
+INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','ADMIN','ACTIVE',NULL,0,'6786305328',2),(84,'Luke','Dinkla','luke.dinkla@gmail.com','$2a$10$dWq.pcX3Lslmi5EwrvA0Q.LcwLWkcyjNA4Vcpw6j7OZ.24h1vkcly','CUSTOMER','ACTIVE',NULL,1,'1234567890',NULL),(85,'Tristan','Dominy','tristandominy413@gmail.com','$2a$10$ZSHuq41EV9wkOfxdkaEUn.naMWnUdUeguHyzr5uNR1hXLpp8REo3u','ADMIN','ACTIVE',NULL,0,'7708648980',NULL),(86,'Tristan','Dominy','tristandminy413@gmail.com','$2a$10$yP6AxdDNpkTeLJ0mJx1BReGbTsXshWnOYcSCMr2XlVtqraRIvb/2.','CUSTOMER','INACTIVE','UmAsez7l',0,'7708648980',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,4 +412,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-01 12:24:40
+-- Dump completed on 2023-05-03 16:21:36
