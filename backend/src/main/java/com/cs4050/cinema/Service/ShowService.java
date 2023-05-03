@@ -104,7 +104,7 @@ public class ShowService {
                 showSeatRepository.save(temp);
             }
         }
-         System.out.println("Success");
+         //System.out.println("Success");
         return showSeats;
         } // createShowSeats
         
