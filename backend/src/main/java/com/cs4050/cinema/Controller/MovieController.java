@@ -95,10 +95,10 @@ public class MovieController {
     } // searchCategory
 
     @GetMapping("/searchTitle/{title}")
-    public ResponseEntity<Movie> searchByTitle(@PathVariable String title) {
+    public ResponseEntity<List<Movie>> searchByTitle(@PathVariable String title) {
         System.out.println(title);
-        Movie movie = movieService.getMovieByTitle(title);
-        return ResponseEntity.ok(movie);
+        List<Movie> movies = movieService.getMovieByTitle(title);
+        return ResponseEntity.ok(movies);
     } // searchTitle
 
     @GetMapping("/searchDate/{date}")

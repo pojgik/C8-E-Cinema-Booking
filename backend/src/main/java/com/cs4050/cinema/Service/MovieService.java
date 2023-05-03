@@ -66,12 +66,12 @@ public class MovieService {
      * 
      * @Return movies List of Movies found from the database
      */
-    public Movie getMovieByTitle(String title) throws NoSuchElementException {
-        Movie movie = movieRepository.findByTitle(title);
-        if (movie == null) {
+    public List<Movie> getMovieByTitle(String title) throws NoSuchElementException {
+        List<Movie> movies = movieRepository.findByTitle(title);
+        if (movies.size() == 0) {
             throw new NoSuchElementException("Movie with title " + title + " not found.");
         } else {
-            return movie;
+            return movies;
         } // if
     } // getMovieByTitle
 
