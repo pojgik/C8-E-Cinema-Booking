@@ -19,7 +19,7 @@ public class Promotion {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "promotionId", nullable = false)
+    @Column(name = "promoId", nullable = false)
     private Long promotionId;
 
     @Column(name="promoCode", nullable = false)
