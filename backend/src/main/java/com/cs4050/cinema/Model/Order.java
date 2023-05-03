@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -45,4 +46,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+
+    @OneToOne
+    @JoinColumn(name = "movieId")
+    private Movie movie;
 } // Order
