@@ -1,4 +1,5 @@
 import { useState,useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Form-Style/AddPromotion.css'
 const AddPromotion = () => {
 
@@ -8,7 +9,7 @@ const AddPromotion = () => {
     const [end,setEnd] = useState(null);
     const [code,setCode] = useState(null);
 
-
+    const nav = useNavigate();
     useEffect(()=>{
         fetch("http://localhost:8080/movies/getAllMovies")
             .then(res => res.json())
@@ -57,7 +58,15 @@ const AddPromotion = () => {
                     body: JSON.stringify(promo)
                 })
                 .then(res=>res.json())
-                .then(data=>console.log(data))
+                .then(data=>{
+                    if (data === "OK") {
+                    alert("Promotion Created")
+                    nav(-1)
+                    }
+                    else {
+                        alert("Could not create promotion.")
+                    }
+                })
         })
         }
     
