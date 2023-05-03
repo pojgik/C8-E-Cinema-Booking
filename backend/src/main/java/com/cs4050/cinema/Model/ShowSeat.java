@@ -9,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
-import org.hibernate.annotations.ManyToAny;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
