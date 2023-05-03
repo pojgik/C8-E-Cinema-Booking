@@ -4,7 +4,7 @@ import './Form-Style/AddMovie.css'
 
 
 
-const AddMovie = () => {
+const AddMovie = (props) => {
 
     const nav = useNavigate();
     const [title,setTitle] = useState(null);
@@ -85,7 +85,11 @@ const AddMovie = () => {
                 body: JSON.stringify(movie)
         })
         .then(res=> res.json())
-        .then(data=>console.log(data))
+        .then(data=>{
+            
+            props.setCounter(props.counter + 1)
+            alert("New Movie Added!")
+        })
         nav("/manage-movies")
     }
 
@@ -153,8 +157,7 @@ const AddMovie = () => {
                      <ul>
                      <ul>
                         <label className='reg-field'>Is the Movie Out Yet?</label>
-                        <input checked = {out} onChange = {(e)=>{setOut(!out)
-                        console.log(out)}}  className='reg-field' type="checkbox" name = 'out'></input>
+                        <input checked = {out} onChange = {(e)=>{setOut(!out) }}  className='reg-field' type="checkbox" name = 'out'></input>
                         </ul>
                      </ul>
         </div>
@@ -166,24 +169,7 @@ const AddMovie = () => {
     </div>
 </div>
 </div>
-        // <div className='reg'>
-        // 
-        // <div id = "add-movie" className="add-window">
-        //     <form className="add">
-        //         <div className="left">
-        //            
-        //         </div>
-        //         <div className="right">
-        //            
-        //         </div>
-        //     </form>
-        //     <div className='payment-btn'>
-        //     <ul >
-        //     <button form = "payment-form" className = 'submit' type="subimt">Add</button>
-        //     </ul>
-        //     </div>
-        // </div>
-        // </div>
+      
     )
 }
 

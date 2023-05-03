@@ -36,12 +36,12 @@ public class MovieController {
     } // getTest
 
     @PostMapping("/addMovie")
-    public HttpStatus createMovie(@RequestBody Movie movie) {
+    public ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
         if (movie == null) {
-            return HttpStatus.NOT_FOUND;
+            return ResponseEntity.badRequest().build();
         } // if
         movieService.createMovie(movie);
-        return HttpStatus.CREATED;
+        return ResponseEntity.ok(movie);
     } // createMovie
 
     @PostMapping("/addShow")

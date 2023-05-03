@@ -17,7 +17,6 @@ class User {
 
 const Registration = (props) => {
     
-    console.log(props.paymentInfo)
     const navigate = useNavigate();
 
     const [firstName,setFirstName] = useState("");
@@ -79,7 +78,6 @@ const Registration = (props) => {
                 },
                 paymentInfo: props.paymentInfo
             };
-            console.log(myUser)
             fetch("http://localhost:8080/users/register",{
                 method: "POST",
                 mode:"cors",
@@ -91,7 +89,6 @@ const Registration = (props) => {
             })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if(data.message === "User with that email already exists."){
                     alert("User with that email already exists.")
                 }
@@ -124,7 +121,8 @@ const Registration = (props) => {
                     <div className="right">
                     <ul>
                     <label className='reg-field'>Recieve Promotions?</label>
-                    <input checked = {promo} onChange = {(e)=>{setPromo(!promo)}}  className='reg-field' type="checkbox" name = 'promo'></input>
+                    <input checked = {promo} onChange = {(e)=>{setPromo(!promo)
+}}  className='reg-field' type="checkbox" name = 'promo'></input>
                     </ul>
                     <ul>
                     <input onChange = {(e)=>handleInputChange(e)} className = "reg-field"  placeholder='Password' type="password" name = 'pass'required />

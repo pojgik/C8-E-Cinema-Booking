@@ -30,7 +30,7 @@ CREATE TABLE `address` (
   `country` varchar(255) DEFAULT NULL,
   `zip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`addressId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` VALUES (2,'123 Baxter St','Athens','Georgia','United States','30609');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,6 +136,41 @@ LOCK TABLES `movie` WRITE;
 /*!40000 ALTER TABLE `movie` DISABLE KEYS */;
 INSERT INTO `movie` VALUES (6,'The Smurfs','comedy','Neil Patrick Harris','Raja Gosnell','Raja Gosnell','Evil wizard Gargamel (Hank Azaria) has plagued the happy, peaceful Smurfs for a very long time. Finally, he succeeds in chasing the little blue people from their village and through a magic portal -- which transports them to Manhattan and into the life of ad executive Patrick Winslow (Neil Patrick Harris). Only three apples high and lost in the Big Apple, the Smurfs (Jonathan Winters, Alan Cumming, Katy Perry) must find a way back to their world before Gargamel tracks them down.','https://www.youtube.com/embed/yhBpgqXwrt8','https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRJbvvqnGnehSYpYRB4xRMpHGEAMU7fEyRbquVLAFv-BY0VRv5R','pg','This movie has been a really big impact on my life and now the Smurfs are a very big part of my life and who I am, I loved it to pieces when I first saw it.',240,1),(7,'The Super Mario Bros. Movie','adventure','Chris Pratt','Michael Jelenic','Chris Meledandri','With help from Princess Peach, Mario gets ready to square off against the all-powerful Bowser to stop his plans from conquering the world.','https://www.youtube.com/embed/TnGl01FkMMo','https://upload.wikimedia.org/wikipedia/en/4/44/The_Super_Mario_Bros._Movie_poster.jpg','pg','The Super Mario Bros movie may be one of the most fun experiences i’ve had in a cinema as a Mario fan and an animation fan.',240,1),(8,'Dungeons & Dragons: Honor Among Thieves','fantasy','Chris Pine','Jonathan Goldstein','Nick Meyer','A charming thief and a band of unlikely adventurers embark on an epic quest to retrieve a long lost relic, but their charming adventure goes dangerously awry when they run afoul of the wrong people.','https://www.youtube.com/embed/IiMinixSXII','https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRG4rnATu8Hhszixtr0UV4PDdbMd7hGlJ56UenTg6eryQ9GzAIz','pg13','A Masterpiece of Fantasy: Dungeons and Dragons: Honor Among Thieves There are rare moments in cinema when a film manages to captivate and enthrall audiences, and Dungeons and Dragons: Honor Among Thieves does just that. ',240,1),(9,'Renfield','horror','Nicholas Cage','Chris McKay','Chris McKay','Renfield, the tortured aide to his narcissistic boss, Dracula, is forced to procure his master\'s prey and do his every bidding. However, after centuries of servitude, he\'s ready to see if there\'s a life outside the shadow of the Prince of Darkness.','https://www.youtube.com/embed/ICydLkeXq3w','https://dx35vtwkllhj9.cloudfront.net/universalstudios/renfield/images/regions/us/onesheet.jpg','r','While it is no groundbreaking Dracula story, Renfield is a genuinely hilarious twist on the all-too-familiar vampire narrative.',240,1),(10,'Star Wars: Episode IV – A New Hope','scifi','Harrison Ford','George Lucas','George Lucas','The Imperial Forces -- under orders from cruel Darth Vader (David Prowse) -- hold Princess Leia (Carrie Fisher) hostage, in their efforts to quell the rebellion against the Galactic Empire. Luke Skywalker (Mark Hamill) and Han Solo (Harrison Ford), captain of the Millennium Falcon, work together with the companionable droid duo R2-D2 (Kenny Baker) and C-3PO (Anthony Daniels) to rescue the beautiful princess, help the Rebel Alliance, and restore freedom and justice to the Galaxy.','https://www.youtube.com/embed/L-_xHEv0l-w','https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSivwhA7pSNEMKFs_CmDbg9xhshhQdUGWeLUPlejL2qjm2LDwZg','pg','Well, here I am again, revisiting the timeless cinema classic that would go on to spark a whole universe of action, politics, space, religion (If you compare the Jedi Order to it) and so much more.',240,1),(11,'The Adventures of Tintin','mystery','Andy Serkis, Jamie Bell','Steven Spielberg','Peter Jackson','While shopping at an outdoor market, young reporter Tintin (Steven Spielberg), accompanied by his faithful dog, Snowy, buys a model of an old ship called the Unicorn. A shady character named Sakharine (Edgar Wright) and later an American named Barnaby (Peter Jackson) try to buy the model from him, but Tintin refuses.','https://www.youtube.com/embed/LTnCE_SaU38','https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQSh7x4LY9MUVLHWHVdyAjp9co80idz1oJca8KzKjxqGubQ8sdZ','pg','Tintin arguably serves as a better Indiana Jones 4 than Kingdom of The Crystal Skull. The score, cinematography, and progressively intriguing plot make this film such a joy to watch.',240,1);
 /*!40000 ALTER TABLE `movie` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders` (
+  `orderId` int NOT NULL AUTO_INCREMENT,
+  `numTickets` int NOT NULL,
+  `childTickets` int NOT NULL,
+  `adultTickets` int NOT NULL,
+  `seniorTickets` int NOT NULL,
+  `promoApplied` tinyint(1) NOT NULL DEFAULT '0',
+  `promoAmount` int DEFAULT NULL,
+  `userId` int DEFAULT NULL,
+  `orderTotal` decimal(6,2) DEFAULT NULL,
+  `movieId` int DEFAULT NULL,
+  PRIMARY KEY (`orderId`),
+  KEY `userId` (`userId`),
+  KEY `movie_fk` (`movieId`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`movieId`) REFERENCES `movie` (`movieId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -293,14 +329,12 @@ DROP TABLE IF EXISTS `ticket`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ticket` (
   `ticketId` int NOT NULL AUTO_INCREMENT,
-  `typeId` int NOT NULL COMMENT '1 - adult 2 - senior 3 - child',
-  `bookingId` int NOT NULL COMMENT 'fk to booking associated with ticket',
-  `seatNumber` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'seat number',
+  `ticketType` enum('CHILD','ADULT','SENIOR') DEFAULT NULL,
+  `seatNumber` varchar(3) DEFAULT NULL,
+  `userId` int DEFAULT NULL,
   PRIMARY KEY (`ticketId`),
-  KEY `typeId` (`typeId`),
-  KEY `bookingId` (`bookingId`),
-  CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`typeId`) REFERENCES `tickettype` (`typeId`),
-  CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`bookingId`) REFERENCES `booking` (`bookingId`)
+  KEY `userId` (`userId`),
+  CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -370,7 +404,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','ADMIN','ACTIVE',NULL,0,'6786305328',NULL),(84,'Luke','Dinkla','luke.dinkla@gmail.com','$2a$10$dWq.pcX3Lslmi5EwrvA0Q.LcwLWkcyjNA4Vcpw6j7OZ.24h1vkcly','CUSTOMER','ACTIVE',NULL,1,'1234567890',NULL),(85,'Tristan','Dominy','tristandominy413@gmail.com','$2a$10$ZSHuq41EV9wkOfxdkaEUn.naMWnUdUeguHyzr5uNR1hXLpp8REo3u','ADMIN','ACTIVE',NULL,0,'7708648980',NULL),(86,'Tristan','Dominy','tristandminy413@gmail.com','$2a$10$yP6AxdDNpkTeLJ0mJx1BReGbTsXshWnOYcSCMr2XlVtqraRIvb/2.','CUSTOMER','INACTIVE','UmAsez7l',0,'7708648980',NULL);
+INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','ADMIN','ACTIVE',NULL,0,'6786305328',2),(84,'Luke','Dinkla','luke.dinkla@gmail.com','$2a$10$dWq.pcX3Lslmi5EwrvA0Q.LcwLWkcyjNA4Vcpw6j7OZ.24h1vkcly','CUSTOMER','ACTIVE',NULL,1,'1234567890',NULL),(85,'Tristan','Dominy','tristandominy413@gmail.com','$2a$10$ZSHuq41EV9wkOfxdkaEUn.naMWnUdUeguHyzr5uNR1hXLpp8REo3u','ADMIN','ACTIVE',NULL,0,'7708648980',NULL),(86,'Tristan','Dominy','tristandminy413@gmail.com','$2a$10$yP6AxdDNpkTeLJ0mJx1BReGbTsXshWnOYcSCMr2XlVtqraRIvb/2.','CUSTOMER','INACTIVE','UmAsez7l',0,'7708648980',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,4 +441,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-03 17:47:05
+-- Dump completed on 2023-05-03 16:21:36

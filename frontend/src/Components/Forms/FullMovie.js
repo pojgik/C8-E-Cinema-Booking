@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams,Link } from 'react-router-dom'
 import './Form-Style/AddMovie.css'
 import './Form-Style/UpdateMovie.css'
 
@@ -19,10 +19,7 @@ const FullMovie = (props) => {
     const [rating,setRating] = useState(null);
     const [nowPlaying,setNowPlaying] = useState(null)
     
-    useEffect(() => {
-
-       
-        
+    useEffect(() => {        
         fetch("http://localhost:8080/movies/searchTitle/" + title,{
             method: "GET",
             mode: "cors",
@@ -51,7 +48,6 @@ const FullMovie = (props) => {
             })
 
         })
-        console.log(showings)
     },[])
     
     return (
@@ -114,17 +110,18 @@ const FullMovie = (props) => {
                             const time = timeString.substring(11,16)
                             const dateTime = date + " at " + time
                             return(
-                            <option selected disabled>{dateTime}</option>)
+                            <option disabled>{dateTime}</option>)
 
                         }) 
                     }
                 </select>
+                {props.isLoggedIn && <button className='card-btn'><Link to = {`/booking/${title.toString()}`}>Book Now</Link></button>}
             </ul>
         </div>
     </form>
     <div className='payment-btn'>
         <ul >
-            <iframe src = {video}></iframe>
+            <iframe className = "video-full" src = {video}></iframe>
         </ul>
     </div>
 </div>

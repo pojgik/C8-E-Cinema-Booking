@@ -11,6 +11,7 @@ const Search = (props) => {
     const [category,setCategory] = useState(null);
     const [comingSoon,setComingSoon] = useState(true);
     const [showDate,setShowDate] = useState(null);
+    // const [showings,setShowings] = useState(null)
 
     const handleInputChange = (event) => {
         event.preventDefault();
@@ -30,17 +31,59 @@ const Search = (props) => {
     }
 
     const submitHandler = (event) => {
+      let updated = null;
         event.preventDefault();
         fetch("http://localhost:8080/movies/getAllMovies")
         .then(res=>res.json())
         .then(data=>{
-            // console.log(data)
-            // console.log(title);
-            // console.log(category);
-            // console.log(rating);
-            // console.log(showDate)
-            const filteredMovies = data.filter(movie => {
+          const allMovies = data;
+          if (showDate !== null && showDate !== undefined && showDate !== "") {
+            fetch("http://localhost:8080/movies/searchDate/" + showDate)
+            .then(res=>(res.json()))
+            .then(showings=>{
+            if (showings.status === 500) {
+              alert ("No Movies Showing On That Date")
+            }
+            if (showings.status !== 500) { // showdate is selected
+              const showMovies = showings
+              updated = allMovies.filter(item => showMovies.some(showing => showing.movieId === item.movieId));
+              const filteredMovies = updated.filter(movie => {
                 let isFilterApplied = false;
+                    if (title !== null) {
+                      if (movie.title.toLowerCase().includes(title.toLowerCase())) {
+                        isFilterApplied = true;
+                      } else {
+                        return false; // Skip this movie if the title filter does not match
+                      }
+                    }
+                    if (comingSoon !== null) {
+                      if (movie.nowPlaying === comingSoon) {
+                        isFilterApplied = true;
+                      } else {
+                        return false; // Skip this movie if the age rating filter does not match
+                      }
+                    }
+                    if (category !== null) {
+                      if (movie.category === category) {
+                        isFilterApplied = true;
+                      } else {
+                        return false; // Skip this movie if the category filter does not match
+                      }
+                    }
+                    
+                    return isFilterApplied;
+                  }
+                  );
+                props.setFilteredMovies(filteredMovies);
+                const string = JSON.stringify(filteredMovies)
+                sessionStorage.setItem("filteredMovies", string)
+                nav('/searched')
+            }})
+            
+          }
+          else { // if no show date selected
+          const filteredMovies = data.filter(movie => {
+            let isFilterApplied = false;
                 if (title !== null) {
                   if (movie.title.toLowerCase().includes(title.toLowerCase())) {
                     isFilterApplied = true;
@@ -62,12 +105,15 @@ const Search = (props) => {
                     return false; // Skip this movie if the category filter does not match
                   }
                 }
+                
                 return isFilterApplied;
               }
               );
             props.setFilteredMovies(filteredMovies);
+            const string = JSON.stringify(filteredMovies)
+            sessionStorage.setItem("filteredMovies", string)
             nav('/searched')
-        })
+        }})
     }
 
 
@@ -103,22 +149,13 @@ const Search = (props) => {
               <label>Out Now?</label>
               </ul>
             <input checked = {comingSoon} onChange = {(e)=>{setComingSoon(!comingSoon)}}  className='reg-field' type="checkbox" name = 'comingSoon'></input>
-
-            {/* <select name = "rating" onChange = {(e)=>handleInputChange(e)} type="select" className='search'> 
-                    <option  value = {null} > Rating</option>
-                    <option value="g">G</option>
-                    <option value="pg">PG</option>
-                    <option value="pg13">PG-13</option>
-                    <option value="r">R</option>
-                    <option value="nc17">NC-17</option>
-                </select> */}
             </ul>
-            {/* <ul>
+            <ul>
                 <label> Show Date </label>
             </ul>
             <ul>
                 <input name = "show-date" onChange = {(e)=>handleInputChange(e)} className = "search" type= 'date'/>
-            </ul> */}
+            </ul>
             <ul className="form-btn">
             <button className = "submit" type='submit'> Search</button>
             </ul>

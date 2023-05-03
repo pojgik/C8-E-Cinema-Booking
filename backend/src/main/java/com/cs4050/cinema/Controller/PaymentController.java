@@ -1,6 +1,9 @@
 package com.cs4050.cinema.Controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cs4050.cinema.Model.Address;
 import com.cs4050.cinema.Model.PaymentInfo;
 import com.cs4050.cinema.Model.User;
 import com.cs4050.cinema.Service.PaymentService;
@@ -27,18 +31,22 @@ public class PaymentController {
         this.paymentService = paymentService;
     } // PaymentController
 
-    @PostMapping("addCard/{userId}")
+    @PostMapping("/addCard/{userId}")
     public HttpStatus addPaymentCard(@PathVariable Long userId, @RequestBody PaymentInfo paymentInfo) {
         User user = userService.getUserById(userId);
         if (user == null) {
             return HttpStatus.NOT_FOUND;
         } // if
-
-        paymentService.addPaymentCard(user, paymentInfo);
-        return HttpStatus.CREATED;
+        
+        if (user.getPaymentCards().size() >= 3) {
+            return HttpStatus.BAD_REQUEST;
+        } else {
+            paymentService.addPaymentCard(user, paymentInfo);
+            return HttpStatus.CREATED;
+        } // if
     } // addPaymentCard
 
-    @GetMapping("removeCard/{id}") 
+    @GetMapping("/removeCard/{id}") 
         public HttpStatus removeCard(@PathVariable Long id) {
             if (paymentService.getPaymentInfoById(id) != null) {
                 paymentService.deleteCard(id);
@@ -47,4 +55,29 @@ public class PaymentController {
                 return HttpStatus.BAD_REQUEST;
             } // if
         } //removeCard
+
+    @PostMapping("/addAddress/{userId}") 
+    public HttpStatus addAddress(@PathVariable Long userId, @RequestBody Address address) {
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            return HttpStatus.NOT_FOUND;
+        } // if
+
+        if (user.getBillingAddress() != null) {
+            return HttpStatus.BAD_REQUEST;
+        } else {
+            userService.addBillingAddress(user, address);
+            return HttpStatus.OK;
+        } // if
+    } // addAddress
+
+    @GetMapping("/getCards/{userId}")
+    public ResponseEntity<List<PaymentInfo>> getAllCards(@PathVariable Long userId) {
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        } // if
+        List<PaymentInfo> cards = paymentService.getAllCardsByUser(user);
+        return ResponseEntity.ok(cards);
+    } // getAllCards
 } // PaymentController

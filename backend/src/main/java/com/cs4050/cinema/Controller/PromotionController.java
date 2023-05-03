@@ -1,7 +1,9 @@
 package com.cs4050.cinema.Controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,4 +38,14 @@ public class PromotionController {
 
         return HttpStatus.OK;
     } // addPromotion
+
+    @GetMapping("/getPromotion/{promoCode}") 
+    public ResponseEntity<Promotion> getPromotion(@PathVariable String promoCode) {
+        Promotion promo = promotionService.getPromotionByCode(promoCode);
+        if (promo == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(promo);
+        } // if
+    } // getPromotion
 } // PromotionController
