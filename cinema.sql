@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: cinemaebooking
+-- Host: localhost    Database: cinemaebooking
 -- ------------------------------------------------------
 -- Server version	8.0.32
 
@@ -251,7 +251,7 @@ CREATE TABLE `showing` (
   KEY `roomId` (`roomId`),
   CONSTRAINT `showing_ibfk_1` FOREIGN KEY (`movieId`) REFERENCES `movie` (`movieId`),
   CONSTRAINT `showing_ibfk_2` FOREIGN KEY (`roomId`) REFERENCES `showroom` (`roomId`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,7 +260,7 @@ CREATE TABLE `showing` (
 
 LOCK TABLES `showing` WRITE;
 /*!40000 ALTER TABLE `showing` DISABLE KEYS */;
-INSERT INTO `showing` VALUES (14,6,2,'2023-04-14 12:12:00'),(15,9,1,'2023-04-15 12:25:00');
+INSERT INTO `showing` VALUES (14,6,2,'2023-04-14 12:12:00'),(15,9,1,'2023-04-15 12:25:00'),(16,6,3,'2023-04-14 16:12:00'),(40,9,2,'2022-06-24 16:30:00'),(41,6,3,'2022-06-24 16:30:00');
 /*!40000 ALTER TABLE `showing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,6 +275,7 @@ CREATE TABLE `showroom` (
   `roomId` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `numSeats` int NOT NULL,
+  `numRows` int DEFAULT '10',
   PRIMARY KEY (`roomId`),
   UNIQUE KEY `roomId` (`roomId`),
   UNIQUE KEY `name` (`name`)
@@ -287,8 +288,36 @@ CREATE TABLE `showroom` (
 
 LOCK TABLES `showroom` WRITE;
 /*!40000 ALTER TABLE `showroom` DISABLE KEYS */;
-INSERT INTO `showroom` VALUES (1,'Royal',100),(2,'Boyd',50),(3,'SG',10);
+INSERT INTO `showroom` VALUES (1,'Royal',100,10),(2,'Boyd',50,10),(3,'SG',10,2);
 /*!40000 ALTER TABLE `showroom` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `showseat`
+--
+
+DROP TABLE IF EXISTS `showseat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `showseat` (
+  `showSeatId` int NOT NULL AUTO_INCREMENT,
+  `showId` int NOT NULL,
+  `seatNum` varchar(3) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`showSeatId`),
+  KEY `FK_showseat_show` (`showId`),
+  CONSTRAINT `FK_showseat_show` FOREIGN KEY (`showId`) REFERENCES `showing` (`showId`)
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `showseat`
+--
+
+LOCK TABLES `showseat` WRITE;
+/*!40000 ALTER TABLE `showseat` DISABLE KEYS */;
+INSERT INTO `showseat` VALUES (72,40,'A1',0),(73,40,'A2',0),(74,40,'A3',0),(75,40,'A4',0),(76,40,'A5',0),(77,40,'B1',0),(78,40,'B2',0),(79,40,'B3',0),(80,40,'B4',0),(81,40,'B5',0),(82,40,'C1',0),(83,40,'C2',0),(84,40,'C3',0),(85,40,'C4',0),(86,40,'C5',0),(87,40,'D1',0),(88,40,'D2',0),(89,40,'D3',0),(90,40,'D4',0),(91,40,'D5',0),(92,40,'E1',0),(93,40,'E2',0),(94,40,'E3',0),(95,40,'E4',0),(96,40,'E5',0),(97,40,'F1',0),(98,40,'F2',0),(99,40,'F3',0),(100,40,'F4',0),(101,40,'F5',0),(102,40,'G1',0),(103,40,'G2',0),(104,40,'G3',0),(105,40,'G4',0),(106,40,'G5',0),(107,40,'H1',0),(108,40,'H2',0),(109,40,'H3',0),(110,40,'H4',0),(111,40,'H5',0),(112,40,'I1',0),(113,40,'I2',0),(114,40,'I3',0),(115,40,'I4',0),(116,40,'I5',0),(117,40,'J1',0),(118,40,'J2',0),(119,40,'J3',0),(120,40,'J4',0),(121,40,'J5',0),(122,41,'A1',0),(123,41,'A2',0),(124,41,'A3',0),(125,41,'A4',0),(126,41,'A5',0),(127,41,'B1',0),(128,41,'B2',0),(129,41,'B3',0),(130,41,'B4',0),(131,41,'B5',0);
+/*!40000 ALTER TABLE `showseat` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
