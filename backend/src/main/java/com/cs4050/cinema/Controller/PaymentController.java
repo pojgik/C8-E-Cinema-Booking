@@ -77,7 +77,7 @@ public class PaymentController {
         if (user == null) {
             return ResponseEntity.notFound().build();
         } else if (user.getPaymentCards().isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return null;
         } // if
 
         return ResponseEntity.ok().body(user.getPaymentCards());
