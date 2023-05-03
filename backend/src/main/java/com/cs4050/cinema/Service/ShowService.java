@@ -19,11 +19,12 @@ public class ShowService {
     ShowRepository showRepository;
     RoomRepository roomRepository;
     MovieRepository movieRepository;
-
-    public ShowService(ShowRepository showRepository, RoomRepository roomRepository, MovieRepository movieRepository) {
+    ShowSeatRepository showSeatRepository;
+    public ShowService(ShowRepository showRepository, RoomRepository roomRepository, MovieRepository movieRepository, ShowSeatRepository showSeatRepository) {
         this.showRepository = showRepository;
         this.roomRepository = roomRepository;
         this.movieRepository = movieRepository;
+        this.showSeatRepository = showSeatRepository;
     } // showService
 
     /*
@@ -68,12 +69,42 @@ public class ShowService {
                 } // if
             } // if
         } // for
+        
+        show.setShowSeats(createShowSeats(show, room));
         room.getShows().add(show);
         return showRepository.save(show);
     } // createShow
 
-
     /*
+     * Returns a List of newly created ShowSeats for the specified show  
+     * 
+     * @Param show The Show which the seats are added to
+     * @Param room The Room which the seats are modeled after
+     * 
+     * @Return showSeats A list of showSeats which is saved to the DB
+     */
+    public List<ShowSeat> createShowSeats(Show show, Room room) {
+        String str;
+      
+        List<ShowSeat> showSeats= new ArrayList<ShowSeat>();
+        //This is for testing
+        // Room room = roomRepository.findById(Long.valueOf(3))
+        // .orElseThrow(() -> new NoSuchElementException("Room not found with id: " + 3));
+        // Show show = showRepository.findById(Long.valueOf(16))
+        // .orElseThrow(() -> new NoSuchElementException("Room not found with id: " + 16));
+        for (char i = 'A'; i < 'A' + room.getNumRows(); i++) {
+            //Increments seat letter each row
+            for (int j = 1; j <= room.getNumSeats()/room.getNumRows(); j++) {
+                str = "" + i + j; 
+                ShowSeat temp = new ShowSeat(show, str);
+                showSeats.add(temp);
+                showSeatRepository.save(temp);
+            }
+        }
+         System.out.println("Success");
+        return showSeats;
+        }
+     /*
      * Returns a List of Movies whose show date matches the specified date.   
      * 
      * @throws NoSuchElementException when no movies were found
@@ -97,6 +128,17 @@ public class ShowService {
         return movies;
     } // getMovieByShow
 
+    /* Returns a List of ShowSeats from a show of a specified id.   
+     * 
+     * @throws NoSuchElementException when no shows were found
+     * 
+     * returns showSeats A list of showSeats for the show
+     */
+    public List<ShowSeats> getShowSeats(Long showId) {
+        Show show = showRepository.findById(showId)
+        .orElseThrow(() -> new NoSuchElementException("Show not found with id: " + showId));
+        return show.getShowSeats;
+    }
     // public void test(Show show, List<Show> shows, int i) {
     //     for (Show s : shows) {
     //         System.out.println(s);
@@ -109,7 +151,7 @@ public class ShowService {
      */
     public Show getShowById(Long showId) {
         return showRepository.findById(showId)
-            .orElseThrow(() -> new NoSuchElementException("Show not found with id: " + showId));
+        .orElseThrow(() -> new NoSuchElementException("Show not found with id: " + showId));
     } // getShowById
 
     public Room getRoomById(Long roomId) {
