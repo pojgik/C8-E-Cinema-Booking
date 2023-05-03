@@ -19,6 +19,8 @@ const AddAdress = (props) => {
     const [city, setCity] = useState();
     const [state, setState] = useState();
     const [zip, setZip] = useState();
+    const [country, setCountry] = useState();
+
 
 
     const handleInputChange = event => {
@@ -36,12 +38,36 @@ const AddAdress = (props) => {
         if (name === "zip") {
             setZip(value);
         }
+        if (name === "country") {
+            setCountry(value);
+        }
     }
     const submitHandler = (event) => {
         event.preventDefault();
-        const newAddress = new Address(street,city,state,zip)
+        const newAddress = {
+            street:street,
+            city:city,
+            state:state,
+            country:country,
+            zip:zip
+        }
         console.log(JSON.stringify(newAddress))
         sessionStorage.setItem("address",JSON.stringify(newAddress))
+        if (sessionStorage.getItem("userId") !== null & sessionStorage.getItem("userId") !== undefined) {
+        fetch("http://localhost:8080/payment/addAddress/" + sessionStorage.getItem("userId"), {
+            method: "POST",
+            mode:"cors",
+            headers: {
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            },
+            body: JSON.stringify(newAddress)
+        })
+        .then(res=>res.json())
+        .then(data=> {
+            console.log(data)
+        })
+    }
         // props.setter(newAddress)
         // console.log(props)
         navigate(-1)
@@ -115,6 +141,9 @@ const AddAdress = (props) => {
                             <option disabled value="State">State</option>
 
                         </select>
+                    </ul>
+                    <ul>
+                        <input onChange = {(e)=>handleInputChange(e)} type="text" placeholder="Country" name='country' required />
                     </ul>
                     <ul>
                         <input onChange = {(e)=>handleInputChange(e)} type="text" placeholder="Zip Code" name='zip' required />

@@ -7,6 +7,7 @@ import './Form-Style/UpdateMovie.css'
 const Booking = (props) => {
 
     const [showings,setShowings] = useState(null)
+    const [cards,setCards] = useState(null);
     const [booking,setBooking] = useState(null)
     const [adults,setAdults] = useState(null)
     const [kids,setKids] = useState(null)
@@ -15,6 +16,12 @@ const Booking = (props) => {
     const title = useParams().id
     
     useEffect(() => {
+        fetch("http://localhost:8080/payment/getCards/" + sessionStorage.getItem("userId"))
+        .then(res=>res.json())
+        .then(data=> {
+            console.log(data)
+            setCards(data)
+        })
         fetch("http://localhost:8080/movies/searchTitle/" + title,{
             method: "GET",
             mode: "cors",
@@ -71,7 +78,6 @@ const Booking = (props) => {
                         showings !== null && showings.map((show) => {
                             const timeString = show.showTime
                             const date = timeString.substring(0,10)
-                            console.log(date)
                             const time = (timeString.substring(11,16))
                             if (parseInt(time.substring(0,2)) - 5 >= 12) {
                                 const dateTime = date + " at " + (parseInt(time.substring(0,2)) - 5) + ":" + time.substring(3,5) + "PM"
@@ -84,6 +90,19 @@ const Booking = (props) => {
                                 <option value = {show.showId}>{dateTime}</option>)
                             }
                         }) 
+                    }
+                </select>
+            </ul>
+            <ul>
+                <label >Select Payment:</label>
+                    <select name = 'cards' onChange = {(e)=>handleInputChange(e)} required type="select" className='search'> 
+                    { cards !== null && <option selected disabled value = "">Cards on File</option>}
+                    {
+                        cards !== null && cards.map((card) => {
+                            const cardString = card.cardType + " " + card.cardName + " " + card.expDate;
+                            console.log(cardString)
+                            return (<option value = {card.paymentId}>{cardString}</option>)
+                        })
                     }
                 </select>
             </ul>

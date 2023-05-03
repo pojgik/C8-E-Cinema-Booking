@@ -66,6 +66,7 @@ const Registration = (props) => {
         let billingAddress = null;
         if (sessionStorage.getItem("address") !== null && sessionStorage.getItem("address") !== undefined) {
             billingAddress = JSON.parse(sessionStorage.getItem("address"))
+            console.log(sessionStorage.getItem("address"))
         }
         if (password !== passwordConf) { // passwords must match
             alert("Passwords must match")
@@ -81,9 +82,9 @@ const Registration = (props) => {
                 customerStatus: 0,
                 promotionStatus:promo,
                 phone:phoneNumber,
-                billingAddress: billingAddress 
-            
+                
             },
+            billingAddress: billingAddress,
                 paymentInfo: paymentInfo
             };
             fetch("http://localhost:8080/users/register",{
