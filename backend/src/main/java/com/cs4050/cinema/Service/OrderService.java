@@ -42,6 +42,7 @@ public class OrderService {
         for (int i = 0; i < orders.size(); i++) {
             if (orders.get(i).getUser().getUserId() != userId) {
                 orders.remove(i);
+                i--;
             } // if
         } // for
         return orders;
@@ -57,6 +58,7 @@ public class OrderService {
         for (int i = 0; i < seats.size(); i++) {
             if (seats.get(i).getOrder().getOrderId() != order.getOrderId()) {
                 seats.remove(i);
+                i--;
             } // if
         } // for
         return seats;

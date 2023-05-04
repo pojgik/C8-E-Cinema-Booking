@@ -90,6 +90,7 @@ public class PaymentService {
         for (int i = 0; i < cards.size(); i++) {
             if (cards.get(i).getUser().getUserId() != user.getUserId()) {
                 cards.remove(i);
+                i--;
             } // if
         } // for
         return cards;
