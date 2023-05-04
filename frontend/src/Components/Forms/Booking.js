@@ -31,7 +31,18 @@ const Booking = (props) => {
         fetch("http://localhost:8080/payment/getCards/" + sessionStorage.getItem("userId"))
         .then(res=>res.json())
         .then(data=> {
-            setCards(data)
+            // console.log(data[0].user.userId)
+            // console.log(sessionStorage.getItem("userId") === data[0].user.userId)
+            // console.log(sessionStorage.getItem("userId"))
+            // console.log(data)
+            // const theCards = data.filter(card => 
+            //     card.user.userId === sessionStorage.getItem("userId")
+            // )
+            if(parseInt(sessionStorage.getItem("userId")) === parseInt(data[0].user.userId))
+            {
+                console.log(false)
+                setCards(data)
+            }
         })
         fetch("http://localhost:8080/movies/searchTitle/" + title,{
             method: "GET",
@@ -51,6 +62,7 @@ const Booking = (props) => {
 
             })
         })
+        // console.log(cards)
     },[])
     useEffect(()=> {
         if (booking !== null) {
@@ -201,10 +213,10 @@ const Booking = (props) => {
                     }
                 </select>
             </ul>
-            <ul>
+            {cards !== null && <ul>
                 <label >Select Payment:</label>
                     <select name = 'cards' onChange = {(e)=>handleInputChange(e)} required type="select" className='search'> 
-                    { cards !== null && <option selected disabled value = "">Cards on File</option>}
+                    <option selected disabled value = "">Cards on File</option>
                     {
                         cards !== null && cards.map((card) => {
                             const cardString = card.cardType + " " + card.cardName + " " + card.expDate;
@@ -215,7 +227,10 @@ const Booking = (props) => {
                         })
                     }
                 </select>
-            </ul>
+            </ul>}
+            {cards === null && <ul>
+               <label> <button className='submit'> <Link to = "/add-payment">Add payment method</Link></button></label>
+            </ul>}
             <ul>
                 <label >Select Seats:</label>
                 <select multiple name = "seats" className='multi-select search' id="seat-dropdown"  onChange = {(e)=>handleInputChange(e)} required type = "select">

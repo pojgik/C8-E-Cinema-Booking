@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Form-Style/AddPayment.css'
 const AddPayment = (props) => {
@@ -11,6 +11,17 @@ const AddPayment = (props) => {
     const [expireMM,setExpireMM] = useState(null);
     const [expireYY,setExpireYY] = useState(null);
     const [cvv,setCvv] = useState(null);
+    const[cardLimit,setCardLimit] = useState(false)
+
+    useEffect(() => {
+        fetch("http://localhost:8080/payment/getCards/" + sessionStorage.getItem("userId"))
+        .then(res=>res.json())
+        .then(data=> {
+            if (data.length === 3) {
+                setCardLimit(true)
+            }
+        })
+    },[])
 
 
 
@@ -39,6 +50,10 @@ const AddPayment = (props) => {
 
     const submitHandler  = (event) => {
         event.preventDefault();
+        if (cardLimit) {
+            alert("This account has 3 cards saved already. Please delete one to add another.")
+        }
+        else {
         const payment = {
             cardType : cardType,
             cardNumber : cardNumber,
@@ -60,9 +75,13 @@ const AddPayment = (props) => {
         .then(res=>res.json())
         .then(data=> {
             console.log(data)
+            if (data === "CREATED") {
+                alert("Card has been created.")
+            }
             
         })
     }
+}
     nav(-1)
         // props.setPaymentInfo(payment)
         // nav("/login/register")

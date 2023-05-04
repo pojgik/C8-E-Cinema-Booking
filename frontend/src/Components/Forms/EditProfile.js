@@ -81,6 +81,7 @@ const EditProfile = (props) => {
                     .then(data => {
                         // console.log(data)
                         props.setUser(data)
+                        alert("User Successfully updated")
                         if (password === passwordConf && password !== "" && password !== null) {
                             if (oldPassword !== "") {
                                 const url = thisUser.userId + "?newPassword=" + password + "&currentPassword=" + oldPassword
@@ -93,7 +94,14 @@ const EditProfile = (props) => {
                                     }
                                 })
                                     .then(res => res.json())
-                                    .then(data => console.log(data))
+                                    .then(data => {console.log(data)
+                                        if (data === "OK") {
+                                            alert("Password Changed")
+                                        }
+                                        else {
+                                            alert("Please provide old password.")
+                                        }
+                                    })
                             }
                         }
                     })
@@ -144,7 +152,9 @@ const EditProfile = (props) => {
                         <button className='submit ' type="subimt">Edit</button>
                     </div>
                     <Link to="/add-payment" className='support frgt-pwrd reg-btn'>Add payment method</Link>
+                    <Link to="/delete-payment" className='support frgt-pwrd reg-btn'>Delete payment method</Link>
                     <Link to="/add-address" className='support frgt-pwrd reg-btn'>Add address</Link>
+                    <Link to="/order-history" className='support frgt-pwrd reg-btn'>View Order History</Link>
                 </form>
             </div>
         </div>

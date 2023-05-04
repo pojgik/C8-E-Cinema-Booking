@@ -20,6 +20,10 @@ const Login = (props) => {
         .then(res=>res.json())
         .then(data=>{
             const user = (data.find(user=> user.email === loginEmail))
+            if (user === undefined) {
+                alert("No user associated with this email.")
+                
+            }
             if (user.customerStatus === "SUSPENDED") {
                 alert("This user is currently suspended. Contant a site admin to be unsuspended.")
             } 

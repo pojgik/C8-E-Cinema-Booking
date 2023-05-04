@@ -90,10 +90,12 @@ public class OrderController {
         Order order;
         try {
             order = orderService.getOrderById(orderId);
+            // System.out.println(order);
         } catch (NoSuchElementException NSEE) {
             return ResponseEntity.notFound().build();
         } // try
         List<ShowSeat> seats = orderService.getShowSeatsByOrder(order);
+        System.out.println(seats);
         return ResponseEntity.ok(seats);
     } // getSeatsByOrderId
 

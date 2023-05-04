@@ -66,6 +66,9 @@ const AddAdress = (props) => {
         .then(res=>res.json())
         .then(data=> {
             console.log(data)
+            if (data === "BAD REQUEST") {
+                alert("User already has address.")
+            }
         })
     }
         // props.setter(newAddress)
@@ -74,10 +77,12 @@ const AddAdress = (props) => {
     }
 
     return (
-        <div className='reg'>
+       
+          <div className='reg'>
             <h1 className='form-heading'>Add a shipping adress</h1>
             <div className="add-window">
-                <form onSubmit = {submitHandler} className="add">
+              {
+              sessionStorage.getItem("address") !== null &&  <form onSubmit = {submitHandler} className="add">
                     <ul>
                         <input onChange = {(e)=>handleInputChange(e)} type="text" placeholder="Street" name='street' required />
                     </ul>
@@ -150,8 +155,11 @@ const AddAdress = (props) => {
                     </ul>
                     <button className='submit' type="subimt">Add</button>
                 </form>
+}
             </div>
         </div>
+    
+    
     )
 }
 

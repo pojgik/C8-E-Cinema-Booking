@@ -1,8 +1,10 @@
 import './Style/NavBar.css'
-import { Link } from 'react-router-dom';
-import { useState,useEffect,useNavigate } from 'react';
+import { Link,useNavigate } from 'react-router-dom';
+import { useState,useEffect } from 'react';
 
 const NavBar = (props) => {
+
+    const nav = useNavigate() 
    
     const logoutHandler = (event) => {
         event.preventDefault();
@@ -13,6 +15,7 @@ const NavBar = (props) => {
         props.setIsLoggedIn(sessionStorage.getItem("userId"));
         props.setIsAdmin(sessionStorage.getItem("isAdmin"));
         props.setUser(sessionStorage.getItem("user"));
+        nav("/")
     }
 
     return (

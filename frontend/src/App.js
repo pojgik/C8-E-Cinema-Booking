@@ -25,6 +25,8 @@ import ForgotPassword from './Components/Forms/ForgotPassword';
 import ScheduleMovies from './Components/Forms/ScheduleMovies';
 import ManageUsers from './Components/ManageUsers';
 import Booking from './Components/Forms/Booking';
+import OrderHistory from './Components/Forms/OrderHistory';
+import DeleteCards from './Components/Forms/DeleteCards';
 
 
 function App() {
@@ -40,9 +42,9 @@ function App() {
         fetch("http://localhost:8080/movies/getAllMovies")
           .then(res=>res.json())
           .then(data=>{
-            console.log(data)
+            // console.log(data)
             if (data !== null || data !== undefined) {
-            console.log(data)
+            // console.log(data)
               const movies = data;
                 setAllMovies(movies);
                 //   setTimeout (setAllMovies(movies),5000)
@@ -95,6 +97,8 @@ function App() {
             <Route path='/manage-users' element = {<ManageUsers/>}></Route>
             <Route path = "/booking/:id" element = {<Booking/>}></Route>
             <Route path = "/order-conf/:id" element = {<OrderConfirmation/>}></Route>
+            <Route path = "/order-history" element = {<OrderHistory/>}></Route>
+            <Route path = "/delete-payment" element = {<DeleteCards/>}></Route>
 
             {/* <Route path = "/checkout/:id" element = {<Checkout/>}></Route> */}
             
