@@ -29,7 +29,7 @@ const OrderHistory = () => {
         <div className='card-info'>
         {
             orders !== null && orders.map(order => (
-                <div className = "card">
+                <div className = "card">x``
                     <div className = "card"  key={order.orderId}>
                         <ul>
                             <li id = "user">
