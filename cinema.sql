@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
--- Host: localhost    Database: cinemaebooking
+-- Host: 127.0.0.1    Database: cinemaebooking
 -- ------------------------------------------------------
 -- Server version	8.0.32
 
@@ -30,7 +30,7 @@ CREATE TABLE `address` (
   `country` varchar(255) DEFAULT NULL,
   `zip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`addressId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` VALUES (2,'4601 Jones Bridge Cir','Norcross','GA','United States','30092');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +125,7 @@ CREATE TABLE `movie` (
   `duration` int NOT NULL DEFAULT '240',
   `nowPlaying` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`movieId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +161,7 @@ CREATE TABLE `orders` (
   KEY `movie_fk` (`movieId`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`movieId`) REFERENCES `movie` (`movieId`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,7 +170,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (13,2,0,2,0,0,0,85,25.90,6),(14,3,3,0,0,0,0,85,17.85,6),(15,3,0,3,0,0,0,85,38.85,6),(16,1,0,1,0,0,0,85,12.95,6);
+INSERT INTO `orders` VALUES (18,3,0,3,0,0,0,85,38.85,6),(19,3,0,2,1,0,0,85,36.85,7);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,7 +195,7 @@ CREATE TABLE `paymentinfo` (
   UNIQUE KEY `paymentId` (`paymentId`),
   KEY `userId` (`userId`),
   CONSTRAINT `paymentinfo_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +204,7 @@ CREATE TABLE `paymentinfo` (
 
 LOCK TABLES `paymentinfo` WRITE;
 /*!40000 ALTER TABLE `paymentinfo` DISABLE KEYS */;
-INSERT INTO `paymentinfo` VALUES (102,85,NULL,'DISCOVER','04/25','Tristan',NULL,'CUaum7arEqKOf9tOEgKmXuTD2b5o9NGLRxrs0dRLC8s=','123'),(103,85,NULL,'AMEX','06/27','Tristan Dominy',NULL,'ICVCa2fVOjipFcJl+rtk/mE2xFHLO7zj8xW2xJ3FHHU=','123');
+INSERT INTO `paymentinfo` VALUES (121,85,NULL,'MC','12/23','Tristan',NULL,'oFLKVHbMd4F7llgHWHoDyQ==','123');
 /*!40000 ALTER TABLE `paymentinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +254,7 @@ CREATE TABLE `showing` (
   KEY `roomId` (`roomId`),
   CONSTRAINT `showing_ibfk_1` FOREIGN KEY (`movieId`) REFERENCES `movie` (`movieId`),
   CONSTRAINT `showing_ibfk_2` FOREIGN KEY (`roomId`) REFERENCES `showroom` (`roomId`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +263,7 @@ CREATE TABLE `showing` (
 
 LOCK TABLES `showing` WRITE;
 /*!40000 ALTER TABLE `showing` DISABLE KEYS */;
-INSERT INTO `showing` VALUES (40,9,2,'2022-06-24 16:30:00'),(41,6,3,'2022-06-24 16:30:00');
+INSERT INTO `showing` VALUES (40,9,2,'2022-06-24 16:30:00'),(41,6,3,'2022-06-24 16:30:00'),(42,7,3,'2023-05-10 13:30:00');
 /*!40000 ALTER TABLE `showing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +313,7 @@ CREATE TABLE `showseat` (
   KEY `orderId` (`orderId`),
   CONSTRAINT `FK_showseat_show` FOREIGN KEY (`showId`) REFERENCES `showing` (`showId`),
   CONSTRAINT `showseat_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,7 +322,7 @@ CREATE TABLE `showseat` (
 
 LOCK TABLES `showseat` WRITE;
 /*!40000 ALTER TABLE `showseat` DISABLE KEYS */;
-INSERT INTO `showseat` VALUES (72,40,'A1',0,NULL),(73,40,'A2',0,NULL),(74,40,'A3',0,NULL),(75,40,'A4',0,NULL),(76,40,'A5',0,NULL),(77,40,'B1',0,NULL),(78,40,'B2',0,NULL),(79,40,'B3',0,NULL),(80,40,'B4',0,NULL),(81,40,'B5',0,NULL),(82,40,'C1',0,NULL),(83,40,'C2',0,NULL),(84,40,'C3',0,NULL),(85,40,'C4',0,NULL),(86,40,'C5',0,NULL),(87,40,'D1',0,NULL),(88,40,'D2',0,NULL),(89,40,'D3',0,NULL),(90,40,'D4',0,NULL),(91,40,'D5',0,NULL),(92,40,'E1',0,NULL),(93,40,'E2',0,NULL),(94,40,'E3',0,NULL),(95,40,'E4',0,NULL),(96,40,'E5',0,NULL),(97,40,'F1',0,NULL),(98,40,'F2',0,NULL),(99,40,'F3',0,NULL),(100,40,'F4',0,NULL),(101,40,'F5',0,NULL),(102,40,'G1',0,NULL),(103,40,'G2',0,NULL),(104,40,'G3',0,NULL),(105,40,'G4',0,NULL),(106,40,'G5',0,NULL),(107,40,'H1',0,NULL),(108,40,'H2',0,NULL),(109,40,'H3',0,NULL),(110,40,'H4',0,NULL),(111,40,'H5',0,NULL),(112,40,'I1',0,NULL),(113,40,'I2',0,NULL),(114,40,'I3',0,NULL),(115,40,'I4',0,NULL),(116,40,'I5',0,NULL),(117,40,'J1',0,NULL),(118,40,'J2',0,NULL),(119,40,'J3',0,NULL),(120,40,'J4',0,NULL),(121,40,'J5',0,NULL),(122,41,'A1',1,NULL),(123,41,'A2',1,NULL),(124,41,'A3',1,NULL),(125,41,'A4',0,NULL),(126,41,'A5',0,NULL),(127,41,'B1',0,NULL),(128,41,'B2',0,NULL),(129,41,'B3',1,NULL),(130,41,'B4',0,NULL),(131,41,'B5',1,NULL);
+INSERT INTO `showseat` VALUES (72,40,'A1',0,NULL),(73,40,'A2',0,NULL),(74,40,'A3',0,NULL),(75,40,'A4',0,NULL),(76,40,'A5',0,NULL),(77,40,'B1',0,NULL),(78,40,'B2',0,NULL),(79,40,'B3',0,NULL),(80,40,'B4',0,NULL),(81,40,'B5',0,NULL),(82,40,'C1',0,NULL),(83,40,'C2',0,NULL),(84,40,'C3',0,NULL),(85,40,'C4',0,NULL),(86,40,'C5',0,NULL),(87,40,'D1',0,NULL),(88,40,'D2',0,NULL),(89,40,'D3',0,NULL),(90,40,'D4',0,NULL),(91,40,'D5',0,NULL),(92,40,'E1',0,NULL),(93,40,'E2',0,NULL),(94,40,'E3',0,NULL),(95,40,'E4',0,NULL),(96,40,'E5',0,NULL),(97,40,'F1',0,NULL),(98,40,'F2',0,NULL),(99,40,'F3',0,NULL),(100,40,'F4',0,NULL),(101,40,'F5',0,NULL),(102,40,'G1',0,NULL),(103,40,'G2',0,NULL),(104,40,'G3',0,NULL),(105,40,'G4',0,NULL),(106,40,'G5',0,NULL),(107,40,'H1',0,NULL),(108,40,'H2',0,NULL),(109,40,'H3',0,NULL),(110,40,'H4',0,NULL),(111,40,'H5',0,NULL),(112,40,'I1',0,NULL),(113,40,'I2',0,NULL),(114,40,'I3',0,NULL),(115,40,'I4',0,NULL),(116,40,'I5',0,NULL),(117,40,'J1',0,NULL),(118,40,'J2',0,NULL),(119,40,'J3',0,NULL),(120,40,'J4',0,NULL),(121,40,'J5',0,NULL),(122,41,'A1',1,18),(123,41,'A2',1,18),(124,41,'A3',1,18),(125,41,'A4',0,NULL),(126,41,'A5',0,NULL),(127,41,'B1',0,NULL),(128,41,'B2',0,NULL),(129,41,'B3',0,NULL),(130,41,'B4',0,NULL),(131,41,'B5',0,NULL),(132,42,'A1',1,19),(133,42,'A2',1,19),(134,42,'A3',1,19),(135,42,'A4',0,NULL),(136,42,'A5',0,NULL),(137,42,'B1',0,NULL),(138,42,'B2',0,NULL),(139,42,'B3',0,NULL),(140,42,'B4',0,NULL),(141,42,'B5',0,NULL);
 /*!40000 ALTER TABLE `showseat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -402,7 +403,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`userId`),
   KEY `address_fk` (`addressId`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`addressId`) REFERENCES `address` (`addressId`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -411,7 +412,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','ADMIN','ACTIVE',NULL,0,'6786305328',NULL),(84,'Luke','Dinkla','luke.dinkla@gmail.com','$2a$10$dWq.pcX3Lslmi5EwrvA0Q.LcwLWkcyjNA4Vcpw6j7OZ.24h1vkcly','CUSTOMER','ACTIVE',NULL,1,'1234567890',NULL),(85,'Tristan','Dominy','tristandominy413@gmail.com','$2a$10$ZSHuq41EV9wkOfxdkaEUn.naMWnUdUeguHyzr5uNR1hXLpp8REo3u','ADMIN','ACTIVE',NULL,0,'7708648980',NULL);
+INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','ADMIN','ACTIVE',NULL,0,'6786305328',NULL),(84,'Luke','Dinkla','luke.dinkla@gmail.com','$2a$10$dWq.pcX3Lslmi5EwrvA0Q.LcwLWkcyjNA4Vcpw6j7OZ.24h1vkcly','CUSTOMER','ACTIVE',NULL,1,'1234567890',NULL),(85,'Tristan','Dominy','tristandominy413@gmail.com','$2a$10$ZSHuq41EV9wkOfxdkaEUn.naMWnUdUeguHyzr5uNR1hXLpp8REo3u','ADMIN','ACTIVE',NULL,0,'7708648980',2),(89,'Tristan','Dominy','tgd40502@uga.edu','$2a$10$Bdh84c9DRcWQ.yC1IG8hCO5pQT81nc4hJnSDRCr4uw8r3QU36Vvyy','CUSTOMER','ACTIVE',NULL,0,'7708648980',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -448,4 +449,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-03 22:35:42
+-- Dump completed on 2023-05-04  9:38:07
