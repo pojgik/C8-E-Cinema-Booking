@@ -39,9 +39,9 @@ public class OrderService {
 
     public List<Order> getOrdersById(Long userId) {
         List<Order> orders = orderRepository.findAll();
-        for (Order order : orders) {
-            if (order.getUser().getUserId() != userId) {
-                orders.remove(order);
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getUser().getUserId() != userId) {
+                orders.remove(i);
             } // if
         } // for
         return orders;
@@ -54,9 +54,9 @@ public class OrderService {
 
     public List<ShowSeat> getShowSeatsByOrder(Order order) {
         List<ShowSeat> seats = showSeatRepository.findAll();
-        for (ShowSeat seat : seats) {
-            if (seat.getOrder().getOrderId() != order.getOrderId()) {
-                seats.remove(seat);
+        for (int i = 0; i < seats.size(); i++) {
+            if (seats.get(i).getOrder().getOrderId() != order.getOrderId()) {
+                seats.remove(i);
             } // if
         } // for
         return seats;
