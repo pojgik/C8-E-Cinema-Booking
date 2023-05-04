@@ -94,7 +94,8 @@ const Booking = (props) => {
         
             .then(res=>res.json())
             .then(data=> {
-                nav('/order-conf')
+                
+                nav('/order-conf/' + data.orderId)
         })
         console.log(order)
     }
