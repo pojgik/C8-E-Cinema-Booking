@@ -36,13 +36,19 @@ function App() {
     const [allMovies,setAllMovies] = useState()
 
     useEffect(() => {
+
+        setTimeout(() => {
         fetch("http://localhost:8080/movies/getAllMovies")
           .then(res=>res.json())
           .then(data=>{
+            console.log(data)
             if (data !== null || data !== undefined) {
+            console.log(data)
               const movies = data;
-              setAllMovies(movies)
+                setAllMovies(movies);
+                //   setTimeout (setAllMovies(movies),5000)
             }
+        }, 10000);
           })
     }, [counter]);
 
