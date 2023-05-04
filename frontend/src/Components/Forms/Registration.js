@@ -59,6 +59,15 @@ const Registration = (props) => {
     // submitition handler -- assigns a new User and checks for validations
     const submitHandler = (event) => {
         event.preventDefault();
+        let paymentInfo = null;
+        if (sessionStorage.getItem("card") !== null && sessionStorage.getItem("card") !== undefined) {
+            paymentInfo = JSON.parse(sessionStorage.getItem("card"))
+        }
+        let billingAddress = null;
+        if (sessionStorage.getItem("address") !== null && sessionStorage.getItem("address") !== undefined) {
+            billingAddress = JSON.parse(sessionStorage.getItem("address"))
+            console.log(sessionStorage.getItem("address"))
+        }
         if (password !== passwordConf) { // passwords must match
             alert("Passwords must match")
         }
@@ -73,10 +82,10 @@ const Registration = (props) => {
                 customerStatus: 0,
                 promotionStatus:promo,
                 phone:phoneNumber,
-                paymentCards: [],
-                billingAddress: null 
-                },
-                paymentInfo: props.paymentInfo
+                
+            },
+            billingAddress: billingAddress,
+                paymentInfo: paymentInfo
             };
             fetch("http://localhost:8080/users/register",{
                 method: "POST",

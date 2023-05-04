@@ -43,4 +43,14 @@ public class PromotionService {
         promotion.setMovieApplied(movie);
         return promotionRepository.save(promotion);
     } // addPromotion
+
+    public Promotion getPromotionByCode(String promoCode) {
+        List<Promotion> promotions = promotionRepository.findAll();
+        for (Promotion promo : promotions) {
+            if (promo.getPromoCode().equals(promoCode)) {
+                return promo;
+            } // if
+        } // for
+        return null;
+    } // getPromotionByCode
 } // PromotionService

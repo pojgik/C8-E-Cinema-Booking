@@ -36,12 +36,16 @@ function App() {
     const [allMovies,setAllMovies] = useState()
 
     useEffect(() => {
+
         fetch("http://localhost:8080/movies/getAllMovies")
           .then(res=>res.json())
           .then(data=>{
+            console.log(data)
             if (data !== null || data !== undefined) {
+            console.log(data)
               const movies = data;
-              setAllMovies(movies)
+                setAllMovies(movies);
+                //   setTimeout (setAllMovies(movies),5000)
             }
           })
     }, [counter]);
@@ -97,11 +101,11 @@ function App() {
         <Footer/>
         </div>
         </Router>
+            // <OrderConfirmation/>
             // <AddPromotion/>
             // <EditProfile/>
             // <BuyTicket/>
             // <OrderSummary/>
-            // <OrderConfirmation/>
   );
 }
 
