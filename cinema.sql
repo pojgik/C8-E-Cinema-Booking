@@ -44,66 +44,6 @@ INSERT INTO `address` VALUES (2,'4601 Jones Bridge Cir','Norcross','GA','United 
 UNLOCK TABLES;
 
 --
--- Table structure for table `booking`
---
-
-DROP TABLE IF EXISTS `booking`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `booking` (
-  `bookingId` int NOT NULL AUTO_INCREMENT,
-  `customer` int NOT NULL COMMENT 'Customer who made the booking - fk to customer id',
-  `showId` int NOT NULL COMMENT 'fk to showing id',
-  `paymentId` int NOT NULL COMMENT 'fk to payment info id',
-  `promoId` int DEFAULT NULL COMMENT 'fk to promotion id',
-  `numTickets` int DEFAULT NULL COMMENT 'number of tickets',
-  `total` decimal(8,2) DEFAULT NULL COMMENT 'total price',
-  PRIMARY KEY (`bookingId`),
-  KEY `customer` (`customer`),
-  KEY `showId` (`showId`),
-  KEY `paymentId` (`paymentId`),
-  KEY `promoId` (`promoId`),
-  CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`customer`) REFERENCES `user` (`userId`),
-  CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`showId`) REFERENCES `showing` (`showId`),
-  CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`paymentId`) REFERENCES `paymentinfo` (`paymentId`),
-  CONSTRAINT `booking_ibfk_4` FOREIGN KEY (`promoId`) REFERENCES `promotion` (`promoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `booking`
---
-
-LOCK TABLES `booking` WRITE;
-/*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-/*!40000 ALTER TABLE `booking` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `customerstatus`
---
-
-DROP TABLE IF EXISTS `customerstatus`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `customerstatus` (
-  `statusCode` int NOT NULL,
-  `status` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`statusCode`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customerstatus`
---
-
-LOCK TABLES `customerstatus` WRITE;
-/*!40000 ALTER TABLE `customerstatus` DISABLE KEYS */;
-INSERT INTO `customerstatus` VALUES (0,'INACTIVE'),(1,'ACTIVE'),(2,'SUSPENDED');
-/*!40000 ALTER TABLE `customerstatus` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `movie`
 --
 
@@ -233,7 +173,6 @@ CREATE TABLE `promotion` (
 
 LOCK TABLES `promotion` WRITE;
 /*!40000 ALTER TABLE `promotion` DISABLE KEYS */;
-INSERT INTO `promotion` VALUES (4,'smurfs50','2023-05-06 00:00:00',6,50),(5,'smurfs25','2023-05-06 00:00:00',6,25),(7,'mario30','2023-05-09 00:00:00',7,30);
 /*!40000 ALTER TABLE `promotion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -327,61 +266,6 @@ INSERT INTO `showseat` VALUES (72,40,'A1',0,NULL),(73,40,'A2',0,NULL),(74,40,'A3
 UNLOCK TABLES;
 
 --
--- Table structure for table `ticket`
---
-
-DROP TABLE IF EXISTS `ticket`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ticket` (
-  `ticketId` int NOT NULL AUTO_INCREMENT,
-  `typeId` int NOT NULL COMMENT '1 - adult 2 - senior 3 - child',
-  `bookingId` int NOT NULL COMMENT 'fk to booking associated with ticket',
-  `seatNumber` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'seat number',
-  PRIMARY KEY (`ticketId`),
-  KEY `typeId` (`typeId`),
-  KEY `bookingId` (`bookingId`),
-  CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`typeId`) REFERENCES `tickettype` (`typeId`),
-  CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`bookingId`) REFERENCES `booking` (`bookingId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ticket`
---
-
-LOCK TABLES `ticket` WRITE;
-/*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tickettype`
---
-
-DROP TABLE IF EXISTS `tickettype`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tickettype` (
-  `typeId` int NOT NULL,
-  `ticketType` varchar(255) DEFAULT NULL,
-  `price` decimal(5,2) NOT NULL,
-  PRIMARY KEY (`typeId`),
-  UNIQUE KEY `typeId` (`typeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tickettype`
---
-
-LOCK TABLES `tickettype` WRITE;
-/*!40000 ALTER TABLE `tickettype` DISABLE KEYS */;
-INSERT INTO `tickettype` VALUES (1,'Adult',10.00),(2,'Senior',8.00),(3,'Child',5.00);
-/*!40000 ALTER TABLE `tickettype` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `user`
 --
 
@@ -412,32 +296,8 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','ADMIN','ACTIVE',NULL,0,'6786305328',NULL),(84,'Luke','Dinkla','luke.dinkla@gmail.com','$2a$10$dWq.pcX3Lslmi5EwrvA0Q.LcwLWkcyjNA4Vcpw6j7OZ.24h1vkcly','CUSTOMER','ACTIVE',NULL,1,'1234567890',NULL),(85,'Tristan','Dominy','tristandominy413@gmail.com','$2a$10$ZSHuq41EV9wkOfxdkaEUn.naMWnUdUeguHyzr5uNR1hXLpp8REo3u','ADMIN','ACTIVE',NULL,0,'7708648980',2),(89,'Tristan','Dominy','tgd40502@uga.edu','$2a$10$Bdh84c9DRcWQ.yC1IG8hCO5pQT81nc4hJnSDRCr4uw8r3QU36Vvyy','CUSTOMER','ACTIVE',NULL,0,'7708648980',NULL);
+INSERT INTO `user` VALUES (76,'Luke','Dinkla','pojgik@gmail.com','$2a$10$8IA5hZ5Uu1tcufQBJS1BhORo4w.QLpe8AkfYP09f4rW.EmhyUgky2','ADMIN','ACTIVE',NULL,0,'6786305328',NULL),(85,'Tristan','Dominy','tristandominy413@gmail.com','$2a$10$ZSHuq41EV9wkOfxdkaEUn.naMWnUdUeguHyzr5uNR1hXLpp8REo3u','ADMIN','ACTIVE',NULL,0,'7708648980',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usertype`
---
-
-DROP TABLE IF EXISTS `usertype`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usertype` (
-  `typeId` int NOT NULL,
-  `userType` varchar(8) DEFAULT NULL,
-  PRIMARY KEY (`typeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usertype`
---
-
-LOCK TABLES `usertype` WRITE;
-/*!40000 ALTER TABLE `usertype` DISABLE KEYS */;
-INSERT INTO `usertype` VALUES (0,'Customer'),(1,'Admin');
-/*!40000 ALTER TABLE `usertype` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -449,4 +309,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-04  9:38:07
+-- Dump completed on 2023-05-04  9:43:03
