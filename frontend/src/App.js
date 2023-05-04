@@ -37,7 +37,6 @@ function App() {
 
     useEffect(() => {
 
-        setTimeout(() => {
         fetch("http://localhost:8080/movies/getAllMovies")
           .then(res=>res.json())
           .then(data=>{
@@ -48,7 +47,6 @@ function App() {
                 setAllMovies(movies);
                 //   setTimeout (setAllMovies(movies),5000)
             }
-        }, 10000);
           })
     }, [counter]);
 

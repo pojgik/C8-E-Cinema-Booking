@@ -9,7 +9,7 @@ const CardPane = (props) => {
             <h1 className='header'>{props.type}</h1>
             <div className = "cards">
                 {
-                   props.allMovies.length ===  0 ? (<div className='notFound'>No Movies Found...</div>) : (props.allMovies.map((card,i) => (
+                   !props.allMovies ? (<div className='notFound'>No Movies Found...</div>) : (props.allMovies.map((card,i) => (
                         <div className="card">
                              <Card  setCounter = {props.setCounter} counter = {props.counter} isLoggedIn = {props.isLoggedIn} isAdmin = {props.isAdmin} rating = {card.rating} title = {card.title} link = {card.trailerURL} />
                          </div>
