@@ -6,6 +6,7 @@ const NavBar = (props) => {
    
     const logoutHandler = (event) => {
         event.preventDefault();
+        sessionStorage.clear()
         sessionStorage.removeItem("userId");
         sessionStorage.removeItem("isAdmin");
         sessionStorage.removeItem("user");

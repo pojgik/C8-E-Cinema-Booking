@@ -42,13 +42,30 @@ const AddPayment = (props) => {
         const payment = {
             cardType : cardType,
             cardNumber : cardNumber,
-            cvv : cvv,
+            encryptedCvv : cvv,
             cardName : cardName,
             expDate : expireMM + "/" + expireYY
         }
-        console.log(payment)
-        props.setPaymentInfo(payment)
-        nav("/login/register")
+        sessionStorage.setItem("card", JSON.stringify(payment))
+        if (sessionStorage.getItem("userId") !== null) {
+        fetch("http://localhost:8080/payment/addCard/" + sessionStorage.getItem("userId"), {
+            method: "POST",
+                mode:"cors",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Accept":"application/json"
+                },
+                body: JSON.stringify(payment)
+        })
+        .then(res=>res.json())
+        .then(data=> {
+            console.log(data)
+            
+        })
+    }
+    nav(-1)
+        // props.setPaymentInfo(payment)
+        // nav("/login/register")
     }
 
 return ( 
@@ -106,7 +123,7 @@ return (
             <ul>
             <input required name = "cardName" onChange = {(e)=>handleInputChange(e)} placeholder='Name on Card' type="text"/>
             </ul>
-            <ul>
+            {/* <ul>
             <input  placeholder='Street' type="text" name = 'street'/>
             </ul>
             <ul>
@@ -170,7 +187,7 @@ return (
             </ul>
             <ul>
             <input placeholder = "Zip Code"type="text" name = 'zip'/>
-            </ul>
+            </ul> */}
             </div>
         </form>
         <div className='payment-btn'>

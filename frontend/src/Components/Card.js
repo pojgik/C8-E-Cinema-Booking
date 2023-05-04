@@ -5,9 +5,6 @@ import { useEffect } from 'react'
 const Card = (props) => {
 
     const clickHandler = (event) => {
-        event.preventDefault()
-       
-
             fetch("http://localhost:8080/movies/searchTitle/" + props.title)
             .then(res=> res.json())
             .then(data=>{
@@ -44,8 +41,8 @@ const Card = (props) => {
             </div>
             <div className="card-btns">
                 {props.isAdmin&& <button onClick = {deleteHandler} className="card-btn"><Link>Delete Movie</Link></button>}
-                {props.isAdmin && <button onClick={clickHandler} className="card-btn"> <Link to = {`/update-movie/${props.title.toString()}`}>Edit Movie</Link></button>}
-                {props.isLoggedIn &&<button className='card-btn'><Link to = {`/booking/${props.title.toString()}`}>Book Now</Link></button>}
+                {props.isAdmin &&  <Link className = "book-btn" to = {`/update-movie/${props.title.toString()}`}><button onClick={clickHandler} className="card-btn">Edit Movie</button></Link>}
+                {props.isLoggedIn &&<Link className = "book-btn" to = {`/booking/${props.title.toString()}`}><button className='card-btn'>Book Now</button></Link>}
             </div>
         </div>
         </Link>
