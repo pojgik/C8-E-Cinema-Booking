@@ -94,6 +94,7 @@ const Booking = (props) => {
         
             .then(res=>res.json())
             .then(data=> {
+                console.log(data)
                 fetch("http://localhost:8080/movies/bookSeats/" + firstSeat.showSeatId, {
                     method: "POST",
                     mode:"cors",
@@ -107,7 +108,8 @@ const Booking = (props) => {
                 .then(data=>{
                     console.log(data)
                 })
-                nav('/order-conf')
+                sessionStorage.setItem("order",JSON.stringify(data))
+                nav('/order-conf/' + data.orderId)
         })
         console.log(order)
     }
