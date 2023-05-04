@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import com.cs4050.cinema.Model.*;
 import com.cs4050.cinema.Service.MovieService;
@@ -83,6 +85,22 @@ public class MovieController {
         return ResponseEntity.ok(show);
     } // getShow
 
+    @PostMapping("/bookSeats/{firstSeatId}")
+    public HttpStatus bookShowSeats(@RequestBody List<String> showSeats, @PathVariable Long firstSeatId) {
+        Gson gson = new Gson();
+        for (String jsonString: showSeats){
+            JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
+            showService.bookShowSeats(jsonObject.get("showSeatId").getAsLong(), jsonObject.get("firstSeatId").getAsLong());        
+        }
+            return HttpStatus.ACCEPTED;
+    }
+
+    // @PostMapping("/updateShowSeat")
+    // public HttpStatus updateShowSeat(@RequestBody ShowSeat showSeat) {
+        
+    //     showService.updateShowSeat(showSeat.getShowSeatId());
+    //     return HttpStatus.ACCEPTED;
+    // }
     @GetMapping("/getAllMovies")
     public ResponseEntity<List<Movie>> getAllMovies() {
         List<Movie> movies = movieService.getAllMovies();

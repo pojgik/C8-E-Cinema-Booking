@@ -90,11 +90,6 @@ public class ShowService {
         String str;
       
         List<ShowSeat> showSeats= new ArrayList<ShowSeat>();
-        //This is for testing
-        // Room room = roomRepository.findById(Long.valueOf(3))
-        // .orElseThrow(() -> new NoSuchElementException("Room not found with id: " + 3));
-        // Show show = showRepository.findById(Long.valueOf(16))
-        // .orElseThrow(() -> new NoSuchElementException("Room not found with id: " + 16));
         for (char i = 'A'; i < 'A' + room.getNumRows(); i++) {
             //Increments seat letter each row
             for (int j = 1; j <= room.getNumSeats()/room.getNumRows(); j++) {
@@ -104,7 +99,7 @@ public class ShowService {
                 showSeatRepository.save(temp);
             }
         }
-         System.out.println("Success");
+         //System.out.println("Success");
         return showSeats;
         } // createShowSeats
         
@@ -143,11 +138,32 @@ public class ShowService {
         .orElseThrow(() -> new NoSuchElementException("Show not found with id: " + showId));
         return show.getShowSeats();
     }
-    // public void test(Show show, List<Show> shows, int i) {
-    //     for (Show s : shows) {
-    //         System.out.println(s);
-    //     }
-    //     System.out.println("Done testing\n\n");
+
+
+    public ShowSeat bookShowSeats(Long showSeatId, Long firstSeat) {
+         ShowSeat showSeat = showSeatRepository.findById(showSeatId)
+            .orElseThrow(() -> new NoSuchElementException("ShowSeat not found with id: " + showSeatId));
+         Show show = showSeat.getShow();
+            List<ShowSeat> oldShowSeats = show.getShowSeats();
+        
+        if (showSeat.isStatus()) {
+           throw new IllegalArgumentException("The following seat is already booked: " + showSeat.getSeatNum());
+       }
+       showSeat.setStatus(true);
+       showSeatRepository.save(showSeat);
+       oldShowSeats.set((int)(showSeat.getShowSeatId() - firstSeat), showSeat);
+       show.setShowSeats(oldShowSeats);
+        // System.out.println("GETS HERE\n\n\n\n\n");
+         
+        return showSeatRepository.save(showSeat);
+    }
+    
+    // public void updateShowSeat(Long showSeatId) {
+    //     ShowSeat showSeat = showSeatRepository.findById(showSeatId)
+    //     .orElseThrow(null);
+    //     showSeat.setStatus(true);
+    //     showSeatRepository.save(showSeat);
+    //     System.out.println("Worked");
     // }
 
     /*
