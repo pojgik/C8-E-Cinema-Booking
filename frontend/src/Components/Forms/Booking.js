@@ -31,7 +31,6 @@ const Booking = (props) => {
         fetch("http://localhost:8080/payment/getCards/" + sessionStorage.getItem("userId"))
         .then(res=>res.json())
         .then(data=> {
-            console.log(data)
             setCards(data)
         })
         fetch("http://localhost:8080/movies/searchTitle/" + title,{
@@ -44,7 +43,6 @@ const Booking = (props) => {
         })
         .then (res=>res.json())
         .then(data => {
-            console.log(data)
             fetch("http://localhost:8080/movies/getShowsForMovie/" + title)
             .then(res=>res.json())
             .then(data=>{
@@ -59,7 +57,6 @@ const Booking = (props) => {
             fetch("http://localhost:8080/movies/getShowSeats/" + booking)
             .then(res=>res.json())
             .then(data=> {
-                console.log(data)
                 setShowSeats(data)
                 setFirstSeat(data[0])
             })
@@ -68,12 +65,9 @@ const Booking = (props) => {
     },[booking])
     const submitHandler = event => {
         event.preventDefault();
-        console.log(seats.length)
         if (seats.length !== (parseInt(adults) + parseInt(kids) + parseInt(seniors))) {
             alert("not proper number of tickets")
         }
-        console.log(seats)
-        console.log(firstSeat)
         const order = {
             numTickets: parseInt(adults) + parseInt(kids) + parseInt(seniors),
             childTickets: parseInt(kids),
@@ -82,6 +76,19 @@ const Booking = (props) => {
             promoApplied: promoUsed,
             promoAmount: amount
         }
+        fetch("http://localhost:8080/movies/bookSeats/" + firstSeat.showSeatId, {
+            method: "POST",
+            mode:"cors",
+            headers: {
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            },
+            body: JSON.stringify(seats)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data)
+        })
         fetch("http://localhost:8080/order/createOrder/" + sessionStorage.getItem("userId") + "/" + title, {
             method: "POST",
             mode:"cors",
@@ -91,27 +98,36 @@ const Booking = (props) => {
             },
             body: JSON.stringify(order)
         })
-        
-            .then(res=>res.json())
-            .then(data=> {
-                console.log(data)
-                fetch("http://localhost:8080/movies/bookSeats/" + firstSeat.showSeatId, {
-                    method: "POST",
-                    mode:"cors",
-                    headers: {
-                        "Content-Type":"application/json",
-                        "Accept":"application/json"
-                    },
-                    body: JSON.stringify(seats)
+        .then(res=>res.json())
+        .then(data=> {
+            sessionStorage.setItem("order",JSON.stringify(data))
+            if (seats !== null & seats !== undefined) {
+                console.log(seats)
+                seats.map(seat => {
+                    const url = JSON.parse(seat).showSeatId + "/" + data.orderId;
+                    
+                    console.log(url)
+                    fetch("http://localhost:8080/order/setSeatOrder/" + url, {
+                        method: "PUT",
+                        mode:"cors",
+                        headers: {
+                            "Content-Type":"application/json",
+                            "Accept":"application/json"
+                        },
+                    })
+                    .then(res=>res.json())
+                    .then(data=> {
+                        console.log(data)
+                        console.log(sessionStorage)
+           nav('/order-conf/' + JSON.parse(sessionStorage.getItem("order")).orderId)
+
+                    })
                 })
-                .then(res=>res.json())
-                .then(data=>{
-                    console.log(data)
-                })
-                sessionStorage.setItem("order",JSON.stringify(data))
-                nav('/order-conf/' + data.orderId)
+            }
         })
-        console.log(order)
+       
+        
+        
     }
 
     
@@ -145,7 +161,6 @@ const Booking = (props) => {
         fetch("http://localhost:8080/promotions/getPromotion/" + promo)
         .then(res=>res.json())
         .then(data => {
-            console.log(data)
             if (title === data.movieApplied.title && promoUsed === false) {
                 setAmount(100 - data.discountRate);
                 setTotal(total*( 1- (data.discountRate/100)))
@@ -193,7 +208,6 @@ const Booking = (props) => {
                     {
                         cards !== null && cards.map((card) => {
                             const cardString = card.cardType + " " + card.cardName + " " + card.expDate;
-                            console.log(cardString)
                             return (
                             
                                 <option value = {card.paymentId}>{cardString}</option>
@@ -214,7 +228,6 @@ const Booking = (props) => {
                 </select>
             <div>
                 {seats !== null && seats.map((seat)=> {
-                    console.log(seat)
                     return <p>{JSON.parse(seat).seatNum}</p>
                     })
                 }
