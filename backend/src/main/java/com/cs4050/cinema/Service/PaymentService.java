@@ -87,9 +87,9 @@ public class PaymentService {
 
     public List<PaymentInfo> getAllCardsByUser(User user) {
         List<PaymentInfo> cards = paymentInfoRepository.findAll();
-        for (PaymentInfo card : cards) {
-            if (card.getUser().getUserId() != user.getUserId()) {
-                cards.remove(card);
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getUser().getUserId() != user.getUserId()) {
+                cards.remove(i);
             } // if
         } // for
         return cards;
