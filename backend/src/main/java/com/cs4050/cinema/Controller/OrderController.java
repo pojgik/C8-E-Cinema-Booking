@@ -85,4 +85,16 @@ public class OrderController {
         } // try
     } // setSeatOrder
 
+    @GetMapping("/getSeatsByOrderId/{orderId}")
+    public ResponseEntity<List<ShowSeat>> getSeatsByOrderId(@PathVariable Long orderId) {
+        Order order;
+        try {
+            order = orderService.getOrderById(orderId);
+        } catch (NoSuchElementException NSEE) {
+            return ResponseEntity.notFound().build();
+        } // try
+        List<ShowSeat> seats = orderService.getShowSeatsByOrder(order);
+        return ResponseEntity.ok(seats);
+    } // getSeatsByOrderId
+
 } // OrderController

@@ -1,6 +1,7 @@
 package com.cs4050.cinema.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,11 @@ import com.cs4050.cinema.Repository.*;
 public class OrderService {
     
     private final OrderRepository orderRepository;
+    private final ShowSeatRepository showSeatRepository;
     
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository, ShowSeatRepository showSeatRepository) {
         this.orderRepository = orderRepository;
+        this.showSeatRepository = showSeatRepository;
     } // OrderService
 
     public boolean createOrder(User user, Order order) {
@@ -36,11 +39,28 @@ public class OrderService {
 
     public List<Order> getOrdersById(Long userId) {
         List<Order> orders = orderRepository.findAll();
-        for (Order order : orders) {
-            if (order.getUser().getUserId() != userId) {
-                orders.remove(order);
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getUser().getUserId() != userId) {
+                orders.remove(i);
+                i--;
             } // if
         } // for
         return orders;
     } // getOrdersById
+
+    public Order getOrderById(Long orderId) {
+        return orderRepository.findById(orderId)
+            .orElseThrow(() -> new NoSuchElementException("No order found with id: " + orderId));
+    } // getOrderById
+
+    public List<ShowSeat> getShowSeatsByOrder(Order order) {
+        List<ShowSeat> seats = showSeatRepository.findAll();
+        for (int i = 0; i < seats.size(); i++) {
+            if (seats.get(i).getOrder().getOrderId() != order.getOrderId()) {
+                seats.remove(i);
+                i--;
+            } // if
+        } // for
+        return seats;
+    } // getShowSeatsByOrder
 } // OrderService
