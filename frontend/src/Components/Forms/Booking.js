@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams,Link} from 'react-router-dom'
+import { useParams,Link, useNavigate} from 'react-router-dom'
 import './Form-Style/AddMovie.css'
 import './Form-Style/UpdateMovie.css'
 import './Form-Style/Booking.css'
@@ -10,6 +10,7 @@ const Booking = (props) => {
 
     const [showings,setShowings] = useState(null)
     const [showSeats,setShowSeats] = useState(null);
+    const [amount,setAmount] = useState(0)
     const [firstSeat,setFirstSeat] = useState(null)
     const [promo,setPromo] = useState(null)
     const [seats,setSeats] = useState([])
@@ -22,6 +23,7 @@ const Booking = (props) => {
     // let total = (12.95*adults) + (10.95*seniors) + (5.95*kids)
     const [total,setTotal] = useState((12.95*adults) + (10.95*seniors) + (5.95*kids));
     const title = useParams().id
+    const nav = useNavigate()
     useEffect(()=> {
         setTotal((12.95*adults) + (10.95*seniors) + (5.95*kids))
     },[kids,adults,seniors])
@@ -72,7 +74,32 @@ const Booking = (props) => {
         }
         console.log(seats)
         console.log(firstSeat)
+        const order = {
+            numTickets: parseInt(adults) + parseInt(kids) + parseInt(seniors),
+            childTickets: parseInt(kids),
+            adultTickets: parseInt(adults),
+            seniorTickets: parseInt(seniors),
+            promoApplied: promoUsed,
+            promoAmount: amount
+        }
+        fetch("http://localhost:8080/order/createOrder/" + sessionStorage.getItem("userId") + "/" + title, {
+            method: "POST",
+            mode:"cors",
+            headers: {
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            },
+            body: JSON.stringify(order)
+        })
+        
+            .then(res=>res.json())
+            .then(data=> {
+                nav('/order-conf')
+        })
+        console.log(order)
     }
+
+    
     
     const handleInputChange = (event) => {
         event.preventDefault();
@@ -105,6 +132,7 @@ const Booking = (props) => {
         .then(data => {
             console.log(data)
             if (title === data.movieApplied.title && promoUsed === false) {
+                setAmount(100 - data.discountRate);
                 setTotal(total*( 1- (data.discountRate/100)))
                 setPromoUsed(true)
             }
@@ -118,7 +146,7 @@ const Booking = (props) => {
         <div className='reg '>
         <h1 className='form-heading'>Book {title} Now</h1>
         <div id = "payment" className="add-window">
-        <form  id = "payment-form"className="add" onSubmit={submitHandler} >
+        <form  id = "payment-form" onSubmit={submitHandler} className="add"  >
         <div className='card-info'>
         <ul>
                 <label >Showings:</label>

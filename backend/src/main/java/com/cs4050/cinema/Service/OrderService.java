@@ -21,7 +21,7 @@ public class OrderService {
             return false;
         } // if
 
-        order.setOrderTotal((5.00 * order.getChildTickets()) + (8.00 * order.getSeniorTickets()) + (10.00 * order.getAdultTickets()));
+        order.setOrderTotal((5.95 * order.getChildTickets()) + (10.95 * order.getSeniorTickets()) + (12.95 * order.getAdultTickets()));
 
         if (order.isPromoApplied()) {
             order.setOrderTotal(order.getOrderTotal() * ((double) order.getPromoAmount() * 0.01));
