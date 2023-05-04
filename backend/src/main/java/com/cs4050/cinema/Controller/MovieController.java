@@ -94,13 +94,7 @@ public class MovieController {
         }
             return HttpStatus.ACCEPTED;
     }
-
-    // @PostMapping("/updateShowSeat")
-    // public HttpStatus updateShowSeat(@RequestBody ShowSeat showSeat) {
-        
-    //     showService.updateShowSeat(showSeat.getShowSeatId());
-    //     return HttpStatus.ACCEPTED;
-    // }
+    
     @GetMapping("/getAllMovies")
     public ResponseEntity<List<Movie>> getAllMovies() {
         List<Movie> movies = movieService.getAllMovies();

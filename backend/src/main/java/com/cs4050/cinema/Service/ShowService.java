@@ -20,11 +20,13 @@ public class ShowService {
     RoomRepository roomRepository;
     MovieRepository movieRepository;
     ShowSeatRepository showSeatRepository;
-    public ShowService(ShowRepository showRepository, RoomRepository roomRepository, MovieRepository movieRepository, ShowSeatRepository showSeatRepository) {
+    OrderRepository orderRepository;
+    public ShowService(ShowRepository showRepository, RoomRepository roomRepository, MovieRepository movieRepository, ShowSeatRepository showSeatRepository, OrderRepository orderRepository) {
         this.showRepository = showRepository;
         this.roomRepository = roomRepository;
         this.movieRepository = movieRepository;
         this.showSeatRepository = showSeatRepository;
+        this.orderRepository = orderRepository;
     } // showService
 
     /*
@@ -153,10 +155,20 @@ public class ShowService {
        showSeatRepository.save(showSeat);
        oldShowSeats.set((int)(showSeat.getShowSeatId() - firstSeat), showSeat);
        show.setShowSeats(oldShowSeats);
-        // System.out.println("GETS HERE\n\n\n\n\n");
          
         return showSeatRepository.save(showSeat);
-    }
+    } // bookShowSeats
+
+    public ShowSeat setSeatOrder(Long showSeatId, Long orderId) {
+        ShowSeat showSeat = showSeatRepository.findById(showSeatId)
+            .orElseThrow(() -> new NoSuchElementException("ShowSeat not found with id: " + showSeatId));
+        Order order = orderRepository.findById(orderId)
+            .orElseThrow(() -> new NoSuchElementException("Order not found"));
+        showSeat.setOrder(order);
+        order.getShowSeats().add(showSeat);
+        orderRepository.save(order);
+        return showSeatRepository.save(showSeat);
+    } // ShowSeat
     
     // public void updateShowSeat(Long showSeatId) {
     //     ShowSeat showSeat = showSeatRepository.findById(showSeatId)

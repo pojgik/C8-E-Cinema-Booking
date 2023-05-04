@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: cinemaebooking
+-- Host: localhost    Database: cinemaebooking
 -- ------------------------------------------------------
 -- Server version	8.0.32
 
@@ -306,9 +306,12 @@ CREATE TABLE `showseat` (
   `showId` int NOT NULL,
   `seatNum` varchar(3) NOT NULL,
   `status` tinyint(1) NOT NULL,
+  `orderId` int DEFAULT NULL,
   PRIMARY KEY (`showSeatId`),
   KEY `FK_showseat_show` (`showId`),
-  CONSTRAINT `FK_showseat_show` FOREIGN KEY (`showId`) REFERENCES `showing` (`showId`)
+  KEY `orderId` (`orderId`),
+  CONSTRAINT `FK_showseat_show` FOREIGN KEY (`showId`) REFERENCES `showing` (`showId`),
+  CONSTRAINT `showseat_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -318,7 +321,7 @@ CREATE TABLE `showseat` (
 
 LOCK TABLES `showseat` WRITE;
 /*!40000 ALTER TABLE `showseat` DISABLE KEYS */;
-INSERT INTO `showseat` VALUES (72,40,'A1',0),(73,40,'A2',0),(74,40,'A3',0),(75,40,'A4',0),(76,40,'A5',0),(77,40,'B1',0),(78,40,'B2',0),(79,40,'B3',0),(80,40,'B4',0),(81,40,'B5',0),(82,40,'C1',0),(83,40,'C2',0),(84,40,'C3',0),(85,40,'C4',0),(86,40,'C5',0),(87,40,'D1',0),(88,40,'D2',0),(89,40,'D3',0),(90,40,'D4',0),(91,40,'D5',0),(92,40,'E1',0),(93,40,'E2',0),(94,40,'E3',0),(95,40,'E4',0),(96,40,'E5',0),(97,40,'F1',0),(98,40,'F2',0),(99,40,'F3',0),(100,40,'F4',0),(101,40,'F5',0),(102,40,'G1',0),(103,40,'G2',0),(104,40,'G3',0),(105,40,'G4',0),(106,40,'G5',0),(107,40,'H1',0),(108,40,'H2',0),(109,40,'H3',0),(110,40,'H4',0),(111,40,'H5',0),(112,40,'I1',0),(113,40,'I2',0),(114,40,'I3',0),(115,40,'I4',0),(116,40,'I5',0),(117,40,'J1',0),(118,40,'J2',0),(119,40,'J3',0),(120,40,'J4',0),(121,40,'J5',0),(122,41,'A1',1),(123,41,'A2',1),(124,41,'A3',1),(125,41,'A4',0),(126,41,'A5',0),(127,41,'B1',0),(128,41,'B2',0),(129,41,'B3',1),(130,41,'B4',0),(131,41,'B5',1);
+INSERT INTO `showseat` VALUES (72,40,'A1',0,NULL),(73,40,'A2',0,NULL),(74,40,'A3',0,NULL),(75,40,'A4',0,NULL),(76,40,'A5',0,NULL),(77,40,'B1',0,NULL),(78,40,'B2',0,NULL),(79,40,'B3',0,NULL),(80,40,'B4',0,NULL),(81,40,'B5',0,NULL),(82,40,'C1',0,NULL),(83,40,'C2',0,NULL),(84,40,'C3',0,NULL),(85,40,'C4',0,NULL),(86,40,'C5',0,NULL),(87,40,'D1',0,NULL),(88,40,'D2',0,NULL),(89,40,'D3',0,NULL),(90,40,'D4',0,NULL),(91,40,'D5',0,NULL),(92,40,'E1',0,NULL),(93,40,'E2',0,NULL),(94,40,'E3',0,NULL),(95,40,'E4',0,NULL),(96,40,'E5',0,NULL),(97,40,'F1',0,NULL),(98,40,'F2',0,NULL),(99,40,'F3',0,NULL),(100,40,'F4',0,NULL),(101,40,'F5',0,NULL),(102,40,'G1',0,NULL),(103,40,'G2',0,NULL),(104,40,'G3',0,NULL),(105,40,'G4',0,NULL),(106,40,'G5',0,NULL),(107,40,'H1',0,NULL),(108,40,'H2',0,NULL),(109,40,'H3',0,NULL),(110,40,'H4',0,NULL),(111,40,'H5',0,NULL),(112,40,'I1',0,NULL),(113,40,'I2',0,NULL),(114,40,'I3',0,NULL),(115,40,'I4',0,NULL),(116,40,'I5',0,NULL),(117,40,'J1',0,NULL),(118,40,'J2',0,NULL),(119,40,'J3',0,NULL),(120,40,'J4',0,NULL),(121,40,'J5',0,NULL),(122,41,'A1',1,NULL),(123,41,'A2',1,NULL),(124,41,'A3',1,NULL),(125,41,'A4',0,NULL),(126,41,'A5',0,NULL),(127,41,'B1',0,NULL),(128,41,'B2',0,NULL),(129,41,'B3',1,NULL),(130,41,'B4',0,NULL),(131,41,'B5',1,NULL);
 /*!40000 ALTER TABLE `showseat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -445,4 +448,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-03 22:13:55
+-- Dump completed on 2023-05-03 22:35:42

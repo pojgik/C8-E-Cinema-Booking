@@ -1,18 +1,22 @@
 package com.cs4050.cinema.Controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cs4050.cinema.Model.*;
 import com.cs4050.cinema.Service.OrderService;
+import com.cs4050.cinema.Service.ShowService;
 import com.cs4050.cinema.Service.EmailService;
 import com.cs4050.cinema.Service.MovieService;
 import com.cs4050.cinema.Service.UserService;
@@ -26,12 +30,14 @@ public class OrderController {
     private final EmailService emailService;
     private final OrderService orderService;
     private final MovieService movieService;
+    private final ShowService showService;
 
-    public OrderController(EmailService emailService, UserService userService, OrderService orderService, MovieService movieService) {
+    public OrderController(EmailService emailService, UserService userService, OrderService orderService, MovieService movieService, ShowService showService) {
         this.userService = userService;
         this.emailService = emailService;
         this.orderService = orderService;
         this.movieService = movieService;
+        this.showService = showService;
     } // OrderController
 
     @PostMapping("/createOrder/{userId}/{movieTitle}")
@@ -68,5 +74,15 @@ public class OrderController {
             return ResponseEntity.ok().body(orders);
         } // if
     } // getOrdersById
+
+    @PutMapping("/setSeatOrder/{seatId}/{orderId}")
+    public HttpStatus setSeatOrder(@PathVariable Long seatId, @PathVariable Long orderId) {
+        try {
+            showService.setSeatOrder(seatId, orderId);
+            return HttpStatus.OK;
+        } catch (NoSuchElementException NSEE) {
+            return HttpStatus.NOT_FOUND;
+        } // try
+    } // setSeatOrder
 
 } // OrderController
