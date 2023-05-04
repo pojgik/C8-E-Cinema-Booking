@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cs4050.cinema.Model.*;
 import com.cs4050.cinema.Service.OrderService;
 import com.cs4050.cinema.Service.EmailService;
+import com.cs4050.cinema.Service.MovieService;
 import com.cs4050.cinema.Service.UserService;
 
 @RestController
@@ -25,16 +26,19 @@ public class OrderController {
     private final UserService userService;
     private final EmailService emailService;
     private final OrderService orderService;
+    private final MovieService movieService;
 
-    public OrderController(EmailService emailService, UserService userService, OrderService orderService) {
+    public OrderController(EmailService emailService, UserService userService, OrderService orderService, MovieService movieService) {
         this.userService = userService;
         this.emailService = emailService;
         this.orderService = orderService;
+        this.movieService = movieService;
     } // OrderController
 
-    @PostMapping("/createOrder/{userId}")
-    public HttpStatus createOrder(@PathVariable Long userId, @RequestBody Order order) {
+    @PostMapping("/createOrder/{userId}/{movieTitle}")
+    public HttpStatus createOrder(@PathVariable Long userId, @PathVariable String movieTitle, @RequestBody Order order) {
         User user = userService.getUserById(userId);
+        order.setMovie(movieService.getMovieByTitle(movieTitle));
         if (user == null) {
             return HttpStatus.NOT_FOUND;
         } // if
@@ -42,7 +46,7 @@ public class OrderController {
         boolean success = orderService.createOrder(user, order);
 
         if (success) {
-            String message = "This email is to confirm your order of " + order.getNumTickets() + "tickets to " + order.getMovie().getTitle() + ".\n\n\n\n";
+            String message = "This email is to confirm your order of " + order.getNumTickets() + "tickets to " + movieTitle + ".\n\n\n\n";
             message = message + order.getChildTickets() + " Child Tickets: $" + ((double) order.getChildTickets() * 5.00) + "\n";
             message = message + order.getAdultTickets() + " Adult Tickets: $" + ((double) order.getAdultTickets() * 10.00) + "\n";
             message = message + order.getSeniorTickets() + " Senior Tickets: $" + ((double) order.getSeniorTickets() * 8.00) + "\n\n";
