@@ -113,6 +113,7 @@ const Booking = (props) => {
     <div className='payment-btn'>
         <ul >
             <button type = "submit" form = "payment-form" className='submit '>Book</button>
+            <Link to = '/order-confirmation'>Book</Link>
         </ul>
     </div>
 </div>

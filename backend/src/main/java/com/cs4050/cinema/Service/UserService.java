@@ -67,7 +67,7 @@ public class UserService {
             throw new NoSuchElementException("User with email " + email + " not found");
         } // if
         return user;
-    } // getUserByEmail
+    } // get UserByEmail
 
     /*
      * Creates a new user with the properties of the user passed in and adds the user to the database.

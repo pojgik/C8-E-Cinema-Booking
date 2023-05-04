@@ -90,6 +90,7 @@ function App() {
             <Route path='/profile' element = {<EditProfile setUser = {setUser} user = {user}></EditProfile>}></Route>
             <Route path='/manage-users' element = {<ManageUsers/>}></Route>
             <Route path = "/booking/:id" element = {<Booking/>}></Route>
+            <Route path= "/order-confirmation" element = {<OrderConfirmation/>}></Route>
             {/* <Route path = "/checkout/:id" element = {<Checkout/>}></Route> */}
             
 
