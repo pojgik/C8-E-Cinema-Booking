@@ -10,13 +10,10 @@ const OrderConfirmation = () => {
         fetch("http://localhost:8080/order/getOrdersById/" + sessionStorage.getItem("userId")) 
         .then(res=>res.json())
         .then(data => {
-            console.log(data)
             const thisOrder = data.find(order => parseInt(order.orderId) === parseInt(orderId.id))
-            console.log(thisOrder)
             // sessionStorage.setItem("order",JSON.stringify(thisOrder))
         })
     })
-    console.log(sessionStorage.getItem("order"))
    return (
     //    <div>
     //        <h1 className="form-heading">Order Confirmation</h1>
@@ -44,7 +41,7 @@ const OrderConfirmation = () => {
                 <p>Kid tickets: {JSON.parse(sessionStorage.getItem("order")).childTickets}</p>
                 <p>Adult tickets: {JSON.parse(sessionStorage.getItem("order")).adultTickets}</p>
                 <p>Senior tickets: {JSON.parse(sessionStorage.getItem("order")).seniorTickets}</p>
-                <h3>Order Total: {JSON.parse(sessionStorage.getItem("order")).orderTotal}</h3>
+                <h3>Order Total: {JSON.parse(sessionStorage.getItem("order")).orderTotal.toFixed(2)}</h3>
 
 
                 {/* </div> */}
