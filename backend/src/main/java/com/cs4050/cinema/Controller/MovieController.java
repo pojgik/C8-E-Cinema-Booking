@@ -83,10 +83,20 @@ public class MovieController {
         return ResponseEntity.ok(show);
     } // getShow
 
+    @PostMapping("/bookSeats/{firstSeatId}")
+    public HttpStatus bookShowSeats(@RequestBody List<String> showSeats, @PathVariable Long firstSeatId) {
+        
+        for (ShowSeat ss: showSeats){
+            showService.bookShowSeats(ss.getShowSeatId(), firstSeatId);
+        }
+        
+        return HttpStatus.ACCEPTED;
+    }
     @PostMapping("/updateShowSeat")
     public HttpStatus updateShowSeat(@RequestBody ShowSeat showSeat) {
-        showService.updateShowSeat(showSeat);
-        return HTTP
+        
+        showService.updateShowSeat(showSeat.getShowSeatId());
+        return HttpStatus.ACCEPTED;
     }
     @GetMapping("/getAllMovies")
     public ResponseEntity<List<Movie>> getAllMovies() {
