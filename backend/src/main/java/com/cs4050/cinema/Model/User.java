@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -77,5 +79,10 @@ public class User {
 
     public Long getUserId() {
         return userId;
+    }
+
+    @JsonIgnore 
+    public List<Order> getOrders() {
+        return orders;
     }
 } // User
