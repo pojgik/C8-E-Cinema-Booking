@@ -103,7 +103,6 @@ public class MovieController {
 
     @GetMapping("/searchTitle/{title}")
     public ResponseEntity<Movie> searchByTitle(@PathVariable String title) {
-    public ResponseEntity<Movie> searchByTitle(@PathVariable String title) {
         System.out.println(title);
         Movie movies = movieService.getMovieByTitle(title);
         return ResponseEntity.ok(movies);

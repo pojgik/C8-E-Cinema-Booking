@@ -13,14 +13,18 @@ const Booking = (props) => {
     const [firstSeat,setFirstSeat] = useState(null)
     const [promo,setPromo] = useState(null)
     const [seats,setSeats] = useState([])
+    const [promoUsed,setPromoUsed] = useState(false)
     const [cards,setCards] = useState(null);
     const [booking,setBooking] = useState(null)
     const [adults,setAdults] = useState(0)
     const [kids,setKids] = useState(0)
     const [seniors,setSeniors] = useState(0)
-    const total = (12.95*adults) + (10.95*seniors) + (5.95*kids);
+    // let total = (12.95*adults) + (10.95*seniors) + (5.95*kids)
+    const [total,setTotal] = useState((12.95*adults) + (10.95*seniors) + (5.95*kids));
     const title = useParams().id
-    
+    useEffect(()=> {
+        setTotal((12.95*adults) + (10.95*seniors) + (5.95*kids))
+    },[kids,adults,seniors])
     useEffect(() => {
         fetch("http://localhost:8080/payment/getCards/" + sessionStorage.getItem("userId"))
         .then(res=>res.json())
@@ -100,6 +104,13 @@ const Booking = (props) => {
         .then(res=>res.json())
         .then(data => {
             console.log(data)
+            if (title === data.movieApplied.title && promoUsed === false) {
+                setTotal(total*( 1- (data.discountRate/100)))
+                setPromoUsed(true)
+            }
+            else {
+                alert("Promotion Code already used")
+            }
         })
     }
     

@@ -43,9 +43,9 @@ public class OrderController {
 
         if (success) {
             String message = "This email is to confirm your order of " + order.getNumTickets() + "tickets to " + order.getMovie().getTitle() + ".\n\n\n\n";
-            message = message + order.getChildTickets() + " Child Tickets: $" + ((double) order.getChildTickets() * 5.00) + "\n";
-            message = message + order.getAdultTickets() + " Adult Tickets: $" + ((double) order.getAdultTickets() * 10.00) + "\n";
-            message = message + order.getSeniorTickets() + " Senior Tickets: $" + ((double) order.getSeniorTickets() * 8.00) + "\n\n";
+            message = message + order.getChildTickets() + " Child Tickets: $" + ((double) order.getChildTickets() * 5.95) + "\n";
+            message = message + order.getAdultTickets() + " Adult Tickets: $" + ((double) order.getAdultTickets() * 12.95) + "\n";
+            message = message + order.getSeniorTickets() + " Senior Tickets: $" + ((double) order.getSeniorTickets() * 10.95) + "\n\n";
             message = message + "Order total: $" + order.getOrderTotal() + "\n\n\n";
             message = message + "Thank you for your business, have a great day!";
             emailService.sendEmail(user.getEmail(), "Order Confirmation", message);

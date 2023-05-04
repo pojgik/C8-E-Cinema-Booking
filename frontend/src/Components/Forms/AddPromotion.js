@@ -96,6 +96,7 @@ const AddPromotion = () => {
                     </ul>
                     <ul>
                         <input onChange = {(e)=>handleInputChange(e)} placeholder = "Promotion Code" type="text" name = 'code'required/>
+                        
                     </ul>
                     <button className = 'submit' type="subimt">Add</button>
 
