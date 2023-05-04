@@ -90,11 +90,6 @@ public class ShowService {
         String str;
       
         List<ShowSeat> showSeats= new ArrayList<ShowSeat>();
-        //This is for testing
-        // Room room = roomRepository.findById(Long.valueOf(3))
-        // .orElseThrow(() -> new NoSuchElementException("Room not found with id: " + 3));
-        // Show show = showRepository.findById(Long.valueOf(16))
-        // .orElseThrow(() -> new NoSuchElementException("Room not found with id: " + 16));
         for (char i = 'A'; i < 'A' + room.getNumRows(); i++) {
             //Increments seat letter each row
             for (int j = 1; j <= room.getNumSeats()/room.getNumRows(); j++) {
@@ -144,29 +139,6 @@ public class ShowService {
         return show.getShowSeats();
     }
 
-    // public Show bookShowSeats(List<ShowSeat> showSeats, Long firstSeat) {
-    // //    ShowSeat showSeat = showSeatRepository.findById(id)
-    // //    .orElseThrow(() -> new NoSuchElementException("ShowSeat not found with id: " + id));
-    // Show show = showRepository.findById(Long.valueOf(41))
-    // .orElseThrow(() -> new NoSuchElementException("Show not found with id: " + 41));
-    // // showSeats.get(0).getShow();
-
-    // // showRepository.findById(showSeatIds.get(0))
-    // // .orElseThrow(() -> new NoSuchElementException("Show not found for the list" + showSeatIds.get(0)));
-    // //System.out.println("Show: " + show);
-    // List<ShowSeat> showSeat = show.getShowSeats();      
-    // System.out.println("ShowSeats: " ); 
-    // for (ShowSeat s: showSeats) {
-    //    if (s.isStatus() == false)
-    //     throw new IllegalArgumentException("The following seat is already booked: " + s.getSeatNum());
-    //    s.setStatus(true);
-    //    showSeatRepository.save(s);
-    //     showSeat.set((int)(s.getShowSeatId()-firstSeat), s);
-    //     } // for
-    //     show.setShowSeats(showSeat); 
-    //    return show;
-    // } // 
-
 
     public ShowSeat bookShowSeats(Long showSeatId, Long firstSeat) {
          ShowSeat showSeat = showSeatRepository.findById(showSeatId)
@@ -186,18 +158,12 @@ public class ShowService {
         return showSeatRepository.save(showSeat);
     }
     
-    public void updateShowSeat(Long showSeatId) {
-        ShowSeat showSeat = showSeatRepository.findById(showSeatId)
-        .orElseThrow(null);
-        showSeat.setStatus(true);
-        showSeatRepository.save(showSeat);
-        System.out.println("Worked");
-    }
-    // public void test(Show show, List<Show> shows, int i) {
-    //     for (Show s : shows) {
-    //         System.out.println(s);
-    //     }
-    //     System.out.println("Done testing\n\n");
+    // public void updateShowSeat(Long showSeatId) {
+    //     ShowSeat showSeat = showSeatRepository.findById(showSeatId)
+    //     .orElseThrow(null);
+    //     showSeat.setStatus(true);
+    //     showSeatRepository.save(showSeat);
+    //     System.out.println("Worked");
     // }
 
     /*
