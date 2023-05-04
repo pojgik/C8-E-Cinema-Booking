@@ -36,11 +36,11 @@ public class OrderController {
     } // OrderController
 
     @PostMapping("/createOrder/{userId}/{movieTitle}")
-    public HttpStatus createOrder(@PathVariable Long userId, @PathVariable String movieTitle, @RequestBody Order order) {
+    public ResponseEntity<Order> createOrder(@PathVariable Long userId, @PathVariable String movieTitle, @RequestBody Order order) {
         User user = userService.getUserById(userId);
         order.setMovie(movieService.getMovieByTitle(movieTitle));
         if (user == null) {
-            return HttpStatus.NOT_FOUND;
+            return ResponseEntity.notFound().build();
         } // if
 
         boolean success = orderService.createOrder(user, order);
@@ -53,9 +53,9 @@ public class OrderController {
             message = message + "Order total: $" + order.getOrderTotal() + "\n\n\n";
             message = message + "Thank you for your business, have a great day!";
             emailService.sendEmail(user.getEmail(), "Order Confirmation", message);
-            return HttpStatus.CREATED;
+            return ResponseEntity.ok(order);
         } else {
-            return HttpStatus.BAD_REQUEST;
+            return ResponseEntity.badRequest().build();
         } // if
     } // createOrder
 
